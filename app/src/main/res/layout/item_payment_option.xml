@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_10sdp"
+
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/episode_background"
+        android:padding="@dimen/_15sdp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/amount"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/BodyLargeBold"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:text="Weekly VIP"
+                android:textColor="@color/whiteMy"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/description"
+                style="@style/BodyLargeBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_5sdp"
+                android:text="Stripe offers secure, flexible, and easy-to-integrate payment options supporting cards, wallets, UPI, and global methods."
+                android:paddingEnd="@dimen/_5sdp"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_10ssp"
+                android:visibility="gone"
+                />
+            <!--                android:text="Razorpay offers credit and debit cards, UPI, net banking, wallets, and even EMI and PayLater options"-->
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_btn_color_shadow"
+            android:text="Pay"
+            android:textSize="@dimen/_15ssp"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:textColor="@color/whiteMy"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+</LinearLayout>
+
+

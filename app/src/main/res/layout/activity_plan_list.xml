@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/progressLayout"
+        layout="@layout/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_rev"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/ll_earn_rewards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+
+            android:src="@drawable/ic_arrow_left"
+            app:tint="@color/whiteMy" />
+
+        <TextView
+            style="@style/BodySmallMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:text="@string/store"
+            android:textColor="@color/whiteMy"
+            android:textSize="@dimen/_14ssp" />
+
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_rewards"
+            android:visibility="invisible"
+            app:tint="@color/whiteMy" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_earn_rewards"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_10sdp"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/ll_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/radius10"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                >
+
+                <TextView
+                    android:id="@+id/walletBalance"
+                    style="@style/BodyLargeBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:text="Your Balance ?"
+                    android:textColor="@color/whiteMy"
+                    android:textSize="@dimen/_12ssp"
+                    app:drawableStartCompat="@drawable/ic_coin" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/coinBalance"
+                            style="@style/BodySmallMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/whiteMy"
+                            android:textSize="@dimen/_25ssp" />
+
+                        <TextView
+                            style="@style/BodySmallMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:text="Coin"
+                            android:textAlignment="center"
+                            android:textColor="@color/whiteMy"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:background="@color/bg_color_light2" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+                        <TextView
+                            android:id="@+id/rewards_coins"
+                            style="@style/BodySmallMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/whiteMy"
+                            android:textSize="@dimen/_25ssp" />
+
+                        <TextView
+                            style="@style/BodySmallMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:text="@string/rewards_coins"
+                            android:textAlignment="center"
+                            android:textColor="@color/whiteMy"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/BodySmallMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="VIP Plans &amp; Coin Refill"
+                    app:drawableStartCompat="@drawable/ic_crown"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:textColor="@color/whiteMy"
+                    android:textSize="@dimen/_14ssp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_subscribe"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTintMode="src_in"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        style="@style/BodyLargeBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/subscribe"
+                        android:textColor="@color/whiteMy"
+                        android:paddingHorizontal="@dimen/_10sdp"
+
+                        android:textSize="@dimen/_12ssp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/subscribeRV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_sub_list"
+                        tools:itemCount="2"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_refill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+
+                    android:backgroundTintMode="src_in"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/BodyLargeBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:text="@string/refill"
+                        android:textColor="@color/whiteMy"
+                        android:textSize="@dimen/_12ssp"
+
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/refillRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_5sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:listitem="@layout/item_refill_plan" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+
+
+
