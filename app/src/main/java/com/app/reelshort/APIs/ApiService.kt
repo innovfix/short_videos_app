@@ -32,6 +32,8 @@ import com.app.reelshort.Model.ReasonsListResponse
 import com.app.reelshort.Model.RewardHistoryResponse
 import com.app.reelshort.Model.SearchRequest
 import com.app.reelshort.Model.SearchResponse
+import com.app.reelshort.Model.SendOtpRequest
+import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
@@ -59,10 +61,13 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService {
-
+    @POST("v1/send_otp")
+    suspend fun sendOtp(
+        @Body request: SendOtpRequest,
+    ): Response<SendOtpResponse>
 
     @POST("/user/v1/signup-mobile")
-    suspend fun signIn(
+    suspend fun logIn(
         @Body request: SighInRequest,
         @Header("Authorization") authToken: String,
     ): Response<SignUpResponse>

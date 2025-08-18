@@ -2,13 +2,12 @@ package com.app.reelshort.Module
 
 import com.app.reelshort.APIs.ApiService
 import com.app.reelshort.APIs.ContentTypeInterceptor
-import com.app.reelshort.App.ReelShortApp
-import com.app.reelshort.Utils.AdminPreference
+import com.app.reelshort.App.BaseApplication
+import com.app.reelshort.Utils.DPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -47,7 +46,7 @@ object NetworkModule {
             .addInterceptor(
                 ContentTypeInterceptor(
                     "application/json",
-                    AdminPreference(ReelShortApp.instance).authToken
+                    DPreferences(BaseApplication.getInstance()).authToken?:""
                 )
             )
             .build()

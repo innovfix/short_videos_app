@@ -57,7 +57,7 @@ class PlanActivity : BaseActivity() {
     }
 
     private fun loadData() {
-        viewModel.getPlanList(pref.authToken)
+        viewModel.getPlanList(pref.authToken?:"")
         showProgress()
         viewModel.planList.observe(this@PlanActivity) { result ->
             if (result is ApiResult.Success) {
@@ -89,11 +89,11 @@ class PlanActivity : BaseActivity() {
                 showErrorEmpty(result.message)
             }
         }
-        viewModel.login(viewModel.loginRequest, pref.authToken)
-        viewModel.signUp.observe(this) { loginResponse ->
-            binding.coinBalance.text = (loginResponse.coinBalance ?: "0").toString()
-            binding.rewardsCoins.text = (loginResponse.walletBalance ?: "0").toString()
-        }
+//        viewModel.login(viewModel.loginRequest, pref.authToken?:"")
+//        viewModel.signUp.observe(this) { loginResponse ->
+//            binding.coinBalance.text = (loginResponse.coinBalance ?: "0").toString()
+//            binding.rewardsCoins.text = (loginResponse.walletBalance ?: "0").toString()
+//        }
     }
 
     private fun showEmpty() = with(binding) {
@@ -125,13 +125,11 @@ class PlanActivity : BaseActivity() {
 
 
     private fun showPaymentOptionSheet(id: String, amount: String) {
-        if (pref.loginType == "guest") {
-            showToast("Please login.")
-        } else {
+
             val bottomSheet = PaymentOptionBottomSheet(id, amount, paymentLauncher)
             bottomSheet.show(supportFragmentManager, TagWiseListBottomSheet.TAG)
             viewModel.viewModelScope.launch {
-                val result = viewModel.repository.getPaymentOption(pref.authToken)
+                val result = viewModel.repository.getPaymentOption(pref.authToken?:"")
                 if (result is ApiResult.Success) {
                     result.data.responseDetails?.let { responseDetails ->
                         val list = responseDetails.filterNotNull().filter { it.isActive == 1 }
@@ -146,7 +144,7 @@ class PlanActivity : BaseActivity() {
                     bottomSheet.showErrorEmpty(result.message)
                 }
             }
-        }
+
 
 
     }

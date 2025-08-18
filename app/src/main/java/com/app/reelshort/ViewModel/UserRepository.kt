@@ -3,7 +3,7 @@ package com.app.reelshort.ViewModel
 import androidx.annotation.Keep
 import com.app.reelshort.Model.EpisodeRequest
 import com.app.reelshort.APIs.ApiService
-import com.app.reelshort.App.ReelShortApp
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.ApiErrorResponse
 import com.app.reelshort.Model.AutoUnlockSettingRequest
 import com.app.reelshort.Model.BindEmailRequest
@@ -17,13 +17,14 @@ import com.app.reelshort.Model.IdRequest
 import com.app.reelshort.Model.LikeRequest
 import com.app.reelshort.Model.PaymentUpdateRequest
 import com.app.reelshort.Model.SearchRequest
+import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.StripePaymentIntentRequest
 import com.app.reelshort.Model.UnlockEpisodeRequest
 import com.app.reelshort.Model.UpdateRewardRequest
 import com.app.reelshort.Model.WatchEpisodeRequest
-import com.app.reelshort.Utils.AdminPreference
-import com.app.reelshort.Utils.CommonsKt
+import com.app.reelshort.Utils.DPreferences
+import com.app.reelshort.Utils.Helper
 import com.google.gson.Gson
 import retrofit2.Response
 import javax.inject.Inject
@@ -40,7 +41,8 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         FORBIDDEN(403, "Forbidden"),
         NOT_FOUND(404, "Not Found"),
         SERVER_ERROR(500, "Server Error"),
-        UNKNOWN(-1, "Something went wrong");
+        UNKNOWN(-1, "Something went wrong"),
+        NETWORK_ERROR(-1, "Network error");
 
         companion object {
             fun fromCode(code: Int): HttpCode {
@@ -49,7 +51,7 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         }
     }
 
-    val pref = AdminPreference(ReelShortApp.instance)
+    val pref = DPreferences(BaseApplication.getInstance())
 
     private val token by lazy {
         pref.authToken
@@ -60,27 +62,32 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         crossinline call: suspend () -> Response<T>,
     ): ApiResult<T> {
         return try {
-            val response = call()
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
-                ApiResult.Success(body)
+            if(Helper.checkNetworkConnection()) {
+
+                val response = call()
+                val body = response.body()
+                if (response.isSuccessful && body != null) {
+                    ApiResult.Success(body)
+                } else {
+//                    val errorBody = response.errorBody()?.string()
+//                    val message = try {
+//                        errorBody?.let {
+//                            Gson().fromJson(it, ApiErrorResponse::class.java)?.responseMessage
+//                        }
+//                    } catch (e: Exception) {
+//                        null
+//                    }
+//                    if (response.code() == 500) {
+//                        BaseApplication.getInstance().networkManager.showServerErrorDialog { }
+//                    }
+                    ApiResult.Error(
+                        HttpCode.fromCode(response.code()),
+                        response.code(),
+                        response.message()
+                    )
+                }
             } else {
-                val errorBody = response.errorBody()?.string()
-                val message = try {
-                    errorBody?.let {
-                        Gson().fromJson(it, ApiErrorResponse::class.java)?.responseMessage
-                    }
-                } catch (e: Exception) {
-                    null
-                }
-                if (response.code() == 500) {
-                    ReelShortApp.instance.networkManager.showServerErrorDialog { }
-                }
-                ApiResult.Error(
-                    HttpCode.fromCode(response.code()),
-                    response.code(),
-                    message ?: response.message()
-                )
+                ApiResult.Error(HttpCode.NETWORK_ERROR, message = "Network Error")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -89,11 +96,17 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
     }
 
 
-    suspend fun signIn(
+    suspend fun sendOtp(
+        request: SendOtpRequest,
+    ) = safeApiCall {
+        apiService.sendOtp(request)
+    }
+
+    suspend fun logIn(
         request: SighInRequest,
         authToken: String = pref.authToken,
     ) = safeApiCall {
-        apiService.signIn(request, authToken)
+        apiService.logIn(request, authToken)
     }
 
     suspend fun signUp(

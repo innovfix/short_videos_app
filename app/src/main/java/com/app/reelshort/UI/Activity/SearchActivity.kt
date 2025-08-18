@@ -90,7 +90,7 @@ class SearchActivity : BaseActivity() {
     private fun callApi(inputText: String) {
         showProgress()
         viewModel.viewModelScope.launch(Dispatchers.Main) {
-            val result = viewModel.repository.getSearch(inputText, pref.authToken)
+            val result = viewModel.repository.getSearch(inputText, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { responseDetails ->
                     val adapter =

@@ -1,14 +1,11 @@
 package com.app.reelshort.Dialogs
 
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.app.reelshort.App.ReelShortApp
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.CommonInfoReel
 import com.app.reelshort.R
 import com.app.reelshort.UI.Activity.ReelsActivity
@@ -48,8 +45,8 @@ class EpisodesListBottomSheet(
     fun setupViews(reels1: List<CommonInfoReel>) {
         val isLockedList = reels1.filter { it.isLocked }
 
-        if (ReelShortApp.instance.loginResponse?.isWeeklyVip?.toBoolean == true ||
-            ReelShortApp.instance.loginResponse?.isYearlyVip?.toBoolean == true ||
+        if (BaseApplication.getInstance()?.loginResponse?.isWeeklyVip?.toBoolean == true ||
+            BaseApplication.getInstance()?.loginResponse?.isYearlyVip?.toBoolean == true ||
             isLockedList.isEmpty()
         ) {
             binding.unlockSwitch.visibility = View.GONE

@@ -9,13 +9,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import com.airbnb.lottie.LottieAnimationView
-import com.app.reelshort.App.ReelShortApp
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.CommonInfo
 import com.app.reelshort.Model.CommonInfoBase
 import com.app.reelshort.Model.CommonInfoReel
@@ -24,22 +21,13 @@ import com.app.reelshort.R
 import com.app.reelshort.databinding.DialogConfirmationBinding
 import com.app.reelshort.databinding.DialogCongratulationsBinding
 import com.app.reelshort.databinding.DialogServerErrorBinding
-import com.stripe.android.customersheet.injection.CustomerSheetViewModelModule_Companion_ContextFactory.context
-import com.stripe.android.model.PaymentIntent
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import kotlin.collections.filterNotNull
 import kotlin.collections.mapIndexed
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Duration.Companion.seconds
 
 
 object CommonsKt {
@@ -191,7 +179,7 @@ object CommonsKt {
 //        return (currentTime - lockTimestamp) < duration
 //    }
 
-    fun timeToMillis(timeString: String, pref: AdminPreference = AdminPreference(ReelShortApp.instance)): Long {
+    fun timeToMillis(timeString: String, pref: DPreferences = DPreferences(BaseApplication.getInstance())): Long {
 //        val currentTime = System.currentTimeMillis()
 //       val  difrance =  currentTime - pref.adsLockTimeStamp
 //        val temp  = difrance + ((1 * 60) * 1000)

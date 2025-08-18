@@ -69,7 +69,7 @@ class RazorpayPaymentActivity : BaseActivity(), PaymentResultWithDataListener,
                 paymentGetwayId = paymentGetwayId.toInt(),
             )
             viewModel.viewModelScope.launch {
-                val result = viewModel.repository.createPayment(request, pref.authToken)
+                val result = viewModel.repository.createPayment(request, pref.authToken?:"")
                 if (result is ApiResult.Success) {
                     result.data.responseDetails?.let { responseDetails ->
                         fetchPaymentIntent(responseDetails.transactionId.toString())
@@ -133,7 +133,7 @@ class RazorpayPaymentActivity : BaseActivity(), PaymentResultWithDataListener,
         )
 
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.createRazorPayCreateOrder(request, pref.authToken)
+            val result = viewModel.repository.createRazorPayCreateOrder(request, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseMessage?.let { responseMessage ->
                     showToast(responseMessage)
@@ -174,7 +174,7 @@ class RazorpayPaymentActivity : BaseActivity(), PaymentResultWithDataListener,
             status = status
         )
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.setPaymentUpdate(request, pref.authToken)
+            val result = viewModel.repository.setPaymentUpdate(request, pref.authToken?:"")
             if (result is ApiResult.Success) {
 
                 result.data.responseDetails?.let { responseDetails ->

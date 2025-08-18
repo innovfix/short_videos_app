@@ -158,7 +158,7 @@ class HistoryFragment(val fragment: MyListFragment) : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getMyList(pref.authToken)
+        viewModel.getMyList(pref.authToken?:"")
     }
 
     private fun loadData() {
@@ -209,12 +209,12 @@ class HistoryFragment(val fragment: MyListFragment) : BaseFragment() {
         CommonsKt.showConfirmationDialog(requireActivity()) {
             showProgress()
             viewModel.viewModelScope.launch {
-                val result = viewModel.repository.deleteWatchHistory(DeleteRequest(list), pref.authToken)
+                val result = viewModel.repository.deleteWatchHistory(DeleteRequest(list), pref.authToken?:"")
                 if (result is ApiResult.Success) {
 
                     result.data.responseMessage?.let { message ->
                         requireContext().showToast(message)
-                        viewModel.getMyList(pref.authToken)
+                        viewModel.getMyList(pref.authToken?:"")
                         adapter.clearSelection()
                     }
                     binding.progressLayout.mainLayout.visibility = View.GONE

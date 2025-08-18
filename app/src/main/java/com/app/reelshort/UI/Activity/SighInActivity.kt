@@ -1,29 +1,18 @@
 package com.app.reelshort.UI.Activity
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.viewModelScope
-import com.app.reelshort.App.ReelShortApp
-import com.app.reelshort.Model.SighInRequest
-import com.app.reelshort.ViewModel.ApiResult
 import com.app.reelshort.R
-import com.app.reelshort.Utils.showToast
 import com.app.reelshort.ViewModel.UserViewModel
 import com.app.reelshort.databinding.ActivitySighInBinding
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import test.app.gallery.UI1.Base.BaseActivity
 
 @AndroidEntryPoint
@@ -153,17 +142,17 @@ class SighInActivity : BaseActivity() {
                 val photoUrl = googleAccount.photoUrl?.toString() ?: com.app.reelshort.BuildConfig.HOST_PROFILE_URL
                 val loginType = com.app.reelshort.BuildConfig.HOST_LOGIN_TYPE_GOOGLE
 
-                val signingRequest = SighInRequest(
-                    id = pref.uid,
-                    email = email,
-                    loginType = loginType,
-                    loginTypeId = id,
-                    name = displayName,
-                    profilePicture = photoUrl,
-                    deviceId = viewModel.deviceId
-                )
-
-                performSignIn(signingRequest, displayName)
+//                val signingRequest = SighInRequest(
+//                    id = pref.uid,
+//                    email = email,
+//                    loginType = loginType,
+//                    loginTypeId = id,
+//                    name = displayName,
+//                    profilePicture = photoUrl,
+//                    deviceId = viewModel.deviceId
+//                )
+//
+//                performSignIn(signingRequest, displayName)
             }
             else -> {
                 Toast.makeText(this, "Please sign in", Toast.LENGTH_SHORT).show()
@@ -225,38 +214,38 @@ class SighInActivity : BaseActivity() {
 //        }
 //    }
 
-    private fun performSignIn(signingRequest: SighInRequest, displayName: String) {
-        viewModel.viewModelScope.launch {
-            val result = viewModel.repository.signIn(signingRequest, pref.authToken)
-            if (result is ApiResult.Success) {
-
-                result.data.responseDetails?.let {
-                    pref.email = result.data.responseDetails.email.toString()
-                    pref.isLogin = true
-                    pref.authToken = result.data.responseDetails.token?.accessToken.toString()
-                    pref.uid = result.data.responseDetails.uid.toString()
-                    pref.loginType = result.data.responseDetails.loginType.toString()
-                    pref.loginTypeId = result.data.responseDetails.loginTypeId.toString()
-                    pref.profilePicture = signingRequest.profilePicture.toString()
-                    pref.name = result.data.responseDetails.name.toString()
-
-
-                }
-                loginAndRestartApp(this@SighInActivity)
-                Toast.makeText(ReelShortApp.instance, "Welcome, $displayName!", Toast.LENGTH_SHORT)
-                    .show()
-            } else if (result is ApiResult.Error) {
-                showToast(result.message)
-            }
-        }
-    }
-
-    fun loginAndRestartApp(context: Context) {
-        val intent = Intent(context, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        context.startActivity(intent)
-        if (context is Activity) {
-            context.finish()
-        }
-    }
+//    private fun performSignIn(signingRequest: SighInRequest, displayName: String) {
+//        viewModel.viewModelScope.launch {
+//            val result = viewModel.repository.signIn(signingRequest, pref.authToken)
+//            if (result is ApiResult.Success) {
+//
+//                result.data.responseDetails?.let {
+//                    pref.email = result.data.responseDetails.email.toString()
+//                    pref.isLogin = true
+//                    pref.authToken = result.data.responseDetails.token?.accessToken.toString()
+//                    pref.uid = result.data.responseDetails.uid.toString()
+//                    pref.loginType = result.data.responseDetails.loginType.toString()
+//                    pref.loginTypeId = result.data.responseDetails.loginTypeId.toString()
+//                    pref.profilePicture = signingRequest.profilePicture.toString()
+//                    pref.name = result.data.responseDetails.name.toString()
+//
+//
+//                }
+//                loginAndRestartApp(this@SighInActivity)
+//                Toast.makeText(ReelShortApp.instance, "Welcome, $displayName!", Toast.LENGTH_SHORT)
+//                    .show()
+//            } else if (result is ApiResult.Error) {
+//                showToast(result.message)
+//            }
+//        }
+//    }
+//
+//    fun loginAndRestartApp(context: Context) {
+//        val intent = Intent(context, MainActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        context.startActivity(intent)
+//        if (context is Activity) {
+//            context.finish()
+//        }
+//    }
 }

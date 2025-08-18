@@ -174,7 +174,7 @@ class ListFragment(val fragment: MyListFragment) : BaseFragment() {
     override fun onResume() {
         super.onResume()
         if (isAdded) {
-            viewModel.getMyList(pref.authToken)
+            viewModel.getMyList(pref.authToken?:"")
         }
     }
 
@@ -227,11 +227,11 @@ class ListFragment(val fragment: MyListFragment) : BaseFragment() {
             showProgress()
             viewModel.viewModelScope.launch {
                 val result =
-                    viewModel.repository.deleteFavouriteSeries(DeleteRequest(list), pref.authToken)
+                    viewModel.repository.deleteFavouriteSeries(DeleteRequest(list), pref.authToken?:"")
                 if (result is ApiResult.Success) {
                     result.data.responseMessage?.let { message ->
                         requireContext().showToast(message)
-                        viewModel.getMyList(pref.authToken)
+                        viewModel.getMyList(pref.authToken?:"")
                         adapter.clearSelection()
                     }
                     binding.progressLayout.mainLayout.visibility = View.GONE

@@ -47,7 +47,7 @@ class FaqActivity : BaseActivity() {
     private fun callApi() {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getFaq(pref.authToken)
+            val result = viewModel.repository.getFaq(pref.authToken?:"")
             if (result is ApiResult.Success) {
 
                 result.data.responseDetails.let {

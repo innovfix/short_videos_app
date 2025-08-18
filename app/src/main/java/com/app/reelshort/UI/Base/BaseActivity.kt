@@ -1,29 +1,20 @@
 package test.app.gallery.UI1.Base
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.app.reelshort.Model.LoginRequest
-import com.app.reelshort.Utils.AdminPreference
-import android.provider.Settings
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.viewModelScope
-import com.app.reelshort.Ads.AdsGoogle
-import com.app.reelshort.App.ReelShortApp
-import com.app.reelshort.Model.SignUpResponse
-import com.app.reelshort.ViewModel.ApiResult
-import com.app.reelshort.ViewModel.UserViewModel
-import kotlinx.coroutines.launch
+import com.app.reelshort.Utils.DPreferences
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    val pref: AdminPreference get() = AdminPreference(this)
+    val pref: DPreferences get() = DPreferences(this)
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,4 +40,13 @@ abstract class BaseActivity : AppCompatActivity() {
                     )
 
     }
+
+    fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
 }

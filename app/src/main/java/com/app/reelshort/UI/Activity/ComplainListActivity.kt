@@ -53,28 +53,28 @@ class ComplainListActivity : BaseActivity() {
     }
 
     private fun callApi() {
-        showProgress()
-        viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getTicket(pref.email, pref.authToken)
-            if (result is ApiResult.Success) {
-
-                result.data.responseDetails?.let { responseDetails ->
-                    adapter.items = responseDetails.filterNotNull()
-                    adapter.notifyDataSetChanged()
-                    if (adapter.items.isEmpty()) {
-                        showEmpty()
-                    } else {
-                        binding.mainLayout.gone()
-                    }
-                } ?: {
-                    showEmpty()
-                }
-            } else if (result is ApiResult.Error) {
-
-                binding.mainLayout.visibility = View.GONE
-            }
-        }
-
+//        showProgress()
+//        viewModel.viewModelScope.launch {
+//            val result = viewModel.repository.getTicket(pref.email, pref.authToken)
+//            if (result is ApiResult.Success) {
+//
+//                result.data.responseDetails?.let { responseDetails ->
+//                    adapter.items = responseDetails.filterNotNull()
+//                    adapter.notifyDataSetChanged()
+//                    if (adapter.items.isEmpty()) {
+//                        showEmpty()
+//                    } else {
+//                        binding.mainLayout.gone()
+//                    }
+//                } ?: {
+//                    showEmpty()
+//                }
+//            } else if (result is ApiResult.Error) {
+//
+//                binding.mainLayout.visibility = View.GONE
+//            }
+//        }
+//
     }
 
     private fun showEmpty() = with(binding) {

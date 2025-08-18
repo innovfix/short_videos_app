@@ -42,7 +42,7 @@ class UnlockedEpisodeListActivity : BaseActivity() {
     private fun callApi() {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getUnlockedEpisodeList(pref.authToken)
+            val result = viewModel.repository.getUnlockedEpisodeList(pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { responseDetails ->
 

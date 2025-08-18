@@ -41,7 +41,7 @@ class TransactionHistoryActivity : BaseActivity() {
     private fun callApi() {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getTransactionList(pref.authToken)
+            val result = viewModel.repository.getTransactionList(pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { responseDetails ->
                     // Sort transactions by created_at (descending - newest first)

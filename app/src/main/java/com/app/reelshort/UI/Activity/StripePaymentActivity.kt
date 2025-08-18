@@ -79,7 +79,7 @@ class StripePaymentActivity : BaseActivity() {
                 paymentGetwayId = paymentGetwayId.toInt(),
             )
             viewModel.viewModelScope.launch {
-                val result = viewModel.repository.createPayment(request, pref.authToken)
+                val result = viewModel.repository.createPayment(request, pref.authToken?:"")
                 if (result is ApiResult.Success) {
                     result.data.responseDetails?.let { responseDetails ->
                         fetchPaymentIntent(responseDetails.transactionId.toString())
@@ -109,7 +109,7 @@ class StripePaymentActivity : BaseActivity() {
             transactionId = transactionId,
         )
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.createStripePaymentIntent(request, pref.authToken)
+            val result = viewModel.repository.createStripePaymentIntent(request, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseMessage?.let { responseMessage ->
                     showToast(responseMessage)
@@ -167,7 +167,7 @@ class StripePaymentActivity : BaseActivity() {
             status = status
         )
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.setPaymentUpdate(request, pref.authToken)
+            val result = viewModel.repository.setPaymentUpdate(request, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { responseDetails ->
                     setResultOk()

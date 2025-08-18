@@ -70,7 +70,7 @@ class SeriesInfoActivity : BaseActivity() {
         showProgress()
         val episodeId = intent.getStringExtra(CommonsKt.SERIES_ID_EXTRA)
         episodeId?.let {
-            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken)
+            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken?:"")
             viewModel.allEpisodes.observe(this) { result ->
                 if (result is ApiResult.Success) {
 
@@ -121,7 +121,7 @@ class SeriesInfoActivity : BaseActivity() {
         val bottomSheet = TagWiseListBottomSheet(name)
         bottomSheet.show(supportFragmentManager, TagWiseListBottomSheet.TAG)
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getTagWiseList(id, pref.authToken)
+            val result = viewModel.repository.getTagWiseList(id, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { responseDetails ->
                     bottomSheet.setList(getCommonInfo(responseDetails))
@@ -163,7 +163,7 @@ class SeriesInfoActivity : BaseActivity() {
     private fun callApiAllEpisodes() {
         val episodeId = intent.getStringExtra(CommonsKt.SERIES_ID_EXTRA)
         episodeId?.let {
-            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken)
+            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken?:"")
             viewModel.allEpisodes.observe(this) { result ->
                 if (result is ApiResult.Success) {
                     result.data.responseDetails?.youMightLiked?.let { youMightLiked ->

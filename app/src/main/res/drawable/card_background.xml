@@ -1,0 +1,17 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFCC00" /> <!-- Focus color -->
+            <corners android:radius="8dp" /> <!-- Match CardView corner radius -->
+        </shape>
+    </item>
+
+    <!-- Default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- Default color -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>

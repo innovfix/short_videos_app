@@ -63,7 +63,7 @@ class BindEmailActivity : BaseActivity() {
     private fun callApi(reward_type: String) {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.setBindEmail(reward_type, pref.authToken)
+            val result = pref.authToken?.let { viewModel.repository.setBindEmail(reward_type, it) }
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let {
                     binding.llInput.visibility = View.GONE

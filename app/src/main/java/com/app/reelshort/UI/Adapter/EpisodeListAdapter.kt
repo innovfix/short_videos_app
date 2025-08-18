@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.app.reelshort.App.ReelShortApp
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.CommonInfoReel
 import com.app.reelshort.databinding.ItemEpisodeListBinding
 
@@ -44,7 +44,7 @@ class EpisodeListAdapter(var items: List<CommonInfoReel>, val onClickListener: (
                     onClickListener(adapterPosition)
                 } else {
                     Toast.makeText(
-                        ReelShortApp.instance,
+                        BaseApplication.getInstance(),
                         "This story is locked",
                         Toast.LENGTH_LONG
                     ).show()

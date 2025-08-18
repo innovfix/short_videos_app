@@ -34,6 +34,8 @@
     <color name="gray">#707070</color>
     <color name="gray2">#909090</color>
 
+    <color name="disabled">#3a3a3a</color>
+
 
     <!--Nav-->
     <color name="bottomNavBgColor">#ffffff</color>
@@ -70,6 +72,7 @@
     <color name="status_completed">#4CAF50</color>
     <color name="status_cancelled">#F44336</color>
 
+    <color name="cardview_divider">#5d457f</color>
 
     <!--    <color name="colorMain">@color/whiteMy</color>-->
 

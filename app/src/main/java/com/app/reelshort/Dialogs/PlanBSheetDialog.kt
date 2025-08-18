@@ -51,7 +51,7 @@ class PlanBSheetDialog(
     }
 
     private fun loadData() {
-        viewModel.getPlanList(activity.pref.authToken)
+        activity.pref.authToken?.let { viewModel.getPlanList(it) }
         showProgress()
         viewModel.planList.observe(activity) { result ->
             if (result is ApiResult.Success) {
@@ -106,7 +106,7 @@ class PlanBSheetDialog(
         val bottomSheet = PaymentOptionBottomSheet(id, amount, paymentLauncher)
         bottomSheet.show(activity.supportFragmentManager, TagWiseListBottomSheet.TAG)
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getPaymentOption(activity.pref.authToken)
+            val result = activity.pref.authToken?.let { viewModel.repository.getPaymentOption(it) }
             if (result is ApiResult.Success) {
 
                 result.data.responseDetails?.let { responseDetails ->

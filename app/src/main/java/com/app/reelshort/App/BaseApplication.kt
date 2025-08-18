@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.app.reelshort.Ads.AdsGoogle
 import com.app.reelshort.Model.CommonInfo
 import com.app.reelshort.Model.SignUpResponse
+import com.app.reelshort.Utils.DPreferences
 import com.app.reelshort.Utils.NetworkManager
 import com.applovin.sdk.AppLovinMediationProvider
 import com.applovin.sdk.AppLovinSdk
@@ -17,47 +18,33 @@ import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class ReelShortApp : Application() {
+class BaseApplication : Application() {
     private lateinit var connectivityManager: ConnectivityManager
     lateinit var networkManager: NetworkManager
     var loginResponse: SignUpResponse.ResponseDetails? = null
     var recommended: List<CommonInfo> = emptyList()
+    private var mPreferences: DPreferences? = null
 
     companion object {
-        lateinit var instance: ReelShortApp
-            private set
+        private lateinit var mInstance: BaseApplication
+
+        fun getInstance(): BaseApplication {
+            return mInstance
+        }
+
+    }
+
+    fun getPrefs(): DPreferences? {
+        return mPreferences
     }
 
     override fun onCreate() {
         super.onCreate()
-        AdsGoogle(applicationContext)
-//        FacebookSdk.setClientToken(com.app.reelshort.BuildConfig.FACEBOOK_APP_ID);
-//        FacebookSdk.sdkInitialize(applicationContext)
 
-        try {
-            //todo change key if needed
-            val initConfig = AppLovinSdkInitializationConfiguration.builder(
-                com.app.reelshort.BuildConfig.APPLOVIN_KEY,
-                this
-            ).setMediationProvider(AppLovinMediationProvider.MAX).build()
+        mInstance = this
+        mPreferences = DPreferences(this)
 
-            // Initialize the SDK with the configuration
-            AppLovinSdk.getInstance(applicationContext).initialize(initConfig) { sdkConfig ->
-            }
-        } catch (e: Exception) {
-        }
-
-        instance = this
-        FirebaseApp.initializeApp(this)
-
-        try {
-            FirebaseMessaging.getInstance().subscribeToTopic("all_users")
-                .addOnCompleteListener { task: Task<Void?> ->
-                    if (task.isSuccessful) {
-                    }
-                }
-        } catch (e: Exception) {
-        }
+//        FirebaseApp.initializeApp(this)
 
         networkManager = NetworkManager.getInstance(this)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {

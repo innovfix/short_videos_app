@@ -72,23 +72,13 @@ class SettingActivity : BaseActivity() {
         }
 
 
-        if (pref.isLogin) {
-            if (pref.loginType == "guest") {
-
-                binding.llSighOut.visibility = View.GONE
-            } else {
-
-                binding.llSighOut.visibility = View.VISIBLE
-            }
-        }
-
     }
 
 
     private fun callDeleteApi() {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.deleteAccount("", pref.authToken)
+            val result = viewModel.repository.deleteAccount("", pref.authToken?:"")
             if (result is ApiResult.Success) {
 
                 result.data.responseMessage?.let { responseMessage ->
@@ -138,7 +128,6 @@ class SettingActivity : BaseActivity() {
 
 
     fun logoutAndRestartApp(context: Context) {
-        pref.logoutClean()
 
         val intent = Intent(context, SplashActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

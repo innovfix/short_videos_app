@@ -2,12 +2,9 @@ package com.app.reelshort.UI.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.viewModelScope
-import com.app.reelshort.App.ReelShortApp
-import com.app.reelshort.Model.LoginRequest
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Utils.showToast
 import com.app.reelshort.ViewModel.ApiResult
 import com.app.reelshort.ViewModel.UserViewModel
@@ -55,22 +52,22 @@ class MyWalletActivity : BaseActivity() {
         }
 
 
-        viewModel.viewModelScope.launch {
-            val result = viewModel.repository.signUp(viewModel.loginRequest, pref.authToken)
-            if (result is ApiResult.Success) {
-
-
-                result.data.responseDetails?.let { responseDetails ->
-                    ReelShortApp.instance.loginResponse = responseDetails
-                    binding.walletBalance.text =
-                        ((responseDetails.walletBalance ?: 0) + (responseDetails.coinBalance ?: 0)).toString()
-                    binding.coinBalance.text =
-                        "Coin ${(responseDetails.coinBalance ?: "0")} | Reward Coin  ${(responseDetails.walletBalance ?: "0")}"
-                }
-            } else if (result is ApiResult.Error) {
-                showToast(result.message)
-            }
-        }
+//        viewModel.viewModelScope.launch {
+//            val result = viewModel.repository.signUp(viewModel.loginRequest, pref.authToken?:"")
+//            if (result is ApiResult.Success) {
+//
+//
+//                result.data.responseDetails?.let { responseDetails ->
+//                    BaseApplication.getInstance().loginResponse = responseDetails
+//                    binding.walletBalance.text =
+//                        ((responseDetails.walletBalance ?: 0) + (responseDetails.coinBalance ?: 0)).toString()
+//                    binding.coinBalance.text =
+//                        "Coin ${(responseDetails.coinBalance ?: "0")} | Reward Coin  ${(responseDetails.walletBalance ?: "0")}"
+//                }
+//            } else if (result is ApiResult.Error) {
+//                showToast(result.message)
+//            }
+//        }
 
     }
 }

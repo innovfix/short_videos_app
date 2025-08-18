@@ -149,5 +149,10 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-crashlytics")
 
+//    implementation("com.google.android.gms:play-services-auth:18.1.0")
+//    implementation("com.google.android.gms:play-services-identity:17.0.0")
+//    implementation("com.google.android.gms:play-services-auth-api-phone:17.4.0")
+//    implementation("com.google.android.gms:play-services-base:17.3.0")
+
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

@@ -93,7 +93,7 @@ class ReelsFragment : BaseFragment() {
     private fun callApi() {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getSeriesList(0, pref.authToken)
+            val result = viewModel.repository.getSeriesList(0, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { seriesList ->
                     reels = mutableListOf<ResponseDetail>()
@@ -210,7 +210,7 @@ class ReelsFragment : BaseFragment() {
     private fun actionLike(model1: CommonInfoReel) {
         viewModel.viewModelScope.launch {
             val model = LikeRequest(0, model1.isLiked, model1.id)
-            val result = viewModel.repository.setLikeEpisode(pref.authToken, model)
+            val result = viewModel.repository.setLikeEpisode(pref.authToken?:"", model)
             if (result is ApiResult.Success) {
 
 
@@ -225,7 +225,7 @@ class ReelsFragment : BaseFragment() {
 
         viewModel.viewModelScope.launch {
             val model = FavouriteRequest(0, model1.isFavourites, model1.id)
-            val result = viewModel.repository.setFavourite(model, pref.authToken)
+            val result = viewModel.repository.setFavourite(model, pref.authToken?:"")
             if (result is ApiResult.Success) {
 
 

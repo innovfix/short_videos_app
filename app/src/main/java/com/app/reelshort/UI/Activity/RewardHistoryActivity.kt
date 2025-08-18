@@ -1,15 +1,10 @@
 package com.app.reelshort.UI.Activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import com.app.reelshort.App.ReelShortApp
 import com.app.reelshort.UI.Adapter.RewardHistoryAdapter
 import com.app.reelshort.Utils.gone
-import com.app.reelshort.Utils.showToast
 import com.app.reelshort.Utils.visible
 import com.app.reelshort.ViewModel.ApiResult
 import com.app.reelshort.ViewModel.UserViewModel

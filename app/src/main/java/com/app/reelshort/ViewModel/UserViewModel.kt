@@ -1,37 +1,30 @@
 package com.app.reelshort.ViewModel
 
 import android.provider.Settings
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.annotation.Keep
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.app.reelshort.App.ReelShortApp
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.CoinDataResponse
-import com.app.reelshort.Model.DailyWatchAdsResponse
 import com.app.reelshort.Model.EpisodeListResponse
 import com.app.reelshort.Model.EpisodeRequest
 import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.Model.LoginRequest
 import com.app.reelshort.Model.MyListResponse
-import com.app.reelshort.Model.MyListResponse.ResponseDetails
 import com.app.reelshort.Model.PlanListResponse
 import com.app.reelshort.Model.RewardHistoryResponse
+import com.app.reelshort.Model.SendOtpRequest
+import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
-import com.app.reelshort.Model.SigningResponse
-import com.app.reelshort.Utils.AdminPreference
-import com.app.reelshort.Utils.showToast
+import com.app.reelshort.Utils.DPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import test.app.gallery.UI1.Base.BaseActivity
 import javax.inject.Inject
 
 @Keep
@@ -41,7 +34,7 @@ class UserViewModel @Inject constructor(
 ) : ViewModel() {
     val isLoggedIn = MutableLiveData<Boolean>()
 
-    val pref: AdminPreference get() = AdminPreference(ReelShortApp.instance)
+    val pref: DPreferences get() = DPreferences(BaseApplication.getInstance())
 
     private val _homeList = MutableLiveData<ApiResult<HomeListResponse>>()
     val homeList: LiveData<ApiResult<HomeListResponse>> = _homeList
@@ -70,29 +63,35 @@ class UserViewModel @Inject constructor(
     private val _signUp = MutableLiveData<SignUpResponse.ResponseDetails>()
     val signUp: LiveData<SignUpResponse.ResponseDetails> = _signUp
 
-    val deviceId = Settings.Secure.getString(ReelShortApp.instance.contentResolver, Settings.Secure.ANDROID_ID)
+    private val _sendOtpResponse = MutableLiveData<SendOtpResponse>()
+    val sendOtpResponse: LiveData<SendOtpResponse> = _sendOtpResponse
+
+    private val _sendOtpError = MutableLiveData<ApiResult.Error>()
+    val sendOtpError: LiveData<ApiResult.Error> = _sendOtpError
+
+    val deviceId = Settings.Secure.getString(BaseApplication.getInstance().contentResolver, Settings.Secure.ANDROID_ID)
 
     val random = (10000..99999).random().toString()
 
-    val loginRequest = SighInRequest(
-        email = pref.email.ifBlank { com.app.reelshort.BuildConfig.HOST_EMAIL },
-        loginType = pref.loginType.ifBlank { com.app.reelshort.BuildConfig.HOST_LOGIN_TYPE_GUEST },
-        loginTypeId = pref.loginTypeId.ifBlank { random },
-        name = pref.name.ifBlank { com.app.reelshort.BuildConfig.HOST_DISPLAY_NAME },
-        deviceId = deviceId
-    )
-
-    init {
-        getHomeList(pref.authToken)
-        fetchUsers(pref.authToken)
-        getMyList(pref.authToken)
-        getPlanList(pref.authToken)
-        getPlanList(pref.authToken)
-//        getSeriesList(1, pref.authToken)
-        getCoinData(pref.authToken)
-        getRewardHistory(pref.authToken)
-//        login(loginRequest, pref.authToken)
-    }
+//    val loginRequest = SighInRequest(
+//        email = pref.email.ifBlank { com.app.reelshort.BuildConfig.HOST_EMAIL },
+//        loginType = pref.loginType.ifBlank { com.app.reelshort.BuildConfig.HOST_LOGIN_TYPE_GUEST },
+//        loginTypeId = pref.loginTypeId.ifBlank { random },
+//        name = pref.name.ifBlank { com.app.reelshort.BuildConfig.HOST_DISPLAY_NAME },
+//        deviceId = deviceId
+//    )
+//
+//    init {
+//        getHomeList(pref.authToken)
+//        fetchUsers(pref.authToken)
+//        getMyList(pref.authToken)
+//        getPlanList(pref.authToken)
+//        getPlanList(pref.authToken)
+////        getSeriesList(1, pref.authToken)
+//        getCoinData(pref.authToken)
+//        getRewardHistory(pref.authToken)
+////        login(loginRequest, pref.authToken)
+//    }
 
     fun loadEpisodes(episodeId: Int, authToken: String) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -158,6 +157,16 @@ class UserViewModel @Inject constructor(
         }
     }
 
+    fun sendOtp(request: SendOtpRequest) {
+        viewModelScope.launch(Dispatchers.Main) {
+            val result = repository.sendOtp(request)
+            if (result is ApiResult.Success) {
+                _sendOtpResponse.value = result.data
+            } else if (result is ApiResult.Error) {
+                _sendOtpError.value = result
+            }
+        }
+    }
 
     var counter = 0
     fun login(loginRequest: SighInRequest, authToken: String) {
@@ -168,18 +177,18 @@ class UserViewModel @Inject constructor(
                 counter = 0
 
                 result.data.responseDetails?.let { responseDetails ->
-                    pref.email = result.data.responseDetails.email.toString()
-                    pref.isLogin = true
-                    pref.authToken = result.data.responseDetails.token?.accessToken.toString()
-                    pref.uid = result.data.responseDetails.uid.toString()
-                    pref.loginType = result.data.responseDetails.loginType.toString()
-//                    pref.profilePicture = result.data.responseDetails.profilePicture.toString()
+//                    pref.email = result.data.responseDetails.email.toString()
+//                    pref.isLogin = true
+//                    pref.authToken = result.data.responseDetails.token?.accessToken.toString()
+//                    pref.uid = result.data.responseDetails.uid.toString()
+//                    pref.loginType = result.data.responseDetails.loginType.toString()
+////                    pref.profilePicture = result.data.responseDetails.profilePicture.toString()
                 }
                 _signUp.value = result.data.responseDetails!!
             } else if (result is ApiResult.Error) {
                 val random = (10000..99999).random().toString()
 
-                Toast.makeText(ReelShortApp.instance, result.code.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(BaseApplication.getInstance(), result.code.message, Toast.LENGTH_LONG).show()
                 val guestRequest2 = SighInRequest(
                     email = com.app.reelshort.BuildConfig.HOST_EMAIL,
                     loginType = com.app.reelshort.BuildConfig.HOST_LOGIN_TYPE_GUEST,

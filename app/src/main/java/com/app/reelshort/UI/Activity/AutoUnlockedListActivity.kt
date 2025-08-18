@@ -44,7 +44,7 @@ class AutoUnlockedListActivity : BaseActivity() {
     private fun callApi() {
         showProgress()
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getUserWatchedSeriesList(pref.authToken)
+            val result = pref.authToken?.let { viewModel.repository.getUserWatchedSeriesList(it) }
             if (result is ApiResult.Success) {
                 result.data.responseDetails?.let { responseDetails ->
 
@@ -73,7 +73,11 @@ class AutoUnlockedListActivity : BaseActivity() {
         showProgress()
         viewModel.viewModelScope.launch {
             val request = AutoUnlockSettingRequest(seriesId, isChecked.toInt)
-            val result = viewModel.repository.setAutoUnlockSetting(request, pref.authToken)
+            val result = pref.authToken?.let {
+                viewModel.repository.setAutoUnlockSetting(request,
+                    it
+                )
+            }
             if (result is ApiResult.Success) {
                 binding.progressLayout.mainLayout.visibility = View.GONE
                 if (isChecked) {

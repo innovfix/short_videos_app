@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,7 +12,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.app.reelshort.App.ReelShortApp
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Dialogs.EpisodesListBottomSheet
 import com.app.reelshort.Dialogs.FullScreenAdDialog
 import com.app.reelshort.Dialogs.PlanBSheetDialog
@@ -46,7 +45,7 @@ class ReelsActivity : BaseActivity() {
 
 
     val viewModel: UserViewModel by viewModels()
-    var coins = ReelShortApp.instance.loginResponse?.walletBalance ?: 0
+    var coins = BaseApplication.getInstance().loginResponse?.walletBalance ?: 0
 
 
     lateinit var reelsAdapter: ReelsAdapter
@@ -127,7 +126,7 @@ class ReelsActivity : BaseActivity() {
         callback: (AdTimerResponse.ResponseDetails?) -> Unit,
     ) {
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getAdTimer(EpisodeRequest(seriesId), pref.authToken)
+            val result = viewModel.repository.getAdTimer(EpisodeRequest(seriesId), pref.authToken?:"")
             if (result is ApiResult.Success) {
                 callback(result.data.responseDetails)
             } else if (result is ApiResult.Error) {
@@ -144,7 +143,7 @@ class ReelsActivity : BaseActivity() {
         )
 
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.setUnlockEpisode(request, pref.authToken)
+            val result = viewModel.repository.setUnlockEpisode(request, pref.authToken?:"")
             if (result is ApiResult.Success) {
 
                 callback()
@@ -179,7 +178,7 @@ class ReelsActivity : BaseActivity() {
                     seriesId = info.seriesId,
                     episodeNumber = info.episodeNumber,
                 )
-                val result = viewModel.repository.setWatchEpisode(request, pref.authToken)
+                val result = viewModel.repository.setWatchEpisode(request, pref.authToken?:"")
                 if (result is ApiResult.Success) {
                     result.data.responseDetails?.let {
                     }
@@ -254,7 +253,7 @@ class ReelsActivity : BaseActivity() {
         showProgress()
         val episodeId = intent.getStringExtra(CommonsKt.SERIES_ID_EXTRA)
         episodeId?.let {
-            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken)
+            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken?:"")
             viewModel.allEpisodes.observe(this) { result ->
                 if (result is ApiResult.Success) {
                     result.data.responseDetails?.allEpisodes?.let { allEpisodes ->
@@ -397,7 +396,7 @@ class ReelsActivity : BaseActivity() {
         showProgress()
         viewModel.viewModelScope.launch {
             val request = AutoUnlockSettingRequest(seriesId, isChecked.toInt)
-            val result = viewModel.repository.setAutoUnlockSetting(request, pref.authToken)
+            val result = viewModel.repository.setAutoUnlockSetting(request, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 binding.progressLayout.mainLayout.visibility = View.GONE
                 if (isChecked) {
@@ -425,7 +424,7 @@ class ReelsActivity : BaseActivity() {
 
         viewModel.viewModelScope.launch {
             val model = LikeRequest(model1.id, model1.isLiked, model1.seriesId)
-            val result = viewModel.repository.setLikeEpisode(pref.authToken, model)
+            val result = viewModel.repository.setLikeEpisode(pref.authToken?:"", model)
             if (result is ApiResult.Success) {
                 reelsAdapter.reels.forEachIndexed { i, reel ->
                     if (reel != reelsAdapter.reels[index]) {
@@ -451,7 +450,7 @@ class ReelsActivity : BaseActivity() {
 
         viewModel.viewModelScope.launch {
             val model = FavouriteRequest(model1.id, model1.isFavourites, model1.seriesId)
-            val result = viewModel.repository.setFavourite(model, pref.authToken)
+            val result = viewModel.repository.setFavourite(model, pref.authToken?:"")
             if (result is ApiResult.Success) {
                 reelsAdapter.reels.forEachIndexed { i, reel ->
                     if (reel != reelsAdapter.reels[index]) {

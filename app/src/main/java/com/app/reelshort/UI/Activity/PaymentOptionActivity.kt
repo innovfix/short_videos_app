@@ -71,7 +71,7 @@ class PaymentOptionActivity : BaseActivity() {
 
     private fun callApi() {
         viewModel.viewModelScope.launch {
-            val result = viewModel.repository.getPaymentOption(pref.authToken)
+            val result = viewModel.repository.getPaymentOption(pref.authToken?:"")
             if (result is ApiResult.Success) {
 
                 result.data.responseDetails?.let { responseDetails ->
