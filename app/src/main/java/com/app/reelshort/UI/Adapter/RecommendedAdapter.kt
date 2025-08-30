@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.reelshort.Model.CommonInfo
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.R
 import com.app.reelshort.databinding.ItemEpisodeBinding
 import com.app.reelshort.databinding.ItemRecommendedBinding

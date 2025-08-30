@@ -11,7 +11,6 @@ import com.app.reelshort.Dialogs.EpisodesListBottomSheet.Companion.TAG
 import com.app.reelshort.Dialogs.TagWiseListBottomSheet
 import com.app.reelshort.Model.CommonInfoReel
 import com.app.reelshort.Model.EpisodeListResponse
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.R
 import com.app.reelshort.UI.Adapter.CommonInfoAdapter
 import com.app.reelshort.UI.Adapter.EpisodeListAdapter

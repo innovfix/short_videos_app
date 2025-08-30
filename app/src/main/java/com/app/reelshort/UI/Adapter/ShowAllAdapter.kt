@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.reelshort.Model.CategorySection
 import com.app.reelshort.Model.CommonInfo
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.Utils.CommonsKt
 import com.app.reelshort.databinding.ItemShowAllBinding
 

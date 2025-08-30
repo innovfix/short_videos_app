@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.reelshort.Model.CategorySection
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.UI.Activity.ReelsActivity
 import com.app.reelshort.UI.Adapter.CommonInfoAdapter
 import com.app.reelshort.Utils.CommonsKt

@@ -293,7 +293,7 @@
                     android:hint="@string/enter_the_4_digit_otp"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
-                    android:maxLength="10"
+                    android:maxLength="4"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintBottom_toBottomOf="parent"

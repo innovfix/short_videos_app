@@ -16,7 +16,6 @@ import com.app.reelshort.Model.DeleteRequest
 import com.app.reelshort.Model.EpisodeListResponse
 import com.app.reelshort.Model.EpisodeRequest
 import com.app.reelshort.Model.FavouriteRequest
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.Model.IdRequest
 import com.app.reelshort.Model.LikeRequest
 import com.app.reelshort.Model.CommonsResponse
@@ -24,6 +23,8 @@ import com.app.reelshort.Model.CreateTicketRequest
 import com.app.reelshort.Model.CreateTicketResponse
 import com.app.reelshort.Model.DeleteAccountResponse
 import com.app.reelshort.Model.FqaResponse
+import com.app.reelshort.Model.LoginRequest
+import com.app.reelshort.Model.LoginResponse
 import com.app.reelshort.Model.MyListResponse
 import com.app.reelshort.Model.PaymentOptionResponse
 import com.app.reelshort.Model.PaymentUpdateRequest
@@ -35,6 +36,7 @@ import com.app.reelshort.Model.SearchResponse
 import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
+import com.app.reelshort.Model.ShortsResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
 import com.app.reelshort.Model.SocialLinksResponse
@@ -66,11 +68,10 @@ interface ApiService {
         @Body request: SendOtpRequest,
     ): Response<SendOtpResponse>
 
-    @POST("/user/v1/signup-mobile")
+    @POST("v1/login")
     suspend fun logIn(
-        @Body request: SighInRequest,
-        @Header("Authorization") authToken: String,
-    ): Response<SignUpResponse>
+        @Body request: LoginRequest,
+    ): Response<LoginResponse>
 
 
     @POST("/user/v1/signup-mobile")
@@ -80,10 +81,11 @@ interface ApiService {
     ): Response<SignUpResponse>
 
 
-    @GET("user/v1/home/list")
-    suspend fun getHomeList(
+    @GET("user/v1/getShorts")
+    suspend fun getShorts(
         @Header("Authorization") authToken: String,
-    ): Response<HomeListResponse>
+        @Query("tag") tag: String
+    ): Response<ShortsResponse>
 
 
     @GET("user/v1/home/my-list")

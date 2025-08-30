@@ -11,14 +11,15 @@ import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.CoinDataResponse
 import com.app.reelshort.Model.EpisodeListResponse
 import com.app.reelshort.Model.EpisodeRequest
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.Model.LoginRequest
+import com.app.reelshort.Model.LoginResponse
 import com.app.reelshort.Model.MyListResponse
 import com.app.reelshort.Model.PlanListResponse
 import com.app.reelshort.Model.RewardHistoryResponse
 import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
+import com.app.reelshort.Model.ShortsResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
 import com.app.reelshort.Utils.DPreferences
@@ -32,13 +33,43 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     val repository: UserRepository,
 ) : ViewModel() {
-    val isLoggedIn = MutableLiveData<Boolean>()
-
     val pref: DPreferences get() = DPreferences(BaseApplication.getInstance())
 
-    private val _homeList = MutableLiveData<ApiResult<HomeListResponse>>()
-    val homeList: LiveData<ApiResult<HomeListResponse>> = _homeList
+    private val _homeList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val homeList: LiveData<ApiResult<ShortsResponse>> = _homeList
 
+    private val _top10List = MutableLiveData<ApiResult<ShortsResponse>>()
+    val top10List: LiveData<ApiResult<ShortsResponse>> = _top10List
+
+    private val _loveAffairsList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val loveAffairsList: LiveData<ApiResult<ShortsResponse>> = _loveAffairsList
+
+    private val _specialsList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val specialsList: LiveData<ApiResult<ShortsResponse>> = _specialsList
+
+    private val _trendingNowList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val trendingNowList: LiveData<ApiResult<ShortsResponse>> = _trendingNowList
+
+    private val _topOriginalsList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val topOriginalsList: LiveData<ApiResult<ShortsResponse>> = _topOriginalsList
+
+    private val _top10NewReleasesList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val top10NewReleasesList: LiveData<ApiResult<ShortsResponse>> = _top10NewReleasesList
+
+    private val _ceoBillionaireList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val ceoBillionaireList: LiveData<ApiResult<ShortsResponse>> = _ceoBillionaireList
+
+    private val _justLaunchedList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val justLaunchedList: LiveData<ApiResult<ShortsResponse>> = _justLaunchedList
+
+    private val _hiddenIdentityList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val hiddenIdentityList: LiveData<ApiResult<ShortsResponse>> = _hiddenIdentityList
+
+    private val _newHotList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val newHotList: LiveData<ApiResult<ShortsResponse>> = _newHotList
+
+    private val _revengeAndDhokaList = MutableLiveData<ApiResult<ShortsResponse>>()
+    val revengeAndDhokaList: LiveData<ApiResult<ShortsResponse>> = _revengeAndDhokaList
 
     private val _allEpisodes = MutableLiveData<ApiResult<EpisodeListResponse>>()
     val allEpisodes: LiveData<ApiResult<EpisodeListResponse>> = _allEpisodes
@@ -51,17 +82,8 @@ class UserViewModel @Inject constructor(
     val planList: LiveData<ApiResult<PlanListResponse>> = _planList
 
 
-    private val _seriesList = MutableLiveData<ApiResult<SeriesListResponse>>()
-    val seriesList: LiveData<ApiResult<SeriesListResponse>> = _seriesList
-
-    private val _coinData = MutableLiveData<ApiResult<CoinDataResponse>>()
-    val coinData: LiveData<ApiResult<CoinDataResponse>> = _coinData
-
     private val _rewardHistory = MutableLiveData<ApiResult<RewardHistoryResponse>>()
     val rewardHistory: LiveData<ApiResult<RewardHistoryResponse>> = _rewardHistory
-
-    private val _signUp = MutableLiveData<SignUpResponse.ResponseDetails>()
-    val signUp: LiveData<SignUpResponse.ResponseDetails> = _signUp
 
     private val _sendOtpResponse = MutableLiveData<SendOtpResponse>()
     val sendOtpResponse: LiveData<SendOtpResponse> = _sendOtpResponse
@@ -69,53 +91,103 @@ class UserViewModel @Inject constructor(
     private val _sendOtpError = MutableLiveData<ApiResult.Error>()
     val sendOtpError: LiveData<ApiResult.Error> = _sendOtpError
 
+    private val _loginResponse = MutableLiveData<LoginResponse>()
+    val loginResponse: LiveData<LoginResponse> = _loginResponse
+
+    private val _loginError = MutableLiveData<ApiResult.Error>()
+    val loginError: LiveData<ApiResult.Error> = _loginError
+
     val deviceId = Settings.Secure.getString(BaseApplication.getInstance().contentResolver, Settings.Secure.ANDROID_ID)
 
-    val random = (10000..99999).random().toString()
+    init {
+        getHomeShorts(pref.authToken)
+        getTop10(pref.authToken)
+        getLoveAffairs(pref.authToken)
+        getPlanList(pref.authToken)
+        getPlanList(pref.authToken)
+        getSpecials( pref.authToken)
+        getTrendingNow(pref.authToken)
+        getTopOriginals(pref.authToken)
+        getTop10NewReleases( pref.authToken)
+        getCeoBillionaire( pref.authToken)
+        getJustLaunched( pref.authToken)
+        getHiddenIdentity( pref.authToken)
+        getNewHot( pref.authToken)
+        getRevengeAndDhoka( pref.authToken)
+    }
 
-//    val loginRequest = SighInRequest(
-//        email = pref.email.ifBlank { com.app.reelshort.BuildConfig.HOST_EMAIL },
-//        loginType = pref.loginType.ifBlank { com.app.reelshort.BuildConfig.HOST_LOGIN_TYPE_GUEST },
-//        loginTypeId = pref.loginTypeId.ifBlank { random },
-//        name = pref.name.ifBlank { com.app.reelshort.BuildConfig.HOST_DISPLAY_NAME },
-//        deviceId = deviceId
-//    )
-//
-//    init {
-//        getHomeList(pref.authToken)
-//        fetchUsers(pref.authToken)
-//        getMyList(pref.authToken)
-//        getPlanList(pref.authToken)
-//        getPlanList(pref.authToken)
-////        getSeriesList(1, pref.authToken)
-//        getCoinData(pref.authToken)
-//        getRewardHistory(pref.authToken)
-////        login(loginRequest, pref.authToken)
-//    }
-
-    fun loadEpisodes(episodeId: Int, authToken: String) {
+    fun getHomeShorts(authToken: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            _allEpisodes.value = repository.getAllEpisodeList(EpisodeRequest(episodeId), authToken)
+            val result = repository.getShorts(authToken, "is_home_shorts")
+            if (result is ApiResult.Success) {
+                _.value = result.data
+            }
         }
     }
 
-
-    fun fetchUsers(authToken: String) {
+    fun getTop10(authToken: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            _homeList.value = repository.getHomeList(authToken)
+            _top10List.value = repository.getShorts(authToken, "is_top_10")
         }
     }
 
-    fun getMyList(authToken: String) {
+    fun getLoveAffairs(authToken: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            _myList.value = repository.getMyList(authToken)
+            _loveAffairsList.value = repository.getShorts(authToken, "is_love_affairs")
         }
     }
 
-
-    fun getHomeList(authToken: String) {
+    fun getSpecials(authToken: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            _homeList.value = repository.getHomeList(authToken)
+            _specialsList.value = repository.getShorts(authToken, "is_specials")
+        }
+    }
+
+    fun getTrendingNow(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _trendingNowList.value = repository.getShorts(authToken, "is_trending_now")
+        }
+    }
+
+    fun getTopOriginals(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _topOriginalsList.value = repository.getShorts(authToken, "is_top_originals")
+        }
+    }
+
+    fun getTop10NewReleases(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _top10NewReleasesList.value = repository.getShorts(authToken, "is_top_10_new_releases")
+        }
+    }
+
+    fun getCeoBillionaire(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _ceoBillionaireList.value = repository.getShorts(authToken, "is_ceo_billionaire")
+        }
+    }
+
+    fun getJustLaunched(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _justLaunchedList.value = repository.getShorts(authToken, "is_just_launched")
+        }
+    }
+
+    fun getHiddenIdentity(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _hiddenIdentityList.value = repository.getShorts(authToken, "is_hidden_identity")
+        }
+    }
+
+    fun getNewHot(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _newHotList.value = repository.getShorts(authToken, "is_new_hot")
+        }
+    }
+
+    fun getRevengeAndDhoka(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _revengeAndDhokaList.value = repository.getShorts(authToken, "is_revenge_and_dhoka")
         }
     }
 
@@ -125,37 +197,6 @@ class UserViewModel @Inject constructor(
         }
     }
 
-
-    fun getSeriesList(random: Int = 1, authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _seriesList.value = repository.getSeriesList(random, authToken)
-        }
-    }
-
-    fun getCoinData(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _coinData.value = repository.getCoinData(authToken)
-        }
-    }
-
-    fun getCoinData(authToken: String, callback: (first: CoinDataResponse.ResponseDetail) -> Unit) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val result = repository.getCoinData(authToken)
-            if (result is ApiResult.Success) {
-                result.data.responseDetails?.let { coinData ->
-                    callback(coinData.filterNotNull().first())
-                }
-            } else if (result is ApiResult.Error) {
-            }
-        }
-    }
-
-
-    fun getRewardHistory(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _rewardHistory.value = repository.getRewardHistory(authToken)
-        }
-    }
 
     fun sendOtp(request: SendOtpRequest) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -168,39 +209,13 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    var counter = 0
-    fun login(loginRequest: SighInRequest, authToken: String) {
+    fun login(request: LoginRequest) {
         viewModelScope.launch(Dispatchers.Main) {
-            val result = repository.signUp(loginRequest, authToken)
+            val result = repository.logIn(request)
             if (result is ApiResult.Success) {
-
-                counter = 0
-
-                result.data.responseDetails?.let { responseDetails ->
-//                    pref.email = result.data.responseDetails.email.toString()
-//                    pref.isLogin = true
-//                    pref.authToken = result.data.responseDetails.token?.accessToken.toString()
-//                    pref.uid = result.data.responseDetails.uid.toString()
-//                    pref.loginType = result.data.responseDetails.loginType.toString()
-////                    pref.profilePicture = result.data.responseDetails.profilePicture.toString()
-                }
-                _signUp.value = result.data.responseDetails!!
+                _loginResponse.value = result.data
             } else if (result is ApiResult.Error) {
-                val random = (10000..99999).random().toString()
-
-                Toast.makeText(BaseApplication.getInstance(), result.code.message, Toast.LENGTH_LONG).show()
-                val guestRequest2 = SighInRequest(
-                    email = com.app.reelshort.BuildConfig.HOST_EMAIL,
-                    loginType = com.app.reelshort.BuildConfig.HOST_LOGIN_TYPE_GUEST,
-                    loginTypeId = random,
-                    name = com.app.reelshort.BuildConfig.HOST_DISPLAY_NAME,
-                    deviceId = deviceId
-                )
-                if (counter == 4) {
-                    return@launch
-                }
-                counter++
-                login(guestRequest2, authToken)
+                _loginError.value = result
             }
         }
     }

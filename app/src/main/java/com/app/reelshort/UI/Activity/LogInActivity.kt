@@ -2,6 +2,7 @@ package com.app.reelshort.UI.Activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -16,6 +17,7 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.viewModelScope
+import com.app.reelshort.Model.LoginRequest
 import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.R
 import com.app.reelshort.ViewModel.UserRepository.HttpCode
@@ -51,6 +53,7 @@ class LogInActivity : BaseActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initUI()
+        initListeners()
     }
 
     override fun onResume() {
@@ -76,17 +79,72 @@ class LogInActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable) {
             }
         })
+        binding.etOtp.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.btnSubmitOtp.isEnabled = !(TextUtils.isEmpty(s) || s.length != 4)
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.tvEdit.setOnClickListener({
+            navigateBack()
+        })
+        onBackPressedDispatcher.addCallback(this) {
+            if (binding.cvLogin.visibility == View.VISIBLE) {
+                finish()
+            } else {
+                navigateBack()
+            }
+        }
+        binding.btnGetOtp.setOnClickListener({
+            viewModel.viewModelScope.launch {
+                val r = Random(System.currentTimeMillis())
+                otp = r.nextInt(1000, 9999)
+                binding.pbGetOtpLoader.visibility = View.VISIBLE
+                binding.btnGetOtp.text = ""
+                binding.btnGetOtp.isClickable = false
+                viewModel.sendOtp(
+                    SendOtpRequest(binding.etMobileNumber.text.toString(), otp.toString())
+                )
+            }
+
+        })
+        binding.btnSubmitOtp.setOnClickListener({
+            viewModel.viewModelScope.launch {
+//                if (binding.etMobileNumber.text.toString() == otp.toString()) {
+                binding.pbSubmitOtpLoader.visibility = View.VISIBLE
+                binding.btnSubmitOtp.text = ""
+                binding.btnSubmitOtp.isClickable = false
+                viewModel.login(
+                    LoginRequest(binding.etMobileNumber.text.toString())
+                )
+//                }
+            }
+
+        })
+        requestPhoneNumberHint()
+    }
+
+    private fun initListeners() {
         viewModel.sendOtpResponse.observe(this@LogInActivity) { message ->
             binding.tvSentToMobile.text =
                 getString(R.string.sent_to_mobile_number, binding.etMobileNumber.text.toString())
-            binding.clMobileContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_left))
+            binding.clMobileContainer.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this, R.anim.slide_out_left
+                )
+            )
             val loadAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right_to_left)
             loadAnimation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {}
 
                 override fun onAnimationEnd(animation: Animation) {
-                    binding.clMobileContainer.setVisibility(View.GONE)
-                    binding.clOtpContainer.setVisibility(View.VISIBLE)
+                    binding.clMobileContainer.visibility = View.GONE
+                    binding.clOtpContainer.visibility = View.VISIBLE
                 }
 
                 override fun onAnimationRepeat(animation: Animation) {}
@@ -113,31 +171,28 @@ class LogInActivity : BaseActivity() {
                 ).show()
             }
         }
+        viewModel.loginResponse.observe(this@LogInActivity) { message ->
+            intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            finish()
+        }
 
-        binding.tvEdit.setOnClickListener({
-            navigateBack()
-        })
-        onBackPressedDispatcher.addCallback(this) {
-            if (binding.cvLogin.visibility == View.VISIBLE) {
-                finish()
+        viewModel.loginError.observe(this@LogInActivity) { result ->
+            binding.pbSubmitOtpLoader.visibility = View.GONE
+            binding.btnSubmitOtp.text = getString(R.string.submit_otp)
+            binding.btnSubmitOtp.isClickable = true
+            if (result.code == HttpCode.NETWORK_ERROR) {
+                Toast.makeText(
+                    this, getString(R.string.internet_connection_is_offline), Toast.LENGTH_SHORT
+                ).show()
             } else {
-                navigateBack()
+                Toast.makeText(
+                    this, result.message, Toast.LENGTH_SHORT
+                ).show()
             }
         }
-        binding.btnGetOtp.setOnClickListener({
-            viewModel.viewModelScope.launch {
-                val r = Random(System.currentTimeMillis())
-                otp = r.nextInt(1000, 9999)
-                binding.pbGetOtpLoader.visibility = View.VISIBLE
-                binding.btnGetOtp.text = ""
-                binding.btnGetOtp.isClickable = false
-                viewModel.sendOtp(
-                    SendOtpRequest(binding.etMobileNumber.text.toString(), otp.toString())
-                )
-            }
-
-        })
-        requestPhoneNumberHint()
     }
 
     private fun startTimer() {
@@ -147,8 +202,7 @@ class LogInActivity : BaseActivity() {
                 val time = millisUntilFinished / 1000
                 binding.tvResendOtp.setTextColor(getColor(R.color.white))
                 binding.tvResendOtp.text = getString(
-                    R.string.resend_in_seconds,
-                    if (time < 10) "0$time" else time.toString()
+                    R.string.resend_in_seconds, if (time < 10) "0$time" else time.toString()
                 )
             }
 
@@ -166,14 +220,18 @@ class LogInActivity : BaseActivity() {
     }
 
     private fun navigateBack() {
-        binding.clOtpContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_right))
+        binding.clOtpContainer.startAnimation(
+            AnimationUtils.loadAnimation(
+                this, R.anim.slide_out_right
+            )
+        )
         val loadAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_left_to_right)
         loadAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
 
             override fun onAnimationEnd(animation: Animation) {
-                binding.clOtpContainer.setVisibility(View.GONE)
-                binding.clMobileContainer.setVisibility(View.VISIBLE)
+                binding.clOtpContainer.visibility = View.GONE
+                binding.clMobileContainer.visibility = View.VISIBLE
             }
 
             override fun onAnimationRepeat(animation: Animation) {}

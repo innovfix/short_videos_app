@@ -76,4 +76,15 @@
     <string name="resend_otp"><u>Resend OTP</u></string>
     <string name="enter_the_4_digit_otp">Enter the 4 digit OTP</string>
     <string name="resend_in_seconds">Resend in %s seconds</string>
+    <string name="continue_watching">Continue Watching</string>
+    <string name="top_10_on">Top 10 on $app_name;</string>
+    <string name="specials">$app_name; Specials</string>
+    <string name="trending_now">Trending Now</string>
+    <string name="top_originals">Top $app_name; Originals</string>
+    <string name="top_10_new_releases">Top 10 New Releases</string>
+    <string name="just_launched">Just Launched</string>
+    <string name="hidden_identity">Hidden Identity</string>
+    <string name="new_and_hot"><![CDATA[New & Hot]]></string>
+    <string name="revenge_and_dhoka"><![CDATA[Revenge & Dhoka]]></string>
+    <string name="all_dramas">All Dramas</string>
 </resources>

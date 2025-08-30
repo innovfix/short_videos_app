@@ -3,7 +3,6 @@ package com.app.reelshort.UI.Adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.app.reelshort.Model.CategorySection
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.UI.Fragment.CategoryFragment
 import com.app.reelshort.UI.Fragment.HomeFragment
 import com.app.reelshort.UI.Fragment.NewReleaseFragment

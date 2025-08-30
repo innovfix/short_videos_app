@@ -4,19 +4,6 @@ package com.app.reelshort.Model
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 
-
-@Keep
-data class LoginRequest(
-    @SerializedName("email")
-    val email: String?,
-    @SerializedName("login_type")
-    val loginType: String?,
-    @SerializedName("login_type_id")
-    val loginTypeId: String?,
-    @SerializedName("name")
-    val name: String?,
-)
-
 @Keep
 data class SighInRequest(
     @SerializedName("id")

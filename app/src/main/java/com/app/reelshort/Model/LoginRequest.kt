@@ -6,11 +6,9 @@ import androidx.annotation.Keep
 
 
 @Keep
-data class SendOtpRequest(
+data class LoginRequest(
     @SerializedName("mobile_number")
     val mobile: String,
-    @SerializedName("otp")
-    val otp: String,
 )
 
 

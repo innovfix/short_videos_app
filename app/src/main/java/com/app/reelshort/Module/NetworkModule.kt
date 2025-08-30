@@ -3,12 +3,14 @@ package com.app.reelshort.Module
 import com.app.reelshort.APIs.ApiService
 import com.app.reelshort.APIs.ContentTypeInterceptor
 import com.app.reelshort.App.BaseApplication
+import com.app.reelshort.BuildConfig
 import com.app.reelshort.Utils.DPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -27,7 +29,7 @@ object NetworkModule {
 
     @Provides
     @Named("BaseUrl")
-    fun provideBaseUrl(): String = com.app.reelshort.BuildConfig.BASE_URL//Enter Your URL Here
+    fun provideBaseUrl(): String = BuildConfig.BASE_URL//Enter Your URL Here
 
 
 //    val certificatePinner = CertificatePinner.Builder()
@@ -37,19 +39,28 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder()
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        val okClientBuilder = OkHttpClient.Builder()
 //            .certificatePinner(certificatePinner)
             .connectTimeout(TIMEOUT_CONNECT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_READ, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT_WRITE, TimeUnit.SECONDS)
-            .addInterceptor(
-                ContentTypeInterceptor(
-                    "application/json",
-                    DPreferences(BaseApplication.getInstance()).authToken?:""
-                )
+        okClientBuilder.addInterceptor(
+            ContentTypeInterceptor(
+                "application/json", DPreferences(BaseApplication.getInstance()).authToken
             )
-            .build()
+        )
+        if (BuildConfig.DEBUG) {
+            okClientBuilder.addInterceptor(httpLoggingInterceptor)
+        }
+        return okClientBuilder.build()
+    }
+
+    @Singleton
+    @Provides
+    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
     @Singleton
     @Provides
@@ -57,14 +68,10 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
         @Named("BaseUrl") baseUrl: String,
     ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+        Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient).build()
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService =
-        retrofit.create(ApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 }

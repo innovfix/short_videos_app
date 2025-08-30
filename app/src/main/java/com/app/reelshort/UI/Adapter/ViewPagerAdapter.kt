@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.reelshort.Model.HomeListResponse
 import com.app.reelshort.Utils.CommonsKt.capitalizeFirstLetter
 import com.app.reelshort.databinding.ItemPagerBinding
 import com.bumptech.glide.Glide

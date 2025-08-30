@@ -1,5 +1,6 @@
 package com.app.reelshort.ViewModel
 
+import android.text.TextUtils
 import androidx.annotation.Keep
 import com.app.reelshort.Model.EpisodeRequest
 import com.app.reelshort.APIs.ApiService
@@ -15,6 +16,7 @@ import com.app.reelshort.Model.DeleteRequest
 import com.app.reelshort.Model.FavouriteRequest
 import com.app.reelshort.Model.IdRequest
 import com.app.reelshort.Model.LikeRequest
+import com.app.reelshort.Model.LoginRequest
 import com.app.reelshort.Model.PaymentUpdateRequest
 import com.app.reelshort.Model.SearchRequest
 import com.app.reelshort.Model.SendOtpRequest
@@ -35,14 +37,15 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
 
     @Keep
     enum class HttpCode(val code: Int, val message: String) {
-        OK(200, "OK"),
-        BAD_REQUEST(400, "Bad Request"),
-        UNAUTHORIZED(401, "Unauthorized access"),
-        FORBIDDEN(403, "Forbidden"),
-        NOT_FOUND(404, "Not Found"),
-        SERVER_ERROR(500, "Server Error"),
-        UNKNOWN(-1, "Something went wrong"),
-        NETWORK_ERROR(-1, "Network error");
+        OK(200, "OK"), BAD_REQUEST(400, "Bad Request"), UNAUTHORIZED(
+            401,
+            "Unauthorized access"
+        ),
+        FORBIDDEN(403, "Forbidden"), NOT_FOUND(404, "Not Found"), SERVER_ERROR(
+            500,
+            "Server Error"
+        ),
+        UNKNOWN(-1, "Something went wrong"), NETWORK_ERROR(-1, "Network error");
 
         companion object {
             fun fromCode(code: Int): HttpCode {
@@ -62,10 +65,14 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         crossinline call: suspend () -> Response<T>,
     ): ApiResult<T> {
         return try {
-            if(Helper.checkNetworkConnection()) {
+            if (Helper.checkNetworkConnection()) {
 
                 val response = call()
                 val body = response.body()
+                val token = response.headers().get("Authorization")
+                if (token != null) {
+                    pref.authToken = token
+                }
                 if (response.isSuccessful && body != null) {
                     ApiResult.Success(body)
                 } else {
@@ -81,9 +88,7 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
 //                        BaseApplication.getInstance().networkManager.showServerErrorDialog { }
 //                    }
                     ApiResult.Error(
-                        HttpCode.fromCode(response.code()),
-                        response.code(),
-                        response.message()
+                        HttpCode.fromCode(response.code()), response.code(), response.message()
                     )
                 }
             } else {
@@ -103,10 +108,9 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
     }
 
     suspend fun logIn(
-        request: SighInRequest,
-        authToken: String = pref.authToken,
+        request: LoginRequest,
     ) = safeApiCall {
-        apiService.logIn(request, authToken)
+        apiService.logIn(request)
     }
 
     suspend fun signUp(
@@ -116,8 +120,8 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         apiService.signUp(request, authToken)
     }
 
-    suspend fun getHomeList(authToken: String = pref.authToken) =
-        safeApiCall { apiService.getHomeList(authToken) }
+    suspend fun getShorts(authToken: String = pref.authToken, tag:String) =
+        safeApiCall { apiService.getShorts(authToken,tag) }
 
     suspend fun getAllEpisodeList(
         request: EpisodeRequest,
