@@ -47,31 +47,31 @@ class NewReleaseFragment() : Fragment() {
     }
 
     private fun callApi() {
-        showProgress()
-        viewModel.homeList.observe(viewLifecycleOwner) { result ->
-            if (result is ApiResult.Success) {
-                result.data.responseDetails?.let { responseDetails ->
-                    val adapter =
-                        CommonInfoAdapter(getCommonInfo(responseDetails.newRelese!!)) { seriesId ->
-                            startActivity(
-                                Intent(
-                                    requireContext(),
-                                    ReelsActivity::class.java
-                                ).apply {
-                                    putExtra(CommonsKt.SERIES_ID_EXTRA, seriesId)
-                                })
-                        }
-                    binding.recyclerView.adapter = adapter
-                    if (responseDetails.newRelese!!.isEmpty()) {
-                        showEmpty()
-                    } else {
-                        binding.progressLayout.mainLayout.visibility = View.GONE
-                    }
-                }
-            } else if (result is ApiResult.Error) {
-                showErrorEmpty(result.message)
-            }
-        }
+//        showProgress()
+//        viewModel.homeList.observe(viewLifecycleOwner) { result ->
+//            if (result is ApiResult.Success) {
+//                result.data.responseDetails?.let { responseDetails ->
+//                    val adapter =
+//                        CommonInfoAdapter(getCommonInfo(responseDetails.newRelese!!)) { seriesId ->
+//                            startActivity(
+//                                Intent(
+//                                    requireContext(),
+//                                    ReelsActivity::class.java
+//                                ).apply {
+//                                    putExtra(CommonsKt.SERIES_ID_EXTRA, seriesId)
+//                                })
+//                        }
+//                    binding.recyclerView.adapter = adapter
+//                    if (responseDetails.newRelese!!.isEmpty()) {
+//                        showEmpty()
+//                    } else {
+//                        binding.progressLayout.mainLayout.visibility = View.GONE
+//                    }
+//                }
+//            } else if (result is ApiResult.Error) {
+//                showErrorEmpty(result.message)
+//            }
+//        }
     }
 
     private fun showEmpty() = with(binding) {

@@ -87,4 +87,21 @@
     <string name="new_and_hot"><![CDATA[New & Hot]]></string>
     <string name="revenge_and_dhoka"><![CDATA[Revenge & Dhoka]]></string>
     <string name="all_dramas">All Dramas</string>
+    <string name="premium">Premium</string>
+    <string name="choose_your_premium_plan">Choose Your Premium Plan</string>
+    <string name="users_bought_premium_plan_today">%s users bought premium plan today</string>
+    <string name="rupee_text">\u20B9%d</string>
+    <string name="rupee_symbol">\u20B9</string>
+    <string name="history">History</string>
+    <string name="premium_plan">Premium Plan</string>
+    <string name="view_benefits_below">View benefits below</string>
+    <string name="premium_benefits">Premium Benefits</string>
+    <string name="unlimited_access">Unlimited\nAccess</string>
+    <string name="ads_free">Ads\nFree</string>
+    <string name="hd_quality">HD \nQuality</string>
+    <string name="multiple_logins">Multiple \nLogins</string>
+    <string name="share_the_app">Share the App</string>
+    <string name="terms_and_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="contact_us">Contact us</string>
+    <string name="premium_plan_settings">Premium Plan Settings</string>
 </resources>

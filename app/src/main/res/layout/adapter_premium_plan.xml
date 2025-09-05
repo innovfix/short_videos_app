@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/rg_premium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_premium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+    <TextView
+        android:id="@+id/tv_premium_plan"
+        style="@style/BodyLargeSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yearly Plan"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/_8ssp"
+        android:background="@drawable/bg_box_border"
+        app:layout_constraintStart_toEndOf="@+id/rg_premium"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_current_cost"
+        style="@style/BodyLargeSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yearly Plan"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toEndOf="@+id/rg_premium"
+        app:layout_constraintTop_toBottomOf="@+id/tv_premium_plan" />
+
+    <TextView
+        android:id="@+id/tv_original_cost"
+        style="@style/BodyLargeSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yearly Plan"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toEndOf="@+id/tv_current_cost"
+        app:layout_constraintTop_toBottomOf="@+id/tv_premium_plan" />
+
+    <TextView
+        android:id="@+id/tv_term"
+        style="@style/BodyLargeSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yearly Plan"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_premium_plan" />
+
+    <TextView
+        android:id="@+id/tv_offer"
+        style="@style/BodyLargeSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yearly Plan"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toEndOf="@+id/rg_premium"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_cost" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

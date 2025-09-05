@@ -15,7 +15,6 @@ import com.app.reelshort.Model.CommonInfoReel
 import com.app.reelshort.R
 import com.app.reelshort.UI.Activity.ReelsActivity
 import com.app.reelshort.UI.Activity.SeriesInfoActivity
-import com.app.reelshort.UI.Fragment.ReelsFragment
 import com.app.reelshort.Utils.CommonsKt
 import com.app.reelshort.Utils.CommonsKt.formatNumber
 import com.app.reelshort.Utils.showToast

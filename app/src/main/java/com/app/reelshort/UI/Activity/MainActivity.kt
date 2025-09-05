@@ -25,8 +25,6 @@ import com.app.reelshort.UI.Fragment.HomeFragment
 import com.app.reelshort.UI.Fragment.ListFragment
 import com.app.reelshort.UI.Fragment.MyListFragment
 import com.app.reelshort.UI.Fragment.ProfileFragment
-import com.app.reelshort.UI.Fragment.ReelsFragment
-import com.app.reelshort.UI.Fragment.RewardsFragment
 import com.app.reelshort.Utils.showToast
 import com.app.reelshort.ViewModel.UserViewModel
 import com.app.reelshort.databinding.ActivityMain2Binding
@@ -37,13 +35,9 @@ import kotlin.getValue
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
-
-
     val viewModel: UserViewModel by viewModels()
     lateinit var binding: ActivityMain2Binding
-    lateinit var recommendedBottomSheet: com.app.reelshort.Dialogs.RecommendBottomSheetDialogFragment
     var fragmentsList = ArrayList<Fragment>()
-    var reelsFragment = ReelsFragment()
 
     @Inject
     lateinit var apiService: ApiService
@@ -58,13 +52,13 @@ class MainActivity : BaseActivity() {
         MyFirebaseMessagingService.createNotificationChannel(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
-                    1001
+                    this, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1001
                 )
             }
         }
@@ -88,23 +82,9 @@ class MainActivity : BaseActivity() {
         }
 
 
-
-
-
         fragmentsList.add(HomeFragment())
-        fragmentsList.add(reelsFragment)
         fragmentsList.add(MyListFragment())
-        fragmentsList.add(RewardsFragment())
         fragmentsList.add(ProfileFragment())
-
-
-
-
-
-
-
-
-
 
 
 
@@ -126,41 +106,21 @@ class MainActivity : BaseActivity() {
             bottomNavigationView.setOnNavigationItemSelectedListener { item ->
                 if (item.itemId === R.id.home) {
                     homePager.currentItem = 0
-                    if (reelsFragment.getReelsAdpIsInitialized()) {
-                        reelsFragment.seriesReelsAdapter.pauseAllPlayers()
-                    }
                     return@setOnNavigationItemSelectedListener true
-                } else if (item.itemId === R.id.for_you) {
-                    homePager.currentItem = 1
-                    return@setOnNavigationItemSelectedListener true
-                } else if (item.itemId === R.id.my_lis) {
-                    homePager.currentItem = 2
-                    if (reelsFragment.getReelsAdpIsInitialized()) {
-                        reelsFragment.seriesReelsAdapter.pauseAllPlayers()
+                } else if (item.itemId === R.id.premium) {
 
-                    }
+                    return@setOnNavigationItemSelectedListener false
+                }  else if (item.itemId === R.id.my_list) {
+                    homePager.currentItem = 2
                     return@setOnNavigationItemSelectedListener true
-                } else if (item.itemId === R.id.rewards) {
+                }  else if (item.itemId === R.id.profile) {
                     homePager.currentItem = 3
-                    if (reelsFragment.getReelsAdpIsInitialized()) {
-                        reelsFragment.seriesReelsAdapter.pauseAllPlayers()
-                    }
-                    return@setOnNavigationItemSelectedListener true
-                } else if (item.itemId === R.id.profile) {
-                    homePager.currentItem = 4
-                    if (reelsFragment.getReelsAdpIsInitialized()) {
-                        reelsFragment.seriesReelsAdapter.pauseAllPlayers()
-                    }
                     return@setOnNavigationItemSelectedListener true
                 } else {
                     return@setOnNavigationItemSelectedListener false
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     private var doubleBackToExitPressedOnce = false

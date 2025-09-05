@@ -42,30 +42,30 @@ class RankingFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showProgress()
-        viewModel.homeList.observe(requireActivity()) { result ->
-            if (result is ApiResult.Success) {
-
-                result.data.responseDetails?.let { responseDetails ->
-                    val adapter = CommonInfoAdapter(CommonsKt.getCommonInfo(result.data.responseDetails.ranking!!)) { seriesId ->
-                        startActivity(Intent(requireActivity(), ReelsActivity::class.java).apply {
-                            putExtra(CommonsKt.SERIES_ID_EXTRA, seriesId)
-                        })
-                    }
-                    binding.recyclerView.adapter = adapter
-
-
-                    if (responseDetails.ranking!!.isEmpty()) {
-                        showEmpty()
-                    } else {
-                        binding.progressLayout.mainLayout.visibility = View.GONE
-                    }
-                }
-            } else if (result is ApiResult.Error) {
-
-                showErrorEmpty(result.message)
-            }
-        }
+//        showProgress()
+//        viewModel.homeList.observe(requireActivity()) { result ->
+//            if (result is ApiResult.Success) {
+//
+//                result.data.responseDetails?.let { responseDetails ->
+//                    val adapter = CommonInfoAdapter(CommonsKt.getCommonInfo(result.data.responseDetails.ranking!!)) { seriesId ->
+//                        startActivity(Intent(requireActivity(), ReelsActivity::class.java).apply {
+//                            putExtra(CommonsKt.SERIES_ID_EXTRA, seriesId)
+//                        })
+//                    }
+//                    binding.recyclerView.adapter = adapter
+//
+//
+//                    if (responseDetails.ranking!!.isEmpty()) {
+//                        showEmpty()
+//                    } else {
+//                        binding.progressLayout.mainLayout.visibility = View.GONE
+//                    }
+//                }
+//            } else if (result is ApiResult.Error) {
+//
+//                showErrorEmpty(result.message)
+//            }
+//        }
     }
 
     private fun showEmpty() = with(binding) {

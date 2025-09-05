@@ -1,0 +1,38 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <!-- Mobile phone outline -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:pathData="M5,2h10a2,2 0 0,1 2,2v16a2,2 0 0,1 -2,2H5a2,2 0 0,1 -2,-2V4a2,2 0 0,1 2,-2z" />
+    <!-- Phone home button -->
+    <circle
+        android:fillColor="@android:color/black"
+        android:cx="10"
+        android:cy="19"
+        android:r="1" />
+
+    <!-- First user inside phone -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M8,10a2,2 0 1,0 4,0a2,2 0 1,0 -4,0z" />
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M6.5,15c0,-1.7 1.3,-3 3,-3s3,1.3 3,3z" />
+
+    <!-- Second user (behind, right side) -->
+    <path
+        android:fillColor="@android:color/black"
+        android:fillAlpha="0.6"
+        android:pathData="M13,9a1.5,1.5 0 1,0 0,-3a1.5,1.5 0 1,0 0,3z" />
+    <path
+        android:fillColor="@android:color/black"
+        android:fillAlpha="0.6"
+        android:pathData="M12,13c0,-1.2 1,-2.2 2.2,-2.2s2.3,1 2.3,2.2z" />
+</vector>

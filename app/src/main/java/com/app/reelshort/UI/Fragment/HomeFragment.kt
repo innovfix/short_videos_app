@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.app.reelshort.Model.Shorts
+import com.app.reelshort.UI.Adapter.HomeShortsAdapter
+import com.app.reelshort.UI.Adapter.ShortsAdapter
 import com.app.reelshort.ViewModel.ApiResult
+import com.app.reelshort.ViewModel.HomeViewModel
 import com.app.reelshort.ViewModel.UserViewModel
 import com.app.reelshort.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +19,8 @@ import test.app.gallery.UI1.Base.BaseFragment
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
-    val viewModel: UserViewModel by activityViewModels()
+    val viewModel: HomeViewModel by activityViewModels()
+    private var homeShortsAdapter: HomeShortsAdapter? = null
 
     lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
@@ -33,33 +39,86 @@ class HomeFragment : BaseFragment() {
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvHomeShorts)
         setCenterLayoutManager(binding.rvHomeShorts)
-
     }
-    private fun initListeners() {
-        profileViewModel.avatarsListLiveData.observe(this, Observer {
-            if (it.data != null) {
-                avatarsListAdapter = AvatarsListAdapter(
-                    this, it.data
-                )
-                binding.rvAvatars.setAdapter(avatarsListAdapter)
-                val index = it.data.find { it?.id == userData?.avatar_id }
-                it.data.remove(index)
-                it.data.add(0, index)
-                binding.rvAvatars.smoothScrollToPosition(0)
-            }
-        })
 
-        viewModel.homeList.observe(viewLifecycleOwner) { homeListResponse ->
-            if (homeListResponse is ApiResult.Success) {
-                avatarsListAdapter = AvatarsListAdapter(
-                    this, it.data
+    private fun initListeners() {
+        viewModel.homeList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                homeShortsAdapter = HomeShortsAdapter(
+                    it.shorts
                 )
-                binding.rvAvatars.setAdapter(avatarsListAdapter)
-                val index = it.data.find { it?.id == userData?.avatar_id }
-                it.data.remove(index)
-                it.data.add(0, index)
-                binding.rvAvatars.smoothScrollToPosition(0)
+                binding.rvHomeShorts.setAdapter(homeShortsAdapter)
+                binding.rvHomeShorts.smoothScrollToPosition(0)
             }
         }
+
+        viewModel.top10List.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvTop10On)
+            }
+        }
+        viewModel.loveAffairsList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvLoveAffairs)
+            }
+        }
+        viewModel.specialsList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvSpecials)
+            }
+        }
+        viewModel.top10List.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvTop10On)
+            }
+        }
+        viewModel.trendingNowList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvTrendingNow)
+            }
+        }
+        viewModel.topOriginalsList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvTopOriginals)
+            }
+        }
+        viewModel.top10NewReleasesList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvTop10NewReleases)
+            }
+        }
+        viewModel.ceoBillionaireList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvCeoBillionaire)
+            }
+        }
+        viewModel.justLaunchedList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvJustLaunched)
+            }
+        }
+        viewModel.hiddenIdentityList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvHiddenIdentity)
+            }
+        }
+        viewModel.newHotList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvNewAndHot)
+            }
+        }
+
+        viewModel.revengeAndDhokaList.observe(viewLifecycleOwner) {
+            if (it.success && it.shorts != null) {
+                setAdapter(it.shorts, binding.rvRevengeAndDhoka)
+            }
+        }
+    }
+
+    private fun setAdapter(shorts:List<Shorts>, recyclerView: RecyclerView){
+        val shortsAdapter = ShortsAdapter(
+            shorts
+        )
+        recyclerView.setAdapter(shortsAdapter)
     }
 }

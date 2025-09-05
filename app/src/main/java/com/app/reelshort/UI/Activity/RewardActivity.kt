@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.app.reelshort.R
 import com.app.reelshort.UI.Fragment.MyListFragment
-import com.app.reelshort.UI.Fragment.RewardsFragment
 import com.app.reelshort.databinding.ActivityInvitationCodeBinding
 import com.app.reelshort.databinding.ActivityMyListBinding
 import com.app.reelshort.databinding.ActivityRewardBinding

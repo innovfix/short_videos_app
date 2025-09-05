@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.app.reelshort.R
 import com.app.reelshort.ViewModel.UserViewModel
 import com.app.reelshort.databinding.FragmentMyListBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,9 +17,6 @@ import test.app.gallery.UI1.Base.BaseFragment
 
 @AndroidEntryPoint
 class MyListFragment : BaseFragment() {
-
-//val viewModel: UserViewModel by activityViewModels()
-
     val listFragment = ListFragment(this)
     val historyFragment = HistoryFragment(this)
 
@@ -40,14 +38,11 @@ class MyListFragment : BaseFragment() {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = adapter.getPageTitle(position)
             }.attach()
-
-
         }
 
     }
 
-    inner class CategoryPagerAdapter(fragment: FragmentActivity) :
-        FragmentStateAdapter(fragment) {
+    inner class CategoryPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
 
         private val fragments = listOf(
             listFragment,
@@ -55,7 +50,7 @@ class MyListFragment : BaseFragment() {
         )
 
         private val titles = listOf(
-            "My List", "History",
+            getString(R.string.my_list), getString(R.string.history),
         )
 
         override fun getItemCount(): Int = fragments.size

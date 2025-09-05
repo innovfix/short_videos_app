@@ -29,6 +29,9 @@ import com.app.reelshort.Model.MyListResponse
 import com.app.reelshort.Model.PaymentOptionResponse
 import com.app.reelshort.Model.PaymentUpdateRequest
 import com.app.reelshort.Model.PlanListResponse
+import com.app.reelshort.Model.PremiumPlansResponse
+import com.app.reelshort.Model.PremiumPlansUsersResponse
+import com.app.reelshort.Model.PremiumPlansVideoResponse
 import com.app.reelshort.Model.ReasonsListResponse
 import com.app.reelshort.Model.RewardHistoryResponse
 import com.app.reelshort.Model.SearchRequest
@@ -63,7 +66,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService {
-    @POST("v1/send_otp")
+    @POST("v1/send-otp")
     suspend fun sendOtp(
         @Body request: SendOtpRequest,
     ): Response<SendOtpResponse>
@@ -73,6 +76,20 @@ interface ApiService {
         @Body request: LoginRequest,
     ): Response<LoginResponse>
 
+    @GET("v1/get-premium-plans")
+    suspend fun getPremiumPlans(
+        @Header("Authorization") authToken: String,
+    ): Response<PremiumPlansResponse>
+
+    @GET("v1/get-premium-plans-video")
+    suspend fun getPremiumPlansVideo(
+        @Header("Authorization") authToken: String,
+    ): Response<PremiumPlansVideoResponse>
+
+    @GET("v1/get-premium-users")
+    suspend fun getPremiumPlansUsers(
+        @Header("Authorization") authToken: String,
+    ): Response<PremiumPlansUsersResponse>
 
     @POST("/user/v1/signup-mobile")
     suspend fun signUp(
@@ -88,8 +105,13 @@ interface ApiService {
     ): Response<ShortsResponse>
 
 
-    @GET("user/v1/home/my-list")
+    @GET("user/v1/my-list")
     suspend fun getMyList(
+        @Header("Authorization") authToken: String,
+    ): Response<MyListResponse>
+
+    @GET("user/v1/history")
+    suspend fun getHistory(
         @Header("Authorization") authToken: String,
     ): Response<MyListResponse>
 

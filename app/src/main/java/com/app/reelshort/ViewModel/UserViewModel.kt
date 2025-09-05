@@ -1,5 +1,6 @@
 package com.app.reelshort.ViewModel
 
+import android.annotation.SuppressLint
 import android.provider.Settings
 import android.widget.Toast
 import androidx.annotation.Keep
@@ -15,10 +16,14 @@ import com.app.reelshort.Model.LoginRequest
 import com.app.reelshort.Model.LoginResponse
 import com.app.reelshort.Model.MyListResponse
 import com.app.reelshort.Model.PlanListResponse
+import com.app.reelshort.Model.PremiumPlansResponse
+import com.app.reelshort.Model.PremiumPlansUsersResponse
+import com.app.reelshort.Model.PremiumPlansVideoResponse
 import com.app.reelshort.Model.RewardHistoryResponse
 import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
+import com.app.reelshort.Model.Shorts
 import com.app.reelshort.Model.ShortsResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
@@ -35,53 +40,6 @@ class UserViewModel @Inject constructor(
 ) : ViewModel() {
     val pref: DPreferences get() = DPreferences(BaseApplication.getInstance())
 
-    private val _homeList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val homeList: LiveData<ApiResult<ShortsResponse>> = _homeList
-
-    private val _top10List = MutableLiveData<ApiResult<ShortsResponse>>()
-    val top10List: LiveData<ApiResult<ShortsResponse>> = _top10List
-
-    private val _loveAffairsList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val loveAffairsList: LiveData<ApiResult<ShortsResponse>> = _loveAffairsList
-
-    private val _specialsList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val specialsList: LiveData<ApiResult<ShortsResponse>> = _specialsList
-
-    private val _trendingNowList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val trendingNowList: LiveData<ApiResult<ShortsResponse>> = _trendingNowList
-
-    private val _topOriginalsList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val topOriginalsList: LiveData<ApiResult<ShortsResponse>> = _topOriginalsList
-
-    private val _top10NewReleasesList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val top10NewReleasesList: LiveData<ApiResult<ShortsResponse>> = _top10NewReleasesList
-
-    private val _ceoBillionaireList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val ceoBillionaireList: LiveData<ApiResult<ShortsResponse>> = _ceoBillionaireList
-
-    private val _justLaunchedList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val justLaunchedList: LiveData<ApiResult<ShortsResponse>> = _justLaunchedList
-
-    private val _hiddenIdentityList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val hiddenIdentityList: LiveData<ApiResult<ShortsResponse>> = _hiddenIdentityList
-
-    private val _newHotList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val newHotList: LiveData<ApiResult<ShortsResponse>> = _newHotList
-
-    private val _revengeAndDhokaList = MutableLiveData<ApiResult<ShortsResponse>>()
-    val revengeAndDhokaList: LiveData<ApiResult<ShortsResponse>> = _revengeAndDhokaList
-
-    private val _allEpisodes = MutableLiveData<ApiResult<EpisodeListResponse>>()
-    val allEpisodes: LiveData<ApiResult<EpisodeListResponse>> = _allEpisodes
-
-
-    private val _myList = MutableLiveData<ApiResult<MyListResponse>>()
-    val myList: LiveData<ApiResult<MyListResponse>> = _myList
-
-    private val _planList = MutableLiveData<ApiResult<PlanListResponse>>()
-    val planList: LiveData<ApiResult<PlanListResponse>> = _planList
-
-
     private val _rewardHistory = MutableLiveData<ApiResult<RewardHistoryResponse>>()
     val rewardHistory: LiveData<ApiResult<RewardHistoryResponse>> = _rewardHistory
 
@@ -97,106 +55,17 @@ class UserViewModel @Inject constructor(
     private val _loginError = MutableLiveData<ApiResult.Error>()
     val loginError: LiveData<ApiResult.Error> = _loginError
 
-    val deviceId = Settings.Secure.getString(BaseApplication.getInstance().contentResolver, Settings.Secure.ANDROID_ID)
+    private val _myListResponse = MutableLiveData<MyListResponse>()
+    val myListResponse: LiveData<MyListResponse> = _myListResponse
 
-    init {
-        getHomeShorts(pref.authToken)
-        getTop10(pref.authToken)
-        getLoveAffairs(pref.authToken)
-        getPlanList(pref.authToken)
-        getPlanList(pref.authToken)
-        getSpecials( pref.authToken)
-        getTrendingNow(pref.authToken)
-        getTopOriginals(pref.authToken)
-        getTop10NewReleases( pref.authToken)
-        getCeoBillionaire( pref.authToken)
-        getJustLaunched( pref.authToken)
-        getHiddenIdentity( pref.authToken)
-        getNewHot( pref.authToken)
-        getRevengeAndDhoka( pref.authToken)
-    }
+    private val _myListError = MutableLiveData<ApiResult.Error>()
+    val myListError: LiveData<ApiResult.Error> = _myListError
 
-    fun getHomeShorts(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val result = repository.getShorts(authToken, "is_home_shorts")
-            if (result is ApiResult.Success) {
-                _.value = result.data
-            }
-        }
-    }
+    private val _historyResponse = MutableLiveData<MyListResponse>()
+    val historyResponse: LiveData<MyListResponse> = _historyResponse
 
-    fun getTop10(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _top10List.value = repository.getShorts(authToken, "is_top_10")
-        }
-    }
-
-    fun getLoveAffairs(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _loveAffairsList.value = repository.getShorts(authToken, "is_love_affairs")
-        }
-    }
-
-    fun getSpecials(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _specialsList.value = repository.getShorts(authToken, "is_specials")
-        }
-    }
-
-    fun getTrendingNow(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _trendingNowList.value = repository.getShorts(authToken, "is_trending_now")
-        }
-    }
-
-    fun getTopOriginals(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _topOriginalsList.value = repository.getShorts(authToken, "is_top_originals")
-        }
-    }
-
-    fun getTop10NewReleases(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _top10NewReleasesList.value = repository.getShorts(authToken, "is_top_10_new_releases")
-        }
-    }
-
-    fun getCeoBillionaire(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _ceoBillionaireList.value = repository.getShorts(authToken, "is_ceo_billionaire")
-        }
-    }
-
-    fun getJustLaunched(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _justLaunchedList.value = repository.getShorts(authToken, "is_just_launched")
-        }
-    }
-
-    fun getHiddenIdentity(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _hiddenIdentityList.value = repository.getShorts(authToken, "is_hidden_identity")
-        }
-    }
-
-    fun getNewHot(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _newHotList.value = repository.getShorts(authToken, "is_new_hot")
-        }
-    }
-
-    fun getRevengeAndDhoka(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _revengeAndDhokaList.value = repository.getShorts(authToken, "is_revenge_and_dhoka")
-        }
-    }
-
-    fun getPlanList(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _planList.value = repository.getPlanList(authToken)
-        }
-    }
-
+    private val _historyError = MutableLiveData<ApiResult.Error>()
+    val historyError: LiveData<ApiResult.Error> = _historyError
 
     fun sendOtp(request: SendOtpRequest) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -219,4 +88,27 @@ class UserViewModel @Inject constructor(
             }
         }
     }
+
+    fun getMyList(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            val result = repository.getMyList(authToken)
+            if (result is ApiResult.Success) {
+                _myListResponse.value = result.data
+            } else if (result is ApiResult.Error) {
+                _myListError.value = result
+            }
+        }
+    }
+
+    fun getHistory(authToken: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            val result = repository.getHistory(authToken)
+            if (result is ApiResult.Success) {
+                _historyResponse.value = result.data
+            } else if (result is ApiResult.Error) {
+                _historyError.value = result
+            }
+        }
+    }
+
 }

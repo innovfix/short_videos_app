@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ShortsResponse(
     val success: Boolean,
     val message: String,
-    val shorts: List<Shorts?>?,
+    val shorts: List<Shorts>?,
 )
 
 data class Shorts(

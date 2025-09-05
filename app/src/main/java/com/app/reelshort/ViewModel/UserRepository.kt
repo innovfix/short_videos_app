@@ -113,6 +113,24 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         apiService.logIn(request)
     }
 
+    suspend fun getPremiumPlans(
+        authToken: String = pref.authToken,
+    ) = safeApiCall {
+        apiService.getPremiumPlans(authToken)
+    }
+
+    suspend fun getPremiumPlansVideo(
+        authToken: String = pref.authToken,
+    ) = safeApiCall {
+        apiService.getPremiumPlansVideo(authToken)
+    }
+
+    suspend fun getPremiumPlansUsers(
+        authToken: String = pref.authToken,
+    ) = safeApiCall {
+        apiService.getPremiumPlansUsers(authToken)
+    }
+
     suspend fun signUp(
         request: SighInRequest,
         authToken: String = pref.authToken,
@@ -130,6 +148,9 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
 
     suspend fun getMyList(authToken: String = pref.authToken) =
         safeApiCall { apiService.getMyList(authToken) }
+
+    suspend fun getHistory(authToken: String = pref.authToken) =
+        safeApiCall { apiService.getHistory(authToken) }
 
     suspend fun setLikeEpisode(
         authToken: String = pref.authToken,

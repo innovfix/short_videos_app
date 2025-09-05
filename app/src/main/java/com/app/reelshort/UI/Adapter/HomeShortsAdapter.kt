@@ -1,9 +1,9 @@
 package com.app.reelshort.UI.Adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.Shorts
 import com.app.reelshort.databinding.AdapterShortBinding
 import com.bumptech.glide.Glide
@@ -11,9 +11,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 
-class HomeShortsListAdapter(
-    private val activity: Activity,
-    private val shorts: ArrayList<Shorts?>,
+class HomeShortsAdapter(
+    private val shorts: List<Shorts>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -29,7 +28,7 @@ class HomeShortsListAdapter(
         val holder: ItemHolder = holderParent as ItemHolder
         val short: Shorts? = shorts[position]
 
-        Glide.with(activity).load(short?.thumbnailUrl)
+        Glide.with(BaseApplication.getInstance()).load(short?.thumbnailUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(14))).into(holder.binding.ivShort)
 
     }

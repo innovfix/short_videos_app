@@ -250,81 +250,81 @@ class ReelsActivity : BaseActivity() {
     }
 
     private fun callApi(callback: () -> Unit = {}) {
-        showProgress()
-        val episodeId = intent.getStringExtra(CommonsKt.SERIES_ID_EXTRA)
-        episodeId?.let {
-            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken?:"")
-            viewModel.allEpisodes.observe(this) { result ->
-                if (result is ApiResult.Success) {
-                    result.data.responseDetails?.allEpisodes?.let { allEpisodes ->
-
-
-                        allEpisodes.forEach {
-                            it?.categoryName = result.data.responseDetails.series?.categoryName
-                            it?.poster = result.data.responseDetails.series?.poster
-                                ?: result.data.responseDetails.series?.thumbnail
-
-                            it?.isLiked = result.data.responseDetails.series?.isLiked ?: 0
-                            it?.likedCount = result.data.responseDetails.series?.likes ?: 0
-
-                            it?.isFavourites = result.data.responseDetails.series?.isFavourite ?: 0
-                            it?.favouritesCount =
-                                result.data.responseDetails.series?.favourites ?: 0
-
-                            it?.isAutoUnlocked =
-                                result.data.responseDetails.series?.isAutoUnlocked ?: 0
-                        }
-
-                        reels = ArrayList()
-                        if (result.data.responseDetails.series?.coverVideo != null) {
-                            val trailerItem = CommonInfoReel(
-                                id = result.data.responseDetails.allEpisodes.first()?.id,
-                                title = result.data.responseDetails.series.title,
-                                description = result.data.responseDetails.series.description,
-                                videoUrl = result.data.responseDetails.series.coverVideo,
-                                categoryName = result.data.responseDetails.series.categoryName,
-                                poster = result.data.responseDetails.series.poster
-                                    ?: result.data.responseDetails.series.thumbnail,
-                                TypeName = result.data.responseDetails.series.typeName,
-                                seriesId = result.data.responseDetails.series.id,
-                                isTrailer = true,
-                                availableWalletBalance = result.data.responseDetails.series.availableWalletBalance,
-                                availableCoin = result.data.responseDetails.series.availableCoin,
-
-                                isLiked = result.data.responseDetails.series.isLiked ?: 0,
-                                likedCount = result.data.responseDetails.series.likes ?: 0,
-
-                                isFavourites = result.data.responseDetails.series.isFavourite ?: 0,
-                                favouritesCount = result.data.responseDetails.series.favourites
-                                    ?: 0,
-
-                                isAutoUnlocked = result.data.responseDetails.series.isAutoUnlocked
-                                    ?: 0
-                            )
-                            reels.add(trailerItem)
-                        }
-
-                        reels.addAll(CommonsKt.getCommonInfoReel(allEpisodes.filterNotNull()))
-
-                        if (reels.isEmpty()) {
-                            showEmpty()
-                        } else {
-                            binding.progressLayout.mainLayout.visibility = View.GONE
-                        }
-
-                        if (isOnCreateActivity) {
-                            index = result.data.responseDetails.series?.lastViewedEpisode ?: index
-                            isOnCreateActivity = false
-                        }
-                        loadData()
-                        callback.invoke()
-                    }
-                } else if (result is ApiResult.Error) {
-
-                    showErrorEmpty(result.message)
-                }
-            }
-        }
+//        showProgress()
+//        val episodeId = intent.getStringExtra(CommonsKt.SERIES_ID_EXTRA)
+//        episodeId?.let {
+//            viewModel.loadEpisodes(episodeId.toInt(), pref.authToken?:"")
+//            viewModel.allEpisodes.observe(this) { result ->
+//                if (result is ApiResult.Success) {
+//                    result.data.responseDetails?.allEpisodes?.let { allEpisodes ->
+//
+//
+//                        allEpisodes.forEach {
+//                            it?.categoryName = result.data.responseDetails.series?.categoryName
+//                            it?.poster = result.data.responseDetails.series?.poster
+//                                ?: result.data.responseDetails.series?.thumbnail
+//
+//                            it?.isLiked = result.data.responseDetails.series?.isLiked ?: 0
+//                            it?.likedCount = result.data.responseDetails.series?.likes ?: 0
+//
+//                            it?.isFavourites = result.data.responseDetails.series?.isFavourite ?: 0
+//                            it?.favouritesCount =
+//                                result.data.responseDetails.series?.favourites ?: 0
+//
+//                            it?.isAutoUnlocked =
+//                                result.data.responseDetails.series?.isAutoUnlocked ?: 0
+//                        }
+//
+//                        reels = ArrayList()
+//                        if (result.data.responseDetails.series?.coverVideo != null) {
+//                            val trailerItem = CommonInfoReel(
+//                                id = result.data.responseDetails.allEpisodes.first()?.id,
+//                                title = result.data.responseDetails.series.title,
+//                                description = result.data.responseDetails.series.description,
+//                                videoUrl = result.data.responseDetails.series.coverVideo,
+//                                categoryName = result.data.responseDetails.series.categoryName,
+//                                poster = result.data.responseDetails.series.poster
+//                                    ?: result.data.responseDetails.series.thumbnail,
+//                                TypeName = result.data.responseDetails.series.typeName,
+//                                seriesId = result.data.responseDetails.series.id,
+//                                isTrailer = true,
+//                                availableWalletBalance = result.data.responseDetails.series.availableWalletBalance,
+//                                availableCoin = result.data.responseDetails.series.availableCoin,
+//
+//                                isLiked = result.data.responseDetails.series.isLiked ?: 0,
+//                                likedCount = result.data.responseDetails.series.likes ?: 0,
+//
+//                                isFavourites = result.data.responseDetails.series.isFavourite ?: 0,
+//                                favouritesCount = result.data.responseDetails.series.favourites
+//                                    ?: 0,
+//
+//                                isAutoUnlocked = result.data.responseDetails.series.isAutoUnlocked
+//                                    ?: 0
+//                            )
+//                            reels.add(trailerItem)
+//                        }
+//
+//                        reels.addAll(CommonsKt.getCommonInfoReel(allEpisodes.filterNotNull()))
+//
+//                        if (reels.isEmpty()) {
+//                            showEmpty()
+//                        } else {
+//                            binding.progressLayout.mainLayout.visibility = View.GONE
+//                        }
+//
+//                        if (isOnCreateActivity) {
+//                            index = result.data.responseDetails.series?.lastViewedEpisode ?: index
+//                            isOnCreateActivity = false
+//                        }
+//                        loadData()
+//                        callback.invoke()
+//                    }
+//                } else if (result is ApiResult.Error) {
+//
+//                    showErrorEmpty(result.message)
+//                }
+//            }
+//        }
     }
 
     fun onNext(currentPosition: Int, episodeAdapter: EpisodeListAdapter) {

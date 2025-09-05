@@ -7,7 +7,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.viewModelScope
 import com.app.reelshort.UI.Adapter.FaqAdapter
-import com.app.reelshort.UI.Adapter.MylistAdapterAdapter
 import com.app.reelshort.Utils.gone
 import com.app.reelshort.Utils.showToast
 import com.app.reelshort.Utils.visible
