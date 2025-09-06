@@ -60,7 +60,7 @@ class MyListFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        reelsAdapter2?.pauseAllPlayers()
+//        reelsAdapter2?.pauseAllPlayers()
         listFragment.onResume()
 
     }

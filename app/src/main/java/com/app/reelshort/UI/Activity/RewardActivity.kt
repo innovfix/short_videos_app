@@ -26,10 +26,10 @@ class RewardActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        val myListFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as? RewardsFragment
-        myListFragment?.binding?.llToolbar?.visibility = View.VISIBLE
-        myListFragment?.binding?.llToolbar?.setOnClickListener {
-            onBackPressed()
-        }
+//        val myListFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as? RewardsFragment
+//        myListFragment?.binding?.llToolbar?.visibility = View.VISIBLE
+//        myListFragment?.binding?.llToolbar?.setOnClickListener {
+//            onBackPressed()
+//        }
     }
 }

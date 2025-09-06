@@ -127,21 +127,21 @@ class MainActivity : BaseActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        if (HistoryFragment.instance != null && HistoryFragment.instance!!.isVisible) {
-            if (HistoryFragment.instance!!.adapter.isSelectionMode) {
-                HistoryFragment.instance!!.adapter.clearSelection()
-            } else {
-                onBackPressed2()
-            }
-        } else if (ListFragment.instance != null && ListFragment.instance!!.isVisible) {
-            if (ListFragment.instance!!.adapter.isSelectionMode) {
-                ListFragment.instance!!.adapter.clearSelection()
-            } else {
-                onBackPressed2()
-            }
-        } else {
-            onBackPressed2()
-        }
+//        if (HistoryFragment.instance != null && HistoryFragment.instance!!.isVisible) {
+//            if (HistoryFragment.instance!!.adapter.isSelectionMode) {
+//                HistoryFragment.instance!!.adapter.clearSelection()
+//            } else {
+//                onBackPressed2()
+//            }
+//        } else if (ListFragment.instance != null && ListFragment.instance!!.isVisible) {
+//            if (ListFragment.instance!!.adapter.isSelectionMode) {
+//                ListFragment.instance!!.adapter.clearSelection()
+//            } else {
+//                onBackPressed2()
+//            }
+//        } else {
+//            onBackPressed2()
+//        }
     }
 
     fun onBackPressed2() {

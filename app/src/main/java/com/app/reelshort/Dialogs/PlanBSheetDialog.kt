@@ -51,35 +51,35 @@ class PlanBSheetDialog(
     }
 
     private fun loadData() {
-        activity.pref.authToken?.let { viewModel.getPlanList(it) }
-        showProgress()
-        viewModel.planList.observe(activity) { result ->
-            if (result is ApiResult.Success) {
-                result.data.responseDetails?.let { responseDetails ->
-                    val subscribeAdapter =
-                        PlanSubscribeAdapter(responseDetails.unlimited!!) { unlimited ->
-                            showPaymentOptionSheet(unlimited.id.toString(), unlimited.amount.toString())
-                        }
-                    binding.subscribeRV.adapter = subscribeAdapter
-
-                    val refillAdapter = PlanRefillAdapter(responseDetails.limited!!) { limited ->
-                        showPaymentOptionSheet(limited.id.toString(), limited.amount.toString())
-                    }
-                    binding.refillRv.adapter = refillAdapter
-
-                    if (responseDetails.limited.isEmpty()) {
-                        binding.llRefill.visibility = View.GONE
-                    }
-
-                    if (responseDetails.unlimited.isEmpty()) {
-                        binding.llSubscribe.visibility = View.GONE
-                    }
-                }
-                binding.progressLayout.mainLayout.visibility = View.GONE
-            } else if (result is ApiResult.Error) {
-                showErrorEmpty(result.message)
-            }
-        }
+//        activity.pref.authToken?.let { viewModel.getPlanList(it) }
+//        showProgress()
+//        viewModel.planList.observe(activity) { result ->
+//            if (result is ApiResult.Success) {
+//                result.data.responseDetails?.let { responseDetails ->
+//                    val subscribeAdapter =
+//                        PlanSubscribeAdapter(responseDetails.unlimited!!) { unlimited ->
+//                            showPaymentOptionSheet(unlimited.id.toString(), unlimited.amount.toString())
+//                        }
+//                    binding.subscribeRV.adapter = subscribeAdapter
+//
+//                    val refillAdapter = PlanRefillAdapter(responseDetails.limited!!) { limited ->
+//                        showPaymentOptionSheet(limited.id.toString(), limited.amount.toString())
+//                    }
+//                    binding.refillRv.adapter = refillAdapter
+//
+//                    if (responseDetails.limited.isEmpty()) {
+//                        binding.llRefill.visibility = View.GONE
+//                    }
+//
+//                    if (responseDetails.unlimited.isEmpty()) {
+//                        binding.llSubscribe.visibility = View.GONE
+//                    }
+//                }
+//                binding.progressLayout.mainLayout.visibility = View.GONE
+//            } else if (result is ApiResult.Error) {
+//                showErrorEmpty(result.message)
+//            }
+//        }
     }
 
     private fun showEmpty() = with(binding) {

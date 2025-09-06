@@ -57,43 +57,43 @@ class PlanActivity : BaseActivity() {
     }
 
     private fun loadData() {
-        viewModel.getPlanList(pref.authToken?:"")
-        showProgress()
-        viewModel.planList.observe(this@PlanActivity) { result ->
-            if (result is ApiResult.Success) {
-                result.data.responseDetails?.let { responseDetails ->
-                    val subscribeAdapter =
-                        PlanSubscribeAdapter(responseDetails.unlimited!!) { unlimited ->
-                            showPaymentOptionSheet(
-                                unlimited.id.toString(),
-                                unlimited.amount.toString()
-                            )
-                        }
-                    binding.subscribeRV.adapter = subscribeAdapter
-
-                    val refillAdapter = PlanRefillAdapter(responseDetails.limited!!) { limited ->
-                        showPaymentOptionSheet(limited.id.toString(), limited.amount.toString())
-                    }
-                    binding.refillRv.adapter = refillAdapter
-
-                    if (responseDetails.limited.isEmpty()) {
-                        binding.llRefill.visibility = View.GONE
-                    }
-
-                    if (responseDetails.unlimited.isEmpty()) {
-                        binding.llSubscribe.visibility = View.GONE
-                    }
-                }
-                binding.progressLayout.mainLayout.visibility = View.GONE
-            } else if (result is ApiResult.Error) {
-                showErrorEmpty(result.message)
-            }
-        }
-//        viewModel.login(viewModel.loginRequest, pref.authToken?:"")
-//        viewModel.signUp.observe(this) { loginResponse ->
-//            binding.coinBalance.text = (loginResponse.coinBalance ?: "0").toString()
-//            binding.rewardsCoins.text = (loginResponse.walletBalance ?: "0").toString()
+//        viewModel.getPlanList(pref.authToken?:"")
+//        showProgress()
+//        viewModel.planList.observe(this@PlanActivity) { result ->
+//            if (result is ApiResult.Success) {
+//                result.data.responseDetails?.let { responseDetails ->
+//                    val subscribeAdapter =
+//                        PlanSubscribeAdapter(responseDetails.unlimited!!) { unlimited ->
+//                            showPaymentOptionSheet(
+//                                unlimited.id.toString(),
+//                                unlimited.amount.toString()
+//                            )
+//                        }
+//                    binding.subscribeRV.adapter = subscribeAdapter
+//
+//                    val refillAdapter = PlanRefillAdapter(responseDetails.limited!!) { limited ->
+//                        showPaymentOptionSheet(limited.id.toString(), limited.amount.toString())
+//                    }
+//                    binding.refillRv.adapter = refillAdapter
+//
+//                    if (responseDetails.limited.isEmpty()) {
+//                        binding.llRefill.visibility = View.GONE
+//                    }
+//
+//                    if (responseDetails.unlimited.isEmpty()) {
+//                        binding.llSubscribe.visibility = View.GONE
+//                    }
+//                }
+//                binding.progressLayout.mainLayout.visibility = View.GONE
+//            } else if (result is ApiResult.Error) {
+//                showErrorEmpty(result.message)
+//            }
 //        }
+////        viewModel.login(viewModel.loginRequest, pref.authToken?:"")
+////        viewModel.signUp.observe(this) { loginResponse ->
+////            binding.coinBalance.text = (loginResponse.coinBalance ?: "0").toString()
+////            binding.rewardsCoins.text = (loginResponse.walletBalance ?: "0").toString()
+////        }
     }
 
     private fun showEmpty() = with(binding) {

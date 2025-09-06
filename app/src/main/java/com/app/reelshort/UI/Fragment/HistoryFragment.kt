@@ -15,7 +15,6 @@ import com.app.reelshort.R
 import com.app.reelshort.UI.Activity.MainActivity
 import com.app.reelshort.UI.Activity.MyListActivity
 import com.app.reelshort.UI.Activity.ReelsActivity
-import com.app.reelshort.UI.Adapter.HistoryAdapterAdapter
 import com.app.reelshort.UI.Adapter.MyListAdapter
 import com.app.reelshort.Utils.CommonsKt
 import com.app.reelshort.Utils.gone

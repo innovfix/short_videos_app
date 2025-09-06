@@ -14,6 +14,7 @@ import com.app.reelshort.Model.EpisodeListResponse
 import com.app.reelshort.Model.EpisodeRequest
 import com.app.reelshort.Model.LoginRequest
 import com.app.reelshort.Model.LoginResponse
+import com.app.reelshort.Model.MyListResponse
 import com.app.reelshort.Model.PlanListResponse
 import com.app.reelshort.Model.PremiumPlansResponse
 import com.app.reelshort.Model.PremiumPlansUsersResponse

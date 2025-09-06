@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.app.reelshort.App.BaseApplication
-import com.app.reelshort.UI.Adapter.SeriesReelsAdapter
 import com.app.reelshort.Utils.DPreferences
 import kotlin.math.abs
 
 abstract class BaseFragment : Fragment() {
     lateinit var pref: DPreferences
-    var reelsAdapter2: SeriesReelsAdapter? = null
+//    var reelsAdapter2: SeriesReelsAdapter? = null
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
