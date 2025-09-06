@@ -4,17 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.net.ConnectivityManager
 import android.os.Bundle
-import com.app.reelshort.Ads.AdsGoogle
 import com.app.reelshort.Model.CommonInfo
 import com.app.reelshort.Model.SignUpResponse
 import com.app.reelshort.Utils.DPreferences
 import com.app.reelshort.Utils.NetworkManager
-import com.applovin.sdk.AppLovinMediationProvider
-import com.applovin.sdk.AppLovinSdk
-import com.applovin.sdk.AppLovinSdkInitializationConfiguration
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

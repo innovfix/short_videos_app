@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import com.app.reelshort.Model.PaymentOptionResponse
-import com.app.reelshort.UI.Activity.RazorpayPaymentActivity
 import com.app.reelshort.UI.Activity.StripePaymentActivity
 import com.app.reelshort.UI.Adapter.CommonInfoAdapter
 import com.app.reelshort.UI.Adapter.PaymentAdapter
@@ -47,15 +46,6 @@ class PaymentOptionBottomSheet(
             val intent = when (item.name) {
                 "Stripe" -> {
                     Intent(context, StripePaymentActivity::class.java).apply {
-                        putExtra(CommonsKt.PAYMENT_KEY_EXTRA, apiKey)
-                        putExtra(CommonsKt.PAYMENT_AMOUNT_EXTRA, amount)
-                        putExtra(CommonsKt.PLAN_ID_EXTRA, id)
-                        putExtra(CommonsKt.GETAWAY_ID_EXTRA, item.id.toString())
-                    }
-                }
-
-                "RazorPay" -> {
-                    Intent(context, RazorpayPaymentActivity::class.java).apply {
                         putExtra(CommonsKt.PAYMENT_KEY_EXTRA, apiKey)
                         putExtra(CommonsKt.PAYMENT_AMOUNT_EXTRA, amount)
                         putExtra(CommonsKt.PLAN_ID_EXTRA, id)

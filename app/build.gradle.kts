@@ -31,7 +31,6 @@ android {
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "APPLOVIN_KEY", "\"${localProperties["APPLOVIN_KEY"]}\"")
 //        buildConfigField("String", "FACEBOOK_APP_ID", "\"${localProperties["FACEBOOK_APP_ID"]}\"")
         buildConfigField("String", "BASE_URL", "\"${localProperties["BASE_URL"]}\"")
         buildConfigField("String", "SHA_256", "\"${localProperties["SHA_256"]}\"")
@@ -128,16 +127,12 @@ dependencies {
     // RatingBar
     implementation(libs.ratingbar)
 
-    //razorpay
-    implementation(libs.checkout)
-
     // Stripe Android SDK
     implementation(libs.stripe.java)
     implementation(libs.stripe.android)
 
 
     implementation(libs.play.services.ads)
-    implementation(libs.applovin.sdk)
 
 //    // Facebook SDK
 //    implementation(libs.facebook.android.sdk)

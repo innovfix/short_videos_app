@@ -1,5 +1,6 @@
+<!DOCTYPE resources [<!ENTITY appname "Drama Short">]>
 <resources>
-    <string name="app_name">Drama Short</string>
+    <string name="app_name">&appname;</string>
     <string name="home">Home</string>
     <string name="for_you">For you</string>
     <string name="my_list">My List</string>
@@ -77,10 +78,10 @@
     <string name="enter_the_4_digit_otp">Enter the 4 digit OTP</string>
     <string name="resend_in_seconds">Resend in %s seconds</string>
     <string name="continue_watching">Continue Watching</string>
-    <string name="top_10_on">Top 10 on $app_name;</string>
-    <string name="specials">$app_name; Specials</string>
+    <string name="top_10_on">Top 10 on &appname;</string>
+    <string name="specials">&appname; Specials</string>
     <string name="trending_now">Trending Now</string>
-    <string name="top_originals">Top $app_name; Originals</string>
+    <string name="top_originals">Top &appname; Originals</string>
     <string name="top_10_new_releases">Top 10 New Releases</string>
     <string name="just_launched">Just Launched</string>
     <string name="hidden_identity">Hidden Identity</string>

@@ -91,8 +91,6 @@ class HomeViewModel @Inject constructor(
         getHomeShorts(pref.authToken)
         getTop10(pref.authToken)
         getLoveAffairs(pref.authToken)
-        getPlanList(pref.authToken)
-        getPlanList(pref.authToken)
         getSpecials(pref.authToken)
         getTrendingNow(pref.authToken)
         getTopOriginals(pref.authToken)
@@ -105,121 +103,121 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getHomeShorts(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_home_shorts")
             if (result is ApiResult.Success) {
                 var shorts = result.data
-                _homeList.value = shorts
+                _homeList.postValue(shorts)
             }
         }
     }
 
     fun getTop10(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_top_10")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _top10List.value = shorts
+                _top10List.postValue(shorts)
             }
         }
     }
 
     fun getLoveAffairs(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_love_affairs")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _loveAffairsList.value = shorts
+                _loveAffairsList.postValue(shorts)
             }
         }
     }
 
     fun getSpecials(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_specials")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _specialsList.value = shorts
+                _specialsList.postValue(shorts)
             }
         }
     }
 
     fun getTrendingNow(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_trending_now")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _trendingNowList.value = shorts
+                _trendingNowList.postValue(shorts)
             }
         }
     }
 
     fun getTopOriginals(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_top_originals")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _topOriginalsList.value = shorts
+                _topOriginalsList.postValue(shorts)
             }
         }
     }
 
     fun getTop10NewReleases(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_top_10_new_releases")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _top10NewReleasesList.value = shorts
+                _top10NewReleasesList.postValue(shorts)
             }
         }
     }
 
     fun getCeoBillionaire(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_ceo_billionaire")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _ceoBillionaireList.value = shorts
+                _ceoBillionaireList.postValue(shorts)
             }
         }
     }
 
     fun getJustLaunched(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_just_launched")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _justLaunchedList.value = shorts
+                _justLaunchedList.postValue(shorts)
             }
         }
     }
 
     fun getHiddenIdentity(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_hidden_identity")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _hiddenIdentityList.value = shorts
+                _hiddenIdentityList.postValue(shorts)
             }
         }
     }
 
     fun getNewHot(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_new_hot")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _newHotList.value = shorts
+                _newHotList.postValue(shorts)
             }
         }
     }
 
     fun getRevengeAndDhoka(authToken: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getShorts(authToken, "is_revenge_and_dhoka")
             if (result is ApiResult.Success) {
                 val shorts = result.data
-                _revengeAndDhokaList.value = shorts
+                _revengeAndDhokaList.postValue(shorts)
             }
         }
     }

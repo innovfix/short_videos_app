@@ -35,16 +35,40 @@
         app:layout_constraintGuide_percent="0.92" />
 
     <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"
+        android:id="@+id/iv_logo"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:contentDescription="@string/app_name"
-        android:rotation="180"
+        android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="@id/gl_left_margin"
         app:layout_constraintTop_toTopOf="@id/gl_top_margin"
-        app:tint="#feffff"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/iv_reward"
+        android:layout_width="@dimen/_13sdp"
+        android:layout_height="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:src="@drawable/ic_rewards"
+        app:layout_constraintEnd_toStartOf="@id/tv_premium"
+        app:layout_constraintTop_toTopOf="@id/gl_top_margin"
+        app:tint="@color/colorMain"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_premium"
+        style="@style/BodyLargeSemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:gravity="center"
+        android:text="@string/premium"
+        android:textColor="@color/colorMain"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_reward"
+        app:layout_constraintEnd_toEndOf="@id/gl_right_margin"
+        app:layout_constraintTop_toTopOf="@id/iv_reward" />
 
     <ScrollView
         android:id="@+id/sv_details"
@@ -54,9 +78,9 @@
         android:fillViewport="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/gl_right_margin"
-        app:layout_constraintStart_toStartOf="@id/gl_left_margin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_back">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -71,14 +95,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintHeight_default="percent"
-                app:layout_constraintHeight_percent="0.027"
+                app:layout_constraintHeight_percent="0.042"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_home_shorts"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_270sdp"
                 android:layout_marginTop="@dimen/_14sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
@@ -86,40 +110,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v_top_margin" />
 
-            <TextView
-                android:id="@+id/tv_continue_watching"
-                style="@style/BodyLargeSemiBold"
+            <LinearLayout
+                android:id="@+id/ll_dots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
                 android:gravity="center"
-                android:text="@string/continue_watching"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_home_shorts" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_continue_watching"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_continue_watching" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_home_shorts"
+                android:layout_marginTop="8dp"/>
 
             <TextView
                 android:id="@+id/tv_top_10_on"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:gravity="center"
                 android:text="@string/top_10_on"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_continue_watching" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_dots" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_top_10_on"

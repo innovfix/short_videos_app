@@ -23,7 +23,6 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://jfrog.anythinktech.com/artifactory/debugger")
         }
-        maven { url  = uri("https://artifacts.applovin.com/android") }
 
     }
 }

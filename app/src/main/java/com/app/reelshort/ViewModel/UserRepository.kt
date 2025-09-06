@@ -240,11 +240,6 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         authToken: String = pref.authToken,
     ) = safeApiCall { apiService.createStripePaymentIntent(request, authToken) }
 
-    suspend fun createRazorPayCreateOrder(
-        request: CreateRazorPayCreateOrderRequest,
-        authToken: String = pref.authToken,
-    ) = safeApiCall { apiService.createRazorPayCreateOrder(request, authToken) }
-
     suspend fun getTransactionList(authToken: String = pref.authToken) =
         safeApiCall { apiService.getTransactionList(authToken) }
 

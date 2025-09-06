@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
-import com.app.reelshort.Ads.AdManager
 import com.app.reelshort.Model.AdTimerResponse
 import com.app.reelshort.Model.AdTimerResponse.ResponseDetails
 import com.app.reelshort.Model.CommonInfoReel
@@ -71,36 +70,36 @@ class FullScreenAdDialog(
     }
 
     private fun loadData(adTimer: ResponseDetails) {
-        if (adTimer.isLocked == 0) {
-            binding.llBtnWatchAd.isEnabled = true
-            binding.todayText.text = "Watched today(${adTimer.watchedAdsForEpisode ?: 0} /${(adTimer.totalAds ?: "0")})"
-            // Set up close button
-            binding.llBtnWatchAd.setOnClickListener {
-                var isRewardEarned = false
-                if (AdManager.instance.adResponse.isNotEmpty()) {
-                    AdManager.instance.loadShowRewardedAd(
-                        requireActivity(),
-                        AdManager.instance.adResponse,
-                        onRewardEarned = {
-                            isRewardEarned = true
-                            requireContext().showToast("Reward Earned..")
-                            onDismissAdListener.invoke()
-                        }, onAdDismissed = {
-                            if (!isRewardEarned) {
-                                requireContext().showToast("Please watch full ad..")
-                            }
-                        }, onAdFailed = {
-                            requireContext().showToast("Please try again..")
-                        })
-                } else {
-                    requireContext().showToast("Ad List is Empty Please try again..")
-                    AdManager.instance.loadApi(activity)
-                }
-            }
-        } else {
-            binding.llBtnWatchAd.isEnabled = false
-            showTimer(this.adTimer2)
-        }
+//        if (adTimer.isLocked == 0) {
+//            binding.llBtnWatchAd.isEnabled = true
+//            binding.todayText.text = "Watched today(${adTimer.watchedAdsForEpisode ?: 0} /${(adTimer.totalAds ?: "0")})"
+//            // Set up close button
+//            binding.llBtnWatchAd.setOnClickListener {
+//                var isRewardEarned = false
+//                if (AdManager.instance.adResponse.isNotEmpty()) {
+//                    AdManager.instance.loadShowRewardedAd(
+//                        requireActivity(),
+//                        AdManager.instance.adResponse,
+//                        onRewardEarned = {
+//                            isRewardEarned = true
+//                            requireContext().showToast("Reward Earned..")
+//                            onDismissAdListener.invoke()
+//                        }, onAdDismissed = {
+//                            if (!isRewardEarned) {
+//                                requireContext().showToast("Please watch full ad..")
+//                            }
+//                        }, onAdFailed = {
+//                            requireContext().showToast("Please try again..")
+//                        })
+//                } else {
+//                    requireContext().showToast("Ad List is Empty Please try again..")
+//                    AdManager.instance.loadApi(activity)
+//                }
+//            }
+//        } else {
+//            binding.llBtnWatchAd.isEnabled = false
+//            showTimer(this.adTimer2)
+//        }
     }
 
     override fun onStart() {

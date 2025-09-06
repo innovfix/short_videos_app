@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- ellipse shape -->
+    <corners android:radius="@dimen/_50sdp" />
+
+    <!-- size wider than tall -->
+    <size
+        android:width="@dimen/_6sdp"
+        android:height="@dimen/_3sdp" />
+
+    <solid android:color="@android:color/white" />
+</shape>

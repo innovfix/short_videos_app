@@ -8,8 +8,6 @@ import com.app.reelshort.Model.AutoUnlockSettingResponse
 import com.app.reelshort.Model.BindEmailRequest
 import com.app.reelshort.Model.CoinDataResponse
 import com.app.reelshort.Model.CreatePaymentRequest
-import com.app.reelshort.Model.CreateRazorPayCreateOrderRequest
-import com.app.reelshort.Model.CreateRazorPayCreateOrderResponse
 import com.app.reelshort.Model.DailyCheckedInRequest
 import com.app.reelshort.Model.DailyWatchAdsResponse
 import com.app.reelshort.Model.DeleteRequest
@@ -91,44 +89,44 @@ interface ApiService {
         @Header("Authorization") authToken: String,
     ): Response<PremiumPlansUsersResponse>
 
-    @POST("/user/v1/signup-mobile")
+    @POST("v1/signup-mobile")
     suspend fun signUp(
         @Body request: SighInRequest,
         @Header("Authorization") authToken: String,
     ): Response<SignUpResponse>
 
 
-    @GET("user/v1/getShorts")
+    @GET("v1/home/get-shorts")
     suspend fun getShorts(
         @Header("Authorization") authToken: String,
         @Query("tag") tag: String
     ): Response<ShortsResponse>
 
 
-    @GET("user/v1/my-list")
+    @GET("v1/my-list")
     suspend fun getMyList(
         @Header("Authorization") authToken: String,
     ): Response<MyListResponse>
 
-    @GET("user/v1/history")
+    @GET("v1/history")
     suspend fun getHistory(
         @Header("Authorization") authToken: String,
     ): Response<MyListResponse>
 
-    @GET("user/v1/plan-list")
+    @GET("v1/plan-list")
     suspend fun getPlanList(
         @Header("Authorization") authToken: String,
     ): Response<PlanListResponse>
 
 
-    @POST("user/v1/series/like-episode")
+    @POST("v1/series/like-episode")
     suspend fun setLikeEpisode(
         @Header("Authorization") authToken: String,
         @Body likeRequest: LikeRequest,
     ): Response<CommonsResponse>
 
 
-    @POST("user/v1/home/search")
+    @POST("v1/home/search")
     suspend fun getSearch(
         @Body likeRequest: SearchRequest,
         @Header("Authorization") authToken: String,
@@ -234,13 +232,6 @@ interface ApiService {
         @Body request: StripePaymentIntentRequest,
         @Header("Authorization") authToken: String,
     ): Response<StripePaymentIntentResponse>
-
-
-    @POST("user/v1/payments/create-order")
-    suspend fun createRazorPayCreateOrder(
-        @Body request: CreateRazorPayCreateOrderRequest,
-        @Header("Authorization") authToken: String,
-    ): Response<CreateRazorPayCreateOrderResponse>
 
 
     @POST("user/v1/payments/create")

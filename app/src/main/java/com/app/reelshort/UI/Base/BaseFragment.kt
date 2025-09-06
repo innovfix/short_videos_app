@@ -61,8 +61,8 @@ open class CenterLayoutManager : LinearLayoutManager {
     ) : super(context, attrs, defStyleAttr, defStyleRes)
 
     override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
-        lp.width = width / 2
-        lp.height = width / 2
+        lp.width = (width / 1.5).toInt()
+        lp.height = height
         return true
     }
 
