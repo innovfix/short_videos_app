@@ -64,6 +64,7 @@
     <color name="bg_2">#111111</color>
     <color name="gray_light">#C5C5C5</color>
     <color name="gold">#FFFFCD67</color>
+    <color name="light_green">#181F19</color>
 
 
     <!-- Add these color definitions to res/values/colors.xml -->
