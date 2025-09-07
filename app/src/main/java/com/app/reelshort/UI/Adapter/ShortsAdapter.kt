@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.Shorts
+import com.app.reelshort.R
 import com.app.reelshort.callbacks.OnItemSelectionListener
 import com.app.reelshort.databinding.AdapterShortBinding
 import com.bumptech.glide.Glide
@@ -32,8 +33,9 @@ class ShortsAdapter(
         holder.binding.main.setOnClickListener {
             onItemSelectionListener.onItemSelected(short)
         }
-        Glide.with(BaseApplication.getInstance()).load(short?.thumbnailUrl)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(14))).into(holder.binding.ivShort)
+        holder.binding.tvTitle.text = short.title
+        Glide.with(BaseApplication.getInstance()).load(short.thumbnailUrl)
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(24))).into(holder.binding.ivShort)
 
     }
 

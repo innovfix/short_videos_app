@@ -44,6 +44,7 @@
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:src="@drawable/ic_favourite"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:layout_constraintBottom_toTopOf="@+id/iv_share"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -53,6 +54,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:contentDescription="@null"
                         android:paddingVertical="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_40sdp"
                         android:src="@drawable/ic_share"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
