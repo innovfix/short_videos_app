@@ -72,9 +72,9 @@ public class NetworkManager extends BroadcastReceiver {
                     try {
                         if (dialog == null || !dialog.isShowing()) {
 
-                            if (ReelsAdapter.Companion.getInstance() != null) {
-                                ReelsAdapter.Companion.getInstance().pauseAllPlayers();
-                            }
+//                            if (ReelsAdapter.Companion.getInstance() != null) {
+//                                ReelsAdapter.Companion.getInstance().pauseAllPlayers();
+//                            }
 
                             dialog = new Dialog(currentActivity, R.style.CustomDialog95Percent);
                             dialog.setCancelable(false);
@@ -123,9 +123,9 @@ public class NetworkManager extends BroadcastReceiver {
                     try {
                         if (dialog2 == null || !dialog2.isShowing()) {
 
-                            if (ReelsAdapter.Companion.getInstance() != null) {
-                                ReelsAdapter.Companion.getInstance().pauseAllPlayers();
-                            }
+//                            if (ReelsAdapter.Companion.getInstance() != null) {
+//                                ReelsAdapter.Companion.getInstance().pauseAllPlayers();
+//                            }
 
                             dialog2 = new Dialog(currentActivity, R.style.CustomDialog95Percent);
                             dialog2.setCancelable(false);

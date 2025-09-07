@@ -126,11 +126,11 @@ class FullScreenAdDialog(
             onFinish = {
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(2000) // non-blocking delay
-                    activity.checkAdTimerApi(reels[index].seriesId) { coinData1 ->
-                        coinData1?.let {
-                            loadData(coinData1)
-                        }
-                    }
+//                    activity.checkAdTimerApi(reels[index].seriesId) { coinData1 ->
+//                        coinData1?.let {
+//                            loadData(coinData1)
+//                        }
+//                    }
                 }
             })
     }

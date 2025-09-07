@@ -1,6 +1,7 @@
 package com.app.reelshort.UI.Fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.Shorts
 import com.app.reelshort.R
+import com.app.reelshort.UI.Activity.ReelsActivity
 import com.app.reelshort.UI.Adapter.HomeShortsAdapter
 import com.app.reelshort.UI.Adapter.ShortsAdapter
+import com.app.reelshort.Utils.CommonsKt
 import com.app.reelshort.ViewModel.HomeViewModel
+import com.app.reelshort.callbacks.OnItemSelectionListener
 import com.app.reelshort.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import test.app.gallery.UI1.Base.BaseFragment
@@ -58,9 +62,17 @@ class HomeFragment : BaseFragment() {
     private fun initListeners() {
         viewModel.homeList.observe(viewLifecycleOwner) {
             if (it.success && !it.shorts.isNullOrEmpty()) {
-                homeShortsAdapter = HomeShortsAdapter(
-                    it.shorts
-                )
+                homeShortsAdapter =
+                    HomeShortsAdapter(it.shorts, object : OnItemSelectionListener<Shorts> {
+                        override fun onItemSelected(short: Shorts) {
+                            startActivity(Intent(
+                                context, ReelsActivity::class.java
+                            ).apply {
+                                putExtra(CommonsKt.SERIES_ID_EXTRA, short.id.toString())
+                                putExtra(CommonsKt.URL_EXTRA, short.videoUrl)
+                            })
+                        }
+                    })
                 binding.rvHomeShorts.setAdapter(homeShortsAdapter)
                 if (it.shorts.size > 1) {
                     binding.rvHomeShorts.smoothScrollToPosition(1)
@@ -300,17 +312,20 @@ class HomeFragment : BaseFragment() {
 
     private fun setAdapter(shorts: List<Shorts>, recyclerView: RecyclerView) {
         val centerLayoutManager = CenterSmallSpaceLayoutManager(
-            BaseApplication.getInstance(),
-            LinearLayoutManager.HORIZONTAL,
-            false
+            BaseApplication.getInstance(), LinearLayoutManager.HORIZONTAL, false
         )
         recyclerView.setLayoutManager(centerLayoutManager)
-        val shortsAdapter = ShortsAdapter(
-            shorts
-        )
+        val shortsAdapter = ShortsAdapter(shorts, object : OnItemSelectionListener<Shorts> {
+            override fun onItemSelected(short: Shorts) {
+                startActivity(Intent(
+                    context, ReelsActivity::class.java
+                ).apply {
+                    putExtra(CommonsKt.SERIES_ID_EXTRA, short.id)
+                    putExtra(CommonsKt.URL_EXTRA, short.videoUrl)
+                })
+            }
+        })
         recyclerView.setAdapter(shortsAdapter)
-        recyclerView.postDelayed({
-            recyclerView.smoothScrollToPosition(0)
-        }, 500)
+        recyclerView.smoothScrollToPosition(0)
     }
 }

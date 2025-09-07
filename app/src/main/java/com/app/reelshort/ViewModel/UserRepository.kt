@@ -20,6 +20,8 @@ import com.app.reelshort.Model.LoginRequest
 import com.app.reelshort.Model.PaymentUpdateRequest
 import com.app.reelshort.Model.SearchRequest
 import com.app.reelshort.Model.SendOtpRequest
+import com.app.reelshort.Model.Shorts
+import com.app.reelshort.Model.ShortsResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.StripePaymentIntentRequest
 import com.app.reelshort.Model.UnlockEpisodeRequest
@@ -30,20 +32,21 @@ import com.app.reelshort.Utils.Helper
 import com.google.gson.Gson
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.jvm.java
 
 @Keep
+@Singleton
 class UserRepository @Inject constructor(val apiService: ApiService) {
+    var allShortsResponse: ApiResult<ShortsResponse>? = null
 
     @Keep
     enum class HttpCode(val code: Int, val message: String) {
         OK(200, "OK"), BAD_REQUEST(400, "Bad Request"), UNAUTHORIZED(
-            401,
-            "Unauthorized access"
+            401, "Unauthorized access"
         ),
         FORBIDDEN(403, "Forbidden"), NOT_FOUND(404, "Not Found"), SERVER_ERROR(
-            500,
-            "Server Error"
+            500, "Server Error"
         ),
         UNKNOWN(-1, "Something went wrong"), NETWORK_ERROR(-1, "Network error");
 
@@ -138,8 +141,20 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
         apiService.signUp(request, authToken)
     }
 
-    suspend fun getShorts(authToken: String = pref.authToken, tag:String) =
-        safeApiCall { apiService.getShorts(authToken,tag) }
+    suspend fun getShorts(authToken: String = pref.authToken, tag: String) = safeApiCall {
+        apiService.getShorts(authToken, authToken)
+    }
+
+    suspend fun getAllShorts(authToken: String = pref.authToken): ApiResult<ShortsResponse> {
+        if (allShortsResponse == null) {
+            allShortsResponse = safeApiCall {
+                apiService.getShorts(authToken, "tag")
+            }
+            return allShortsResponse as ApiResult<ShortsResponse>
+        } else {
+            return allShortsResponse as ApiResult<ShortsResponse>
+        }
+    }
 
     suspend fun getAllEpisodeList(
         request: EpisodeRequest,

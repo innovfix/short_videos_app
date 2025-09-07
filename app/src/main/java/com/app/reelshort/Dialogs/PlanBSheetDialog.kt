@@ -127,7 +127,7 @@ class PlanBSheetDialog(
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        activity.isStartPlanActivity = false
+//        activity.isStartPlanActivity = false
 
     }
 }

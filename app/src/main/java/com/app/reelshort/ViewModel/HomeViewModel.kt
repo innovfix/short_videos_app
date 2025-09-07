@@ -288,7 +288,7 @@ class HomeViewModel @Inject constructor(
 
     fun getAllShorts(authToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.getShorts(authToken, "")
+            val result = repository.getAllShorts(authToken)
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _allEpisodes.postValue(shorts)
