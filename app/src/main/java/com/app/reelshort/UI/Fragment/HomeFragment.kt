@@ -9,11 +9,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.Shorts
 import com.app.reelshort.R
 import com.app.reelshort.UI.Adapter.HomeShortsAdapter
@@ -22,6 +23,7 @@ import com.app.reelshort.ViewModel.HomeViewModel
 import com.app.reelshort.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import test.app.gallery.UI1.Base.BaseFragment
+import test.app.gallery.UI1.Base.CenterSmallSpaceLayoutManager
 
 
 @AndroidEntryPoint
@@ -55,12 +57,12 @@ class HomeFragment : BaseFragment() {
 
     private fun initListeners() {
         viewModel.homeList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 homeShortsAdapter = HomeShortsAdapter(
                     it.shorts
                 )
                 binding.rvHomeShorts.setAdapter(homeShortsAdapter)
-                if(it.shorts.size > 1) {
+                if (it.shorts.size > 1) {
                     binding.rvHomeShorts.smoothScrollToPosition(1)
                 }
                 val itemCount: Int = it.shorts.size
@@ -70,8 +72,7 @@ class HomeFragment : BaseFragment() {
                     dots[i] = ImageView(context)
                     dots[i]?.setImageDrawable(
                         ContextCompat.getDrawable(
-                            context,
-                            R.drawable.dot_unselected
+                            context, R.drawable.dot_unselected
                         )
                     )
 
@@ -86,7 +87,11 @@ class HomeFragment : BaseFragment() {
 
                 val snapHelper = PagerSnapHelper()
                 snapHelper.attachToRecyclerView(binding.rvHomeShorts)
-                dots[0]?.setImageDrawable(context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.dot_selected) })
+                dots[0]?.setImageDrawable(context?.let { it1 ->
+                    ContextCompat.getDrawable(
+                        it1, R.drawable.dot_selected
+                    )
+                })
                 binding.rvHomeShorts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     var lastPos: Int = 0
 
@@ -116,76 +121,196 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                 })
+            } else {
+                binding.rvHomeShorts.visibility = View.GONE
             }
         }
 
+
+        viewModel.homeListError.observe(viewLifecycleOwner) {
+            binding.rvHomeShorts.visibility = View.GONE
+        }
+
         viewModel.top10List.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvTop10On)
+            } else {
+                binding.rvTop10On.visibility = View.GONE
+                binding.tvTop10On.visibility = View.GONE
             }
         }
+
+        viewModel.top10ListError.observe(viewLifecycleOwner) {
+            binding.rvTop10On.visibility = View.GONE
+            binding.tvTop10On.visibility = View.GONE
+        }
+
         viewModel.loveAffairsList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvLoveAffairs)
+            } else {
+                binding.rvLoveAffairs.visibility = View.GONE
+                binding.tvLoveAffairs.visibility = View.GONE
             }
         }
+        viewModel.loveAffairsListError.observe(viewLifecycleOwner) {
+            binding.rvLoveAffairs.visibility = View.GONE
+            binding.tvLoveAffairs.visibility = View.GONE
+        }
+
+
         viewModel.specialsList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvSpecials)
+            } else {
+                binding.rvSpecials.visibility = View.GONE
+                binding.tvSpecials.visibility = View.GONE
             }
         }
-        viewModel.top10List.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
-                setAdapter(it.shorts, binding.rvTop10On)
-            }
+
+        viewModel.specialsListError.observe(viewLifecycleOwner) {
+            binding.rvSpecials.visibility = View.GONE
+            binding.tvSpecials.visibility = View.GONE
         }
+
         viewModel.trendingNowList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvTrendingNow)
+            } else {
+                binding.rvTrendingNow.visibility = View.GONE
+                binding.tvTrendingNow.visibility = View.GONE
             }
         }
+        viewModel.trendingNowListError.observe(viewLifecycleOwner) {
+            binding.rvTrendingNow.visibility = View.GONE
+            binding.tvTrendingNow.visibility = View.GONE
+        }
+
+
         viewModel.topOriginalsList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvTopOriginals)
+            } else {
+                binding.rvTopOriginals.visibility = View.GONE
+                binding.tvTopOriginals.visibility = View.GONE
             }
         }
+        viewModel.topOriginalsListError.observe(viewLifecycleOwner) {
+            binding.rvTopOriginals.visibility = View.GONE
+            binding.tvTopOriginals.visibility = View.GONE
+        }
+
+
         viewModel.top10NewReleasesList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvTop10NewReleases)
+            } else {
+                binding.rvTop10NewReleases.visibility = View.GONE
+                binding.tvTop10NewReleases.visibility = View.GONE
             }
         }
+        viewModel.top10NewReleasesListError.observe(viewLifecycleOwner) {
+            binding.rvTop10NewReleases.visibility = View.GONE
+            binding.tvTop10NewReleases.visibility = View.GONE
+        }
+
+
         viewModel.ceoBillionaireList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvCeoBillionaire)
+            } else {
+                binding.rvCeoBillionaire.visibility = View.GONE
+                binding.tvCeoBillionaire.visibility = View.GONE
             }
         }
+        viewModel.ceoBillionaireListError.observe(viewLifecycleOwner) {
+            binding.rvCeoBillionaire.visibility = View.GONE
+            binding.tvCeoBillionaire.visibility = View.GONE
+        }
+
         viewModel.justLaunchedList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvJustLaunched)
+            } else {
+                binding.rvJustLaunched.visibility = View.GONE
+                binding.tvJustLaunched.visibility = View.GONE
             }
         }
+        viewModel.justLaunchedListError.observe(viewLifecycleOwner) {
+            binding.rvJustLaunched.visibility = View.GONE
+            binding.tvJustLaunched.visibility = View.GONE
+        }
+
+
         viewModel.hiddenIdentityList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvHiddenIdentity)
+            } else {
+                binding.rvHiddenIdentity.visibility = View.GONE
+                binding.tvHiddenIdentity.visibility = View.GONE
             }
         }
+        viewModel.hiddenIdentityListError.observe(viewLifecycleOwner) {
+            binding.rvHiddenIdentity.visibility = View.GONE
+            binding.tvHiddenIdentity.visibility = View.GONE
+        }
+
+
         viewModel.newHotList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvNewAndHot)
+            } else {
+                binding.rvNewAndHot.visibility = View.GONE
+                binding.tvNewAndHot.visibility = View.GONE
             }
         }
+        viewModel.newHotListError.observe(viewLifecycleOwner) {
+            binding.rvNewAndHot.visibility = View.GONE
+            binding.tvNewAndHot.visibility = View.GONE
+        }
+
 
         viewModel.revengeAndDhokaList.observe(viewLifecycleOwner) {
-            if (it.success && it.shorts != null) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
                 setAdapter(it.shorts, binding.rvRevengeAndDhoka)
+            } else {
+                binding.rvRevengeAndDhoka.visibility = View.GONE
+                binding.tvRevengeAndDhoka.visibility = View.GONE
             }
         }
+        viewModel.revengeAndDhokaListError.observe(viewLifecycleOwner) {
+            binding.rvRevengeAndDhoka.visibility = View.GONE
+            binding.tvRevengeAndDhoka.visibility = View.GONE
+        }
+
+        viewModel.allEpisodes.observe(viewLifecycleOwner) {
+            if (it.success && !it.shorts.isNullOrEmpty()) {
+                setAdapter(it.shorts, binding.rvAllDramas)
+            } else {
+                binding.rvAllDramas.visibility = View.GONE
+                binding.tvAllDramas.visibility = View.GONE
+            }
+        }
+        viewModel.allEpisodesError.observe(viewLifecycleOwner) {
+            binding.rvAllDramas.visibility = View.GONE
+            binding.tvAllDramas.visibility = View.GONE
+        }
+
     }
 
-    private fun setAdapter(shorts:List<Shorts>, recyclerView: RecyclerView){
+    private fun setAdapter(shorts: List<Shorts>, recyclerView: RecyclerView) {
+        val centerLayoutManager = CenterSmallSpaceLayoutManager(
+            BaseApplication.getInstance(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recyclerView.setLayoutManager(centerLayoutManager)
         val shortsAdapter = ShortsAdapter(
             shorts
         )
         recyclerView.setAdapter(shortsAdapter)
+        recyclerView.postDelayed({
+            recyclerView.smoothScrollToPosition(0)
+        }, 500)
     }
 }

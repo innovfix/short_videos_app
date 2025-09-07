@@ -43,41 +43,80 @@ class HomeViewModel @Inject constructor(
     private val _homeList = MutableLiveData<ShortsResponse>()
     val homeList: LiveData<ShortsResponse> = _homeList
 
+    private val _homeListError = MutableLiveData<ApiResult.Error>()
+    val homeListError: LiveData<ApiResult.Error> = _homeListError
+
     private val _top10List = MutableLiveData<ShortsResponse>()
     val top10List: LiveData<ShortsResponse> = _top10List
+
+    private val _top10ListError = MutableLiveData<ApiResult.Error>()
+    val top10ListError: LiveData<ApiResult.Error> = _top10ListError
 
     private val _loveAffairsList = MutableLiveData<ShortsResponse>()
     val loveAffairsList: LiveData<ShortsResponse> = _loveAffairsList
 
+    private val _loveAffairsListError = MutableLiveData<ApiResult.Error>()
+    val loveAffairsListError: LiveData<ApiResult.Error> = _loveAffairsListError
+
     private val _specialsList = MutableLiveData<ShortsResponse>()
     val specialsList: LiveData<ShortsResponse> = _specialsList
+
+    private val _specialsListError = MutableLiveData<ApiResult.Error>()
+    val specialsListError: LiveData<ApiResult.Error> = _specialsListError
 
     private val _trendingNowList = MutableLiveData<ShortsResponse>()
     val trendingNowList: LiveData<ShortsResponse> = _trendingNowList
 
+    private val _trendingNowListError = MutableLiveData<ApiResult.Error>()
+    val trendingNowListError: LiveData<ApiResult.Error> = _trendingNowListError
+
     private val _topOriginalsList = MutableLiveData<ShortsResponse>()
     val topOriginalsList: LiveData<ShortsResponse> = _topOriginalsList
+
+    private val _topOriginalsListError = MutableLiveData<ApiResult.Error>()
+    val topOriginalsListError: LiveData<ApiResult.Error> = _topOriginalsListError
 
     private val _top10NewReleasesList = MutableLiveData<ShortsResponse>()
     val top10NewReleasesList: LiveData<ShortsResponse> = _top10NewReleasesList
 
+    private val _top10NewReleasesListError = MutableLiveData<ApiResult.Error>()
+    val top10NewReleasesListError: LiveData<ApiResult.Error> = _top10NewReleasesListError
+
     private val _ceoBillionaireList = MutableLiveData<ShortsResponse>()
     val ceoBillionaireList: LiveData<ShortsResponse> = _ceoBillionaireList
+
+    private val _ceoBillionaireListError = MutableLiveData<ApiResult.Error>()
+    val ceoBillionaireListError: LiveData<ApiResult.Error> = _ceoBillionaireListError
 
     private val _justLaunchedList = MutableLiveData<ShortsResponse>()
     val justLaunchedList: LiveData<ShortsResponse> = _justLaunchedList
 
+    private val _justLaunchedListError = MutableLiveData<ApiResult.Error>()
+    val justLaunchedListError: LiveData<ApiResult.Error> = _justLaunchedListError
+
     private val _hiddenIdentityList = MutableLiveData<ShortsResponse>()
     val hiddenIdentityList: LiveData<ShortsResponse> = _hiddenIdentityList
+
+    private val _hiddenIdentityListError = MutableLiveData<ApiResult.Error>()
+    val hiddenIdentityListError: LiveData<ApiResult.Error> = _hiddenIdentityListError
 
     private val _newHotList = MutableLiveData<ShortsResponse>()
     val newHotList: LiveData<ShortsResponse> = _newHotList
 
+    private val _newHotListError = MutableLiveData<ApiResult.Error>()
+    val newHotListError: LiveData<ApiResult.Error> = _newHotListError
+
     private val _revengeAndDhokaList = MutableLiveData<ShortsResponse>()
     val revengeAndDhokaList: LiveData<ShortsResponse> = _revengeAndDhokaList
 
-    private val _allEpisodes = MutableLiveData<ApiResult<EpisodeListResponse>>()
-    val allEpisodes: LiveData<ApiResult<EpisodeListResponse>> = _allEpisodes
+    private val _revengeAndDhokaListError = MutableLiveData<ApiResult.Error>()
+    val revengeAndDhokaListError: LiveData<ApiResult.Error> = _revengeAndDhokaListError
+
+    private val _allEpisodes = MutableLiveData<ShortsResponse>()
+    val allEpisodes: LiveData<ShortsResponse> = _allEpisodes
+
+    private val _allEpisodesError = MutableLiveData<ApiResult<ApiResult.Error>>()
+    val allEpisodesError: LiveData<ApiResult<ApiResult.Error>> = _allEpisodesError
 
 
     private val _myList = MutableLiveData<ApiResult<MyListResponse>>()
@@ -100,6 +139,7 @@ class HomeViewModel @Inject constructor(
         getHiddenIdentity(pref.authToken)
         getNewHot(pref.authToken)
         getRevengeAndDhoka(pref.authToken)
+        getAllShorts(pref.authToken)
     }
 
     fun getHomeShorts(authToken: String) {
@@ -108,6 +148,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 var shorts = result.data
                 _homeList.postValue(shorts)
+            } else if (result is ApiResult.Error) {
+                _homeListError.postValue(result)
             }
         }
     }
@@ -118,6 +160,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _top10List.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _top10ListError.postValue(result)
             }
         }
     }
@@ -128,6 +172,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _loveAffairsList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _loveAffairsListError.postValue(result)
             }
         }
     }
@@ -138,6 +184,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _specialsList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _specialsListError.postValue(result)
             }
         }
     }
@@ -148,6 +196,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _trendingNowList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _trendingNowListError.postValue(result)
             }
         }
     }
@@ -158,6 +208,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _topOriginalsList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _topOriginalsListError.postValue(result)
             }
         }
     }
@@ -168,6 +220,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _top10NewReleasesList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _top10NewReleasesListError.postValue(result)
             }
         }
     }
@@ -178,6 +232,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _ceoBillionaireList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _ceoBillionaireListError.postValue(result)
             }
         }
     }
@@ -188,6 +244,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _justLaunchedList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _justLaunchedListError.postValue(result)
             }
         }
     }
@@ -198,6 +256,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _hiddenIdentityList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _hiddenIdentityListError.postValue(result)
             }
         }
     }
@@ -208,6 +268,8 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _newHotList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _newHotListError.postValue(result)
             }
         }
     }
@@ -218,6 +280,20 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _revengeAndDhokaList.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _revengeAndDhokaListError.postValue(result)
+            }
+        }
+    }
+
+    fun getAllShorts(authToken: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.getShorts(authToken, "")
+            if (result is ApiResult.Success) {
+                val shorts = result.data
+                _allEpisodes.postValue(shorts)
+            }else if (result is ApiResult.Error) {
+                _allEpisodesError.postValue(result)
             }
         }
     }

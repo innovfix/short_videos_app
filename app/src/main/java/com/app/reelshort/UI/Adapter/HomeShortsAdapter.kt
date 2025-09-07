@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.reelshort.App.BaseApplication
 import com.app.reelshort.Model.Shorts
+import com.app.reelshort.databinding.AdapterHomeShortBinding
 import com.app.reelshort.databinding.AdapterShortBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -17,7 +18,7 @@ class HomeShortsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemHolder = ItemHolder(
-            AdapterShortBinding.inflate(
+            AdapterHomeShortBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -37,6 +38,6 @@ class HomeShortsAdapter(
         return shorts.size
     }
 
-    internal class ItemHolder(val binding: AdapterShortBinding) :
+    internal class ItemHolder(val binding: AdapterHomeShortBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

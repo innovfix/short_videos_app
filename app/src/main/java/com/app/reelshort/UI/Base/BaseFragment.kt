@@ -17,7 +17,7 @@ abstract class BaseFragment : Fragment() {
     lateinit var pref: DPreferences
 //    var reelsAdapter2: SeriesReelsAdapter? = null
 
-    override fun onAttach(context: android.content.Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         pref = DPreferences(context)
     }
@@ -41,9 +41,14 @@ abstract class BaseFragment : Fragment() {
                 }
             }
         })
-        val centerLayoutManager = CenterLayoutManager(BaseApplication.getInstance(), LinearLayoutManager.HORIZONTAL, false)
+        val centerLayoutManager = CenterLayoutManager(
+            BaseApplication.getInstance(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         recyclerView.setLayoutManager(centerLayoutManager)
     }
+
 }
 
 open class CenterLayoutManager : LinearLayoutManager {
@@ -62,6 +67,75 @@ open class CenterLayoutManager : LinearLayoutManager {
 
     override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
         lp.width = (width / 1.5).toInt()
+        lp.height = height
+        return true
+    }
+
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView, state: RecyclerView.State, position: Int
+    ) {
+        val smoothScroller: SmoothScroller = CenterSmoothScroller(recyclerView.context)
+        smoothScroller.targetPosition = position
+        startSmoothScroll(smoothScroller)
+    }
+
+    private class CenterSmoothScroller(context: Context?) : LinearSmoothScroller(context) {
+        override fun calculateDtToFit(
+            viewStart: Int, viewEnd: Int, boxStart: Int, boxEnd: Int, snapPreference: Int
+        ): Int {
+            return (boxStart + (boxEnd - boxStart) / 2) - (viewStart + (viewEnd - viewStart) / 2)
+        }
+    }
+
+    override fun canScrollHorizontally(): Boolean {
+        return true
+    }
+
+    override fun scrollHorizontallyBy(
+        dx: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?
+    ): Int {
+        val orientation = orientation
+        if (orientation == HORIZONTAL) {
+            val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
+
+            val midpoint = width / 2f
+            val d0 = 0f
+            val d1 = mShrinkDistance * midpoint
+            val s0 = 1f
+            val s1 = 1f - mShrinkAmount
+            for (i in 0 until childCount) {
+                val child = getChildAt(i)
+                val childMidpoint = (getDecoratedRight(child!!) + getDecoratedLeft(child)) / 2f
+                val d = d1.coerceAtMost(abs(midpoint - childMidpoint))
+                val scale = s0 + (s1 - s0) * (d - d0) / (d1 - d0)
+                child.scaleX = scale
+                child.scaleY = scale
+
+            }
+            return scrolled
+        } else {
+            return 0
+        }
+
+    }
+}
+
+open class CenterSmallSpaceLayoutManager : LinearLayoutManager {
+    private val mShrinkAmount = 0.20f
+    private val mShrinkDistance = 0.9f
+
+    constructor(context: Context?) : super(context)
+
+    constructor(context: Context?, orientation: Int, reverseLayout: Boolean) : super(
+        context, orientation, reverseLayout
+    )
+
+    constructor(
+        context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int
+    ) : super(context, attrs, defStyleAttr, defStyleRes)
+
+    override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
+        lp.width = (width / 2.45).toInt()
         lp.height = height
         return true
     }

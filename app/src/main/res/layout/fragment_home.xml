@@ -93,9 +93,7 @@
             <View
                 android:id="@+id/v_top_margin"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_default="percent"
-                app:layout_constraintHeight_percent="0.042"
+                android:layout_height="@dimen/_60sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,23 +113,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_home_shorts"
-                android:layout_marginTop="8dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_home_shorts" />
 
             <TextView
                 android:id="@+id/tv_top_10_on"
                 style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/top_10_on"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_dots" />
 
@@ -139,7 +140,7 @@
                 android:id="@+id/rv_top_10_on"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,13 +149,17 @@
 
             <TextView
                 android:id="@+id/tv_love_affairs"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
-                android:text="@string/top_10_on"
+                android:text="@string/love_affairs"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_top_10_on" />
 
@@ -162,7 +167,7 @@
                 android:id="@+id/rv_love_affairs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,13 +176,17 @@
 
             <TextView
                 android:id="@+id/tv_specials"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/specials"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_love_affairs" />
 
@@ -185,7 +194,7 @@
                 android:id="@+id/rv_specials"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -194,13 +203,17 @@
 
             <TextView
                 android:id="@+id/tv_trending_now"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/trending_now"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_specials" />
 
@@ -208,7 +221,7 @@
                 android:id="@+id/rv_trending_now"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -217,13 +230,17 @@
 
             <TextView
                 android:id="@+id/tv_top_originals"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/top_originals"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_trending_now" />
 
@@ -231,7 +248,7 @@
                 android:id="@+id/rv_top_originals"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -240,13 +257,17 @@
 
             <TextView
                 android:id="@+id/tv_top_10_new_releases"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/top_10_new_releases"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_top_originals" />
 
@@ -254,7 +275,7 @@
                 android:id="@+id/rv_top_10_new_releases"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -263,13 +284,17 @@
 
             <TextView
                 android:id="@+id/tv_ceo_billionaire"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/top_10_new_releases"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_top_10_new_releases" />
 
@@ -277,7 +302,7 @@
                 android:id="@+id/rv_ceo_billionaire"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -286,13 +311,17 @@
 
             <TextView
                 android:id="@+id/tv_just_launched"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/just_launched"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_ceo_billionaire" />
 
@@ -300,7 +329,7 @@
                 android:id="@+id/rv_just_launched"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -309,13 +338,17 @@
 
             <TextView
                 android:id="@+id/tv_hidden_identity"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/hidden_identity"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_just_launched" />
 
@@ -323,7 +356,7 @@
                 android:id="@+id/rv_hidden_identity"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -332,13 +365,17 @@
 
             <TextView
                 android:id="@+id/tv_new_and_hot"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/new_and_hot"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_hidden_identity" />
 
@@ -346,7 +383,7 @@
                 android:id="@+id/rv_new_and_hot"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -355,13 +392,17 @@
 
             <TextView
                 android:id="@+id/tv_revenge_and_dhoka"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/revenge_and_dhoka"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_new_and_hot" />
 
@@ -369,7 +410,7 @@
                 android:id="@+id/rv_revenge_and_dhoka"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shorts_view_height"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -378,27 +419,40 @@
 
             <TextView
                 android:id="@+id/tv_all_dramas"
-                style="@style/BodyLargeSemiBold"
+                style="@style/BodyLargeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:gravity="center"
                 android:text="@string/all_dramas"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_revenge_and_dhoka" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_all_dramas"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_height="@dimen/shorts_view_height"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_all_dramas" />
 
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_all_dramas"
+                android:src="@drawable/background_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
