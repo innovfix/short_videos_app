@@ -56,6 +56,17 @@ android {
 //            signingConfig = signingConfigs.getByName("debug")
 //        }
     }
+    flavorDimensions += "drama_short"
+    productFlavors {
+        create("development") {
+            dimension = "drama_short"
+            applicationIdSuffix = ".dev"
+        }
+        create("production") {
+            dimension = "drama_short"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
