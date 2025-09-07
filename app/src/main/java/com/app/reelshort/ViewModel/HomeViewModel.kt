@@ -320,15 +320,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun saveListStatus(authToken: String, shortId: Int): Deferred<Unit> {
-        return viewModelScope.async(Dispatchers.Main) {
-            _planList.value = repository.saveListStatus(authToken, shortId)
+    fun saveListStatus(authToken: String, shortId: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.saveListStatus(authToken, shortId)
         }
     }
 
-    fun removeListStatus(authToken: String, shortId: Int): Deferred<Unit> {
-        return viewModelScope.async(Dispatchers.Main) {
-            _planList.value = repository.removeListStatus(authToken, shortId)
+    fun removeListStatus(authToken: String, shortId: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.removeListStatus(authToken, shortId)
         }
     }
 }

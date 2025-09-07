@@ -54,7 +54,7 @@ class ReelsActivity : BaseActivity() {
     lateinit var reelsAdapter: ReelsAdapter
     val viewModel: HomeViewModel by viewModels()
 
-    private var shorts:List<Shorts>? = null;
+    private var shorts: List<Shorts>? = null
     private var isMuted = false
     var index = 0
 
@@ -92,6 +92,15 @@ class ReelsActivity : BaseActivity() {
                 scrolled(recyclerView)
             }
         })
+        binding.ivFavourite.setOnClickListener({
+            if (binding.ivFavourite.isSelected) {
+                binding.ivFavourite.isSelected = false
+                viewModel.removeListStatus(pref.authToken, shorts?.get(index)?.id ?: 0)
+            } else {
+                binding.ivFavourite.isSelected = true
+                viewModel.saveListStatus(pref.authToken, shorts?.get(index)?.id ?: 0)
+            }
+        })
     }
 
     private fun initListeners() {
@@ -102,8 +111,7 @@ class ReelsActivity : BaseActivity() {
                 binding.rvShorts.adapter = reelsAdapter
                 binding.rvShorts.scrollToPosition(it.shorts.indexOfFirst {
                     it.id == intent.getIntExtra(
-                        CommonsKt.SERIES_ID_EXTRA,
-                        0
+                        CommonsKt.SERIES_ID_EXTRA, 0
                     )
                 })
             } else {
@@ -125,7 +133,6 @@ class ReelsActivity : BaseActivity() {
         this@ReelsActivity.index = currentPosition
         job?.cancel()
         job = viewModel.getSavedStatus(pref.authToken, shorts?.get(currentPosition)?.id ?: 0)
-
     }
 
 //    fun onNext(currentPosition: Int, episodeAdapter: EpisodeListAdapter) {
