@@ -136,7 +136,6 @@ class ReelsActivity : BaseActivity() {
         this@ReelsActivity.index = currentPosition
         job?.cancel()
         job = viewModel.getSavedStatus(pref.authToken, shorts?.get(currentPosition)?.id ?: 0)
-        viewModel.saveHistory(pref.authToken, shorts?.get(currentPosition)?.id ?: 0)
     }
 
 //    fun onNext(currentPosition: Int, episodeAdapter: EpisodeListAdapter) {

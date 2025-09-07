@@ -108,10 +108,10 @@ class MainActivity : BaseActivity() {
 
                     return@setOnNavigationItemSelectedListener false
                 }  else if (item.itemId === R.id.my_list) {
-                    homePager.currentItem = 2
+                    homePager.currentItem = 1
                     return@setOnNavigationItemSelectedListener true
                 }  else if (item.itemId === R.id.profile) {
-                    homePager.currentItem = 3
+                    homePager.currentItem = 2
                     return@setOnNavigationItemSelectedListener true
                 } else {
                     return@setOnNavigationItemSelectedListener false

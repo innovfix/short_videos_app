@@ -33,7 +33,7 @@ class MyListAdapter(
         val short: Shorts = shorts[position]
 
         Glide.with(BaseApplication.getInstance()).load(short?.thumbnailUrl)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(24)))
             .into(holder.binding.ivThumbnail)
         holder.binding.tvTitle.text = short?.title
         holder.binding.tvDescription.text = short?.description
