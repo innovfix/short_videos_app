@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment() {
                             startActivity(Intent(
                                 context, ReelsActivity::class.java
                             ).apply {
-                                putExtra(CommonsKt.SERIES_ID_EXTRA, short.id.toString())
+                                putExtra(CommonsKt.SERIES_ID_EXTRA, short.id)
                                 putExtra(CommonsKt.URL_EXTRA, short.videoUrl)
                             })
                         }
@@ -307,6 +307,7 @@ class HomeFragment : BaseFragment() {
             binding.rvAllDramas.visibility = View.GONE
             binding.tvAllDramas.visibility = View.GONE
         }
+        viewModel.initialise()
 
     }
 

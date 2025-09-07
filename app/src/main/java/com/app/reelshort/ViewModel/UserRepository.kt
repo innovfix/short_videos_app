@@ -142,7 +142,7 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
     }
 
     suspend fun getShorts(authToken: String = pref.authToken, tag: String) = safeApiCall {
-        apiService.getShorts(authToken, authToken)
+        apiService.getShorts(authToken, tag)
     }
 
     suspend fun getAllShorts(authToken: String = pref.authToken): ApiResult<ShortsResponse> {
@@ -174,6 +174,15 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
 
     suspend fun getPlanList(authToken: String = pref.authToken) =
         safeApiCall { apiService.getPlanList(authToken) }
+
+    suspend fun getSavedStatus(authToken: String = pref.authToken, shortId:Int) =
+        safeApiCall { apiService.getSavedStatus(authToken, shortId) }
+
+    suspend fun saveListStatus(authToken: String = pref.authToken, shortId:Int) =
+        safeApiCall { apiService.saveListStatus(authToken, shortId) }
+
+    suspend fun removeListStatus(authToken: String = pref.authToken, shortId:Int) =
+        safeApiCall { apiService.removeListStatus(authToken, shortId) }
 
     suspend fun setDailyWatchAds(authToken: String = token) =
         safeApiCall { apiService.setDailyWatchAds(authToken) }

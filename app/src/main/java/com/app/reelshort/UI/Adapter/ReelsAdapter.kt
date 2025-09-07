@@ -42,6 +42,10 @@ class ReelsAdapter(
 
     }
 
+    fun setSaveStatus(position: Int, status:Boolean){
+        notifyItemChanged(position)
+    }
+
     override fun getItemCount(): Int {
         return shorts.size
     }

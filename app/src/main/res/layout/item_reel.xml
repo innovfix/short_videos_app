@@ -26,42 +26,6 @@
 
                 />
 
-            <FrameLayout
-                android:id="@+id/fl_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:background="@color/black">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_5sdp">
-
-                    <ImageView
-                        android:id="@+id/iv_favourite"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_favourite"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        app:layout_constraintBottom_toTopOf="@+id/iv_share"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/iv_share"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:contentDescription="@null"
-                        android:paddingVertical="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_40sdp"
-                        android:src="@drawable/ic_share"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="@android:color/white" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>

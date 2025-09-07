@@ -32,6 +32,7 @@ import com.app.reelshort.Model.PremiumPlansUsersResponse
 import com.app.reelshort.Model.PremiumPlansVideoResponse
 import com.app.reelshort.Model.ReasonsListResponse
 import com.app.reelshort.Model.RewardHistoryResponse
+import com.app.reelshort.Model.SavedStatusResponse
 import com.app.reelshort.Model.SearchRequest
 import com.app.reelshort.Model.SearchResponse
 import com.app.reelshort.Model.SendOtpRequest
@@ -103,12 +104,12 @@ interface ApiService {
     ): Response<ShortsResponse>
 
 
-    @GET("v1/my-list")
+    @GET("v1/home/my-list")
     suspend fun getMyList(
         @Header("Authorization") authToken: String,
     ): Response<MyListResponse>
 
-    @GET("v1/history")
+    @GET("v1/home/history")
     suspend fun getHistory(
         @Header("Authorization") authToken: String,
     ): Response<MyListResponse>
@@ -116,6 +117,26 @@ interface ApiService {
     @GET("v1/plan-list")
     suspend fun getPlanList(
         @Header("Authorization") authToken: String,
+    ): Response<PlanListResponse>
+
+    @GET("v1/home/get-list-status")
+    suspend fun getSavedStatus(
+        @Header("Authorization") authToken: String,
+        @Query("short_id") shortId: Int
+    ): Response<SavedStatusResponse>
+
+
+    @GET("v1/home/save-list-status")
+    suspend fun saveListStatus(
+        @Header("Authorization") authToken: String,
+        @Query("short_id") shortId: Int
+    ): Response<PlanListResponse>
+
+
+    @GET("v1/home/remove-list-status")
+    suspend fun removeListStatus(
+        @Header("Authorization") authToken: String,
+        @Query("short_id") shortId: Int
     ): Response<PlanListResponse>
 
 

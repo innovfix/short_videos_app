@@ -20,6 +20,7 @@ import com.app.reelshort.Model.PremiumPlansResponse
 import com.app.reelshort.Model.PremiumPlansUsersResponse
 import com.app.reelshort.Model.PremiumPlansVideoResponse
 import com.app.reelshort.Model.RewardHistoryResponse
+import com.app.reelshort.Model.SavedStatusResponse
 import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
@@ -29,7 +30,9 @@ import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
 import com.app.reelshort.Utils.DPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -125,8 +128,11 @@ class HomeViewModel @Inject constructor(
     private val _planList = MutableLiveData<ApiResult<PlanListResponse>>()
     val planList: LiveData<ApiResult<PlanListResponse>> = _planList
 
+    private val _savedStatus = MutableLiveData<SavedStatusResponse>()
+    val savedStatus: LiveData<SavedStatusResponse> = _savedStatus
 
-    init {
+
+    fun initialise() {
         getHomeShorts(pref.authToken)
         getTop10(pref.authToken)
         getLoveAffairs(pref.authToken)
@@ -160,7 +166,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _top10List.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _top10ListError.postValue(result)
             }
         }
@@ -172,7 +178,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _loveAffairsList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _loveAffairsListError.postValue(result)
             }
         }
@@ -184,7 +190,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _specialsList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _specialsListError.postValue(result)
             }
         }
@@ -196,7 +202,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _trendingNowList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _trendingNowListError.postValue(result)
             }
         }
@@ -208,7 +214,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _topOriginalsList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _topOriginalsListError.postValue(result)
             }
         }
@@ -220,7 +226,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _top10NewReleasesList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _top10NewReleasesListError.postValue(result)
             }
         }
@@ -232,7 +238,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _ceoBillionaireList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _ceoBillionaireListError.postValue(result)
             }
         }
@@ -244,7 +250,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _justLaunchedList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _justLaunchedListError.postValue(result)
             }
         }
@@ -256,7 +262,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _hiddenIdentityList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _hiddenIdentityListError.postValue(result)
             }
         }
@@ -268,7 +274,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _newHotList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _newHotListError.postValue(result)
             }
         }
@@ -280,7 +286,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _revengeAndDhokaList.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _revengeAndDhokaListError.postValue(result)
             }
         }
@@ -292,7 +298,7 @@ class HomeViewModel @Inject constructor(
             if (result is ApiResult.Success) {
                 val shorts = result.data
                 _allEpisodes.postValue(shorts)
-            }else if (result is ApiResult.Error) {
+            } else if (result is ApiResult.Error) {
                 _allEpisodesError.postValue(result)
             }
         }
@@ -301,6 +307,28 @@ class HomeViewModel @Inject constructor(
     fun getPlanList(authToken: String) {
         viewModelScope.launch(Dispatchers.Main) {
             _planList.value = repository.getPlanList(authToken)
+        }
+    }
+
+    fun getSavedStatus(authToken: String, shortId: Int): Deferred<Unit> {
+        return viewModelScope.async(Dispatchers.Main) {
+            val result = repository.getSavedStatus(authToken, shortId)
+            if (result is ApiResult.Success) {
+                val status = result.data
+                _savedStatus.postValue(status)
+            }
+        }
+    }
+
+    fun saveListStatus(authToken: String, shortId: Int): Deferred<Unit> {
+        return viewModelScope.async(Dispatchers.Main) {
+            _planList.value = repository.saveListStatus(authToken, shortId)
+        }
+    }
+
+    fun removeListStatus(authToken: String, shortId: Int): Deferred<Unit> {
+        return viewModelScope.async(Dispatchers.Main) {
+            _planList.value = repository.removeListStatus(authToken, shortId)
         }
     }
 }
