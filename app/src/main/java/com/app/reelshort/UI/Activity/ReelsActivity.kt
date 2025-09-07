@@ -118,7 +118,9 @@ class ReelsActivity : BaseActivity() {
             }
         }
         viewModel.savedStatus.observe(this) {
-            if (it.success == true) {
+            if (it.success == true && it.isListed == true) {
+                binding.ivFavourite.isSelected = true
+            } else {
                 binding.ivFavourite.isSelected = true
             }
         }
