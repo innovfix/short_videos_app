@@ -181,6 +181,9 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
     suspend fun saveListStatus(authToken: String = pref.authToken, shortId:Int) =
         safeApiCall { apiService.saveListStatus(authToken, shortId) }
 
+    suspend fun saveHistory(authToken: String = pref.authToken, shortId:Int) =
+        safeApiCall { apiService.saveHistory(authToken, shortId) }
+
     suspend fun removeListStatus(authToken: String = pref.authToken, shortId:Int) =
         safeApiCall { apiService.removeListStatus(authToken, shortId) }
 

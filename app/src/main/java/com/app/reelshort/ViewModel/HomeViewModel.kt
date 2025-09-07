@@ -326,6 +326,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun saveHistory(authToken: String, shortId: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.saveHistory(authToken, shortId)
+        }
+    }
+
     fun removeListStatus(authToken: String, shortId: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             repository.removeListStatus(authToken, shortId)

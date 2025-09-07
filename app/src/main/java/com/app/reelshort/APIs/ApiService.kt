@@ -7,6 +7,7 @@ import com.app.reelshort.Model.AutoUnlockSettingRequest
 import com.app.reelshort.Model.AutoUnlockSettingResponse
 import com.app.reelshort.Model.BindEmailRequest
 import com.app.reelshort.Model.CoinDataResponse
+import com.app.reelshort.Model.CommonMessageResponse
 import com.app.reelshort.Model.CreatePaymentRequest
 import com.app.reelshort.Model.DailyCheckedInRequest
 import com.app.reelshort.Model.DailyWatchAdsResponse
@@ -130,7 +131,13 @@ interface ApiService {
     suspend fun saveListStatus(
         @Header("Authorization") authToken: String,
         @Query("short_id") shortId: Int
-    ): Response<PlanListResponse>
+    ): Response<CommonMessageResponse>
+
+    @GET("v1/home/save-history")
+    suspend fun saveHistory(
+        @Header("Authorization") authToken: String,
+        @Query("short_id") shortId: Int
+    ): Response<CommonMessageResponse>
 
 
     @GET("v1/home/remove-list-status")

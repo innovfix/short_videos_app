@@ -110,6 +110,7 @@ class ReelsActivity : BaseActivity() {
                 reelsAdapter = ReelsAdapter(it.shorts)
                 binding.rvShorts.adapter = reelsAdapter
                 binding.rvShorts.scrollToPosition(it.shorts.indexOfFirst {
+                    viewModel.saveHistory(pref.authToken, it.id)
                     it.id == intent.getIntExtra(
                         CommonsKt.SERIES_ID_EXTRA, 0
                     )
@@ -135,6 +136,7 @@ class ReelsActivity : BaseActivity() {
         this@ReelsActivity.index = currentPosition
         job?.cancel()
         job = viewModel.getSavedStatus(pref.authToken, shorts?.get(currentPosition)?.id ?: 0)
+        viewModel.saveHistory(pref.authToken, shorts?.get(currentPosition)?.id ?: 0)
     }
 
 //    fun onNext(currentPosition: Int, episodeAdapter: EpisodeListAdapter) {
