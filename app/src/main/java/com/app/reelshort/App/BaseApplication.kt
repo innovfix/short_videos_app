@@ -37,8 +37,6 @@ class BaseApplication : Application() {
         mInstance = this
         mPreferences = DPreferences(this)
 
-//        FirebaseApp.initializeApp(this)
-
         networkManager = NetworkManager.getInstance(this)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}

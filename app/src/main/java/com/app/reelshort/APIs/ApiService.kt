@@ -39,6 +39,7 @@ import com.app.reelshort.Model.SearchResponse
 import com.app.reelshort.Model.SendOtpRequest
 import com.app.reelshort.Model.SendOtpResponse
 import com.app.reelshort.Model.SeriesListResponse
+import com.app.reelshort.Model.SettingsResponse
 import com.app.reelshort.Model.ShortsResponse
 import com.app.reelshort.Model.SighInRequest
 import com.app.reelshort.Model.SignUpResponse
@@ -109,6 +110,11 @@ interface ApiService {
     suspend fun getMyList(
         @Header("Authorization") authToken: String,
     ): Response<MyListResponse>
+
+    @GET("v1/settings-list")
+    suspend fun getSettingsList(
+        @Header("Authorization") authToken: String,
+    ): Response<SettingsResponse>
 
     @GET("v1/home/history")
     suspend fun getHistory(

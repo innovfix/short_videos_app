@@ -27,13 +27,4 @@ class MyListActivity : BaseActivity() {
         setContentView(binding.root)
 
     }
-
-    override fun onResume() {
-        super.onResume()
-        val myListFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as? MyListFragment
-        myListFragment?.binding?.btnBack?.visibility = View.VISIBLE // Call your function
-        myListFragment?.binding?.btnBack?.setOnClickListener {
-            onBackPressed()
-        }
-    }
 }

@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
-    id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
@@ -151,9 +150,9 @@ dependencies {
 
     //auth
     implementation(libs.play.services.auth)
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-    implementation("com.google.firebase:firebase-messaging")
-    implementation("com.google.firebase:firebase-crashlytics")
+//    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+//    implementation("com.google.firebase:firebase-messaging")
+//    implementation("com.google.firebase:firebase-crashlytics")
 
 //    implementation("com.google.android.gms:play-services-auth:18.1.0")
 //    implementation("com.google.android.gms:play-services-identity:17.0.0")

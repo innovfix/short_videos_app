@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.app.reelshort.APIs.ApiService
-import com.app.reelshort.Notification.MyFirebaseMessagingService
 import com.app.reelshort.R
 import com.app.reelshort.UI.Fragment.HistoryFragment
 import com.app.reelshort.UI.Fragment.HomeFragment
@@ -45,8 +44,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        MyFirebaseMessagingService.createNotificationChannel(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(

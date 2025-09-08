@@ -8,6 +8,7 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -40,6 +41,7 @@ class LogInActivity : BaseActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val phoneNumber = Identity.getSignInClient(this).getPhoneNumberFromIntent(result.data)
+                .replace("+191","")
             binding.etMobileNumber.setText(phoneNumber)
         } else {
             binding.etMobileNumber.requestFocus()
@@ -115,14 +117,15 @@ class LogInActivity : BaseActivity() {
         })
         binding.btnSubmitOtp.setOnClickListener({
             viewModel.viewModelScope.launch {
-//                if (binding.etMobileNumber.text.toString() == otp.toString()) {
-                binding.pbSubmitOtpLoader.visibility = View.VISIBLE
-                binding.btnSubmitOtp.text = ""
-                binding.btnSubmitOtp.isClickable = false
-                viewModel.login(
-                    LoginRequest(binding.etMobileNumber.text.toString())
-                )
-//                }
+                Log.e("siva", binding.etOtp.text.toString()+" "+otp.toString())
+                if (binding.etOtp.text.toString() == otp.toString()) {
+                    binding.pbSubmitOtpLoader.visibility = View.VISIBLE
+                    binding.btnSubmitOtp.text = ""
+                    binding.btnSubmitOtp.isClickable = false
+                    viewModel.login(
+                        LoginRequest(binding.etMobileNumber.text.toString())
+                    )
+                }
             }
 
         })

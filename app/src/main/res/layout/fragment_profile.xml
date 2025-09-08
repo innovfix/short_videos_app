@@ -29,9 +29,9 @@
             android:text="ID: 5092456"
             android:textColor="@android:color/white"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
-            app:layout_constraintTop_toTopOf="@id/iv_profile"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"/>
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
         <ImageView
             android:id="@+id/iv_copy"
@@ -45,9 +45,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_premium_plan_container"
+            style="@style/CardViewStyle.Spacing"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/CardViewStyle.Spacing"
             android:background="@drawable/bg_premium_card"
             app:cardCornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -105,10 +105,10 @@
                     android:id="@+id/tv_premium_benefits"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_16sdp"
                     android:text="@string/premium_benefits"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="@dimen/_18ssp"
-                    android:layout_margin="@dimen/_16sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_premium_benefits_below" />
@@ -116,8 +116,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="@dimen/_8sdp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_premium_benefits">
 
                     <LinearLayout
@@ -215,282 +215,344 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/iv_share_the_app"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="24dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_share"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_premium_plan_container"
-            app:tint="@color/gray" />
-
-        <TextView
-            android:id="@+id/tv_share_the_app"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/share_the_app"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_share_the_app"
-            app:layout_constraintStart_toEndOf="@+id/iv_share_the_app"
-            app:layout_constraintTop_toTopOf="@+id/iv_share_the_app" />
-
-        <ImageView
-            android:id="@+id/iv_share_the_app_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_share_the_app"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_share_the_app"
-            app:tint="@color/white" />
-
-        <View
-            android:id="@+id/v_share_the_app"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_share_the_app"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_share_the_app" />
-
-        <ImageView
-            android:id="@+id/iv_transaction_history"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_transaction"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_share_the_app"
-            app:tint="@color/gray" />
-
-        <TextView
-            android:id="@+id/tv_transaction_history"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/transaction_history"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_transaction_history"
-            app:layout_constraintStart_toEndOf="@+id/iv_transaction_history"
-            app:layout_constraintTop_toTopOf="@+id/iv_transaction_history" />
-
-        <ImageView
-            android:id="@+id/iv_transaction_history_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_transaction_history"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_transaction_history"
-            app:tint="@color/white" />
-
-        <View
-            android:id="@+id/v_transaction_history"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_transaction_history" />
-
-        <ImageView
-            android:id="@+id/iv_privacy_policy"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_policy"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_transaction_history"
-            app:tint="@color/gray" />
+            app:layout_constraintTop_toBottomOf="@+id/cv_premium_plan_container">
 
-        <TextView
-            android:id="@+id/tv_privacy_policy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/privacy_policy"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_privacy_policy"
-            app:layout_constraintStart_toEndOf="@+id/iv_privacy_policy"
-            app:layout_constraintTop_toTopOf="@+id/iv_privacy_policy" />
+            <ImageView
+                android:id="@+id/iv_share_the_app"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_share"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
 
-        <ImageView
-            android:id="@+id/iv_privacy_policy_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_privacy_policy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_privacy_policy"
-            app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tv_share_the_app"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/share_the_app"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_share_the_app"
+                app:layout_constraintStart_toEndOf="@+id/iv_share_the_app"
+                app:layout_constraintTop_toTopOf="@+id/iv_share_the_app" />
 
-        <View
-            android:id="@+id/v_privacy_policy"
+            <ImageView
+                android:id="@+id/iv_share_the_app_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_share_the_app"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_share_the_app"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_share_the_app"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_share_the_app" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_transaction_history"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_privacy_policy" />
-
-        <ImageView
-            android:id="@+id/iv_terms_and_conditions"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_term_con"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_privacy_policy"
-            app:tint="@color/gray" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_share_the_app">
 
-        <TextView
-            android:id="@+id/tv_terms_and_conditions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/terms_and_conditions"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_terms_and_conditions"
-            app:layout_constraintStart_toEndOf="@+id/iv_terms_and_conditions"
-            app:layout_constraintTop_toTopOf="@+id/iv_terms_and_conditions" />
 
-        <ImageView
-            android:id="@+id/iv_terms_and_conditions_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_terms_and_conditions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_terms_and_conditions"
-            app:tint="@color/white" />
+            <ImageView
+                android:id="@+id/iv_transaction_history"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_transaction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
 
-        <View
-            android:id="@+id/v_terms_and_conditions"
+            <TextView
+                android:id="@+id/tv_transaction_history"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/transaction_history"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_transaction_history"
+                app:layout_constraintStart_toEndOf="@+id/iv_transaction_history"
+                app:layout_constraintTop_toTopOf="@+id/iv_transaction_history" />
+
+            <ImageView
+                android:id="@+id/iv_transaction_history_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_transaction_history"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_transaction_history"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_transaction_history"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_transaction_history" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_privacy_policy"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_terms_and_conditions" />
-
-        <ImageView
-            android:id="@+id/iv_contact_us"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_contact_us"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_terms_and_conditions"
-            app:tint="@color/gray" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_transaction_history">
 
-        <TextView
-            android:id="@+id/tv_contact_us"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/contact_us"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_contact_us"
-            app:layout_constraintStart_toEndOf="@+id/iv_contact_us"
-            app:layout_constraintTop_toTopOf="@+id/iv_contact_us" />
+            <ImageView
+                android:id="@+id/iv_privacy_policy"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_policy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
 
-        <ImageView
-            android:id="@+id/iv_contact_us_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_contact_us"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_contact_us"
-            app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tv_privacy_policy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/privacy_policy"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_privacy_policy"
+                app:layout_constraintStart_toEndOf="@+id/iv_privacy_policy"
+                app:layout_constraintTop_toTopOf="@+id/iv_privacy_policy" />
 
-        <View
-            android:id="@+id/v_contact_us"
+            <ImageView
+                android:id="@+id/iv_privacy_policy_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_privacy_policy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_privacy_policy"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_privacy_policy" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_terms_and_conditions"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_contact_us" />
-
-        <ImageView
-            android:id="@+id/iv_premium_plan_settings"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_rewards"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_contact_us"
-            app:tint="@color/gray" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_privacy_policy">
 
-        <TextView
-            android:id="@+id/tv_premium_plan_settings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/premium_plan_settings"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_premium_plan_settings"
-            app:layout_constraintStart_toEndOf="@+id/iv_premium_plan_settings"
-            app:layout_constraintTop_toTopOf="@+id/iv_premium_plan_settings" />
+            <ImageView
+                android:id="@+id/iv_terms_and_conditions"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_term_con"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
 
-        <ImageView
-            android:id="@+id/iv_premium_plan_settings_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_premium_plan_settings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_premium_plan_settings"
-            app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tv_terms_and_conditions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/terms_and_conditions"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_terms_and_conditions"
+                app:layout_constraintStart_toEndOf="@+id/iv_terms_and_conditions"
+                app:layout_constraintTop_toTopOf="@+id/iv_terms_and_conditions" />
 
-        <View
-            android:id="@+id/v_premium_plan_settings"
+            <ImageView
+                android:id="@+id/iv_terms_and_conditions_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_terms_and_conditions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_terms_and_conditions"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_terms_and_conditions"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_terms_and_conditions" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_contact_us"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_premium_plan_settings" />
-
-        <ImageView
-            android:id="@+id/iv_about_us"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_about_us"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_premium_plan_settings"
-            app:tint="@color/gray" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_terms_and_conditions">
 
-        <TextView
-            android:id="@+id/tv_about_us"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/about_us"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_about_us"
-            app:layout_constraintStart_toEndOf="@+id/iv_about_us"
-            app:layout_constraintTop_toTopOf="@+id/iv_about_us" />
+            <ImageView
+                android:id="@+id/iv_contact_us"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_contact_us"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
 
-        <ImageView
-            android:id="@+id/iv_about_us_arrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_about_us"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_about_us"
-            app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tv_contact_us"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/contact_us"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_contact_us"
+                app:layout_constraintStart_toEndOf="@+id/iv_contact_us"
+                app:layout_constraintTop_toTopOf="@+id/iv_contact_us" />
 
-        <View
-            android:id="@+id/v_about_us"
+            <ImageView
+                android:id="@+id/iv_contact_us_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_contact_us"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_contact_us"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_contact_us" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_premium_plan_settings"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/iv_about_us" />
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_contact_us">
 
+            <ImageView
+                android:id="@+id/iv_premium_plan_settings"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_rewards"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
+
+            <TextView
+                android:id="@+id/tv_premium_plan_settings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/premium_plan_settings"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_premium_plan_settings"
+                app:layout_constraintStart_toEndOf="@+id/iv_premium_plan_settings"
+                app:layout_constraintTop_toTopOf="@+id/iv_premium_plan_settings" />
+
+            <ImageView
+                android:id="@+id/iv_premium_plan_settings_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_premium_plan_settings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_premium_plan_settings"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_premium_plan_settings"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_premium_plan_settings" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_about_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_premium_plan_settings">
+
+            <ImageView
+                android:id="@+id/iv_about_us"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/ic_about_us"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/gray" />
+
+            <TextView
+                android:id="@+id/tv_about_us"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/about_us"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_about_us"
+                app:layout_constraintStart_toEndOf="@+id/iv_about_us"
+                app:layout_constraintTop_toTopOf="@+id/iv_about_us" />
+
+            <ImageView
+                android:id="@+id/iv_about_us_arrow"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_about_us"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_about_us"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/v_about_us"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/iv_about_us" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.core.widget.NestedScrollView>
 
 

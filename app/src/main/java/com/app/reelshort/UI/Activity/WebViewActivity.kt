@@ -33,11 +33,9 @@ class WebViewActivity : BaseActivity() {
         binding = ActivityTermConditionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {
-
             btnBack.setOnClickListener {
                 onBackPressed()
             }
-
 
             val url = intent.getStringExtra(CommonsKt.URL_EXTRA)
             val name = intent.getStringExtra(CommonsKt.TITLE_EXTRA)
