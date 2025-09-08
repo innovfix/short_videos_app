@@ -41,7 +41,7 @@ class LogInActivity : BaseActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val phoneNumber = Identity.getSignInClient(this).getPhoneNumberFromIntent(result.data)
-                .replace("+191","")
+                .replace("+191", "")
             binding.etMobileNumber.setText(phoneNumber)
         } else {
             binding.etMobileNumber.requestFocus()
@@ -117,7 +117,6 @@ class LogInActivity : BaseActivity() {
         })
         binding.btnSubmitOtp.setOnClickListener({
             viewModel.viewModelScope.launch {
-                Log.e("siva", binding.etOtp.text.toString()+" "+otp.toString())
                 if (binding.etOtp.text.toString() == otp.toString()) {
                     binding.pbSubmitOtpLoader.visibility = View.VISIBLE
                     binding.btnSubmitOtp.text = ""
@@ -125,6 +124,10 @@ class LogInActivity : BaseActivity() {
                     viewModel.login(
                         LoginRequest(binding.etMobileNumber.text.toString())
                     )
+                } else {
+                    Toast.makeText(
+                        this@LogInActivity, getString(R.string.enter_valid_otp), Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

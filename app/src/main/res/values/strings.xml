@@ -107,4 +107,5 @@
     <string name="premium_plan_settings">Premium Plan Settings</string>
     <string name="love_affairs">Love Affairs</string>
     <string name="active">Active</string>
+    <string name="enter_valid_otp">Enter valid OTP</string>
 </resources>
