@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.reelshort.Model.Shorts
 import com.app.reelshort.UI.Adapter.MyListAdapter
+import com.app.reelshort.ViewModel.HomeViewModel
 import com.app.reelshort.ViewModel.UserViewModel
+import com.app.reelshort.callbacks.OnItemSelectionListener
 import com.app.reelshort.databinding.FragmentHistoryListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import test.app.gallery.UI1.Base.BaseFragment
@@ -15,7 +19,7 @@ import test.app.gallery.UI1.Base.BaseFragment
 @AndroidEntryPoint
 class ListFragment(val fragment: MyListFragment) : BaseFragment() {
     val viewModel: UserViewModel by viewModels()
-
+    val homeViewModel: HomeViewModel by viewModels()
 
     companion object {
         var instance: ListFragment? = null
@@ -43,7 +47,11 @@ class ListFragment(val fragment: MyListFragment) : BaseFragment() {
         viewModel.myListResponse.observe(viewLifecycleOwner) { result ->
             if (result.success && !result.myList.isNullOrEmpty()) {
                 val myListAdapter = MyListAdapter(
-                    result.myList
+                    result.myList, object : OnItemSelectionListener<Shorts> {
+                        override fun onItemSelected(short: Shorts) {
+                            homeViewModel.removeListStatus(pref.authToken, short.id)
+                        }
+                    }
                 )
                 binding.rvMyList.layoutManager = LinearLayoutManager(context)
                 binding.rvMyList.setAdapter(myListAdapter)

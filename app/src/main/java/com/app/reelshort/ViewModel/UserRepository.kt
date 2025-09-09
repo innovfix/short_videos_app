@@ -190,6 +190,9 @@ class UserRepository @Inject constructor(val apiService: ApiService) {
     suspend fun removeListStatus(authToken: String = pref.authToken, shortId:Int) =
         safeApiCall { apiService.removeListStatus(authToken, shortId) }
 
+    suspend fun removeHistory(authToken: String = pref.authToken, shortId:Int) =
+        safeApiCall { apiService.removeHistory(authToken, shortId) }
+
     suspend fun setDailyWatchAds(authToken: String = token) =
         safeApiCall { apiService.setDailyWatchAds(authToken) }
 

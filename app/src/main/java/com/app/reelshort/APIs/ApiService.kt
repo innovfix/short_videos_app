@@ -150,7 +150,13 @@ interface ApiService {
     suspend fun removeListStatus(
         @Header("Authorization") authToken: String,
         @Query("short_id") shortId: Int
-    ): Response<PlanListResponse>
+    ): Response<CommonMessageResponse>
+
+    @GET("v1/home/remove-history")
+    suspend fun removeHistory(
+        @Header("Authorization") authToken: String,
+        @Query("short_id") shortId: Int
+    ): Response<CommonMessageResponse>
 
 
     @POST("v1/series/like-episode")

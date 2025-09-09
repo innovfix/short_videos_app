@@ -8,6 +8,7 @@ import com.app.reelshort.Model.PremiumPlans
 import com.app.reelshort.Model.Shorts
 import com.app.reelshort.R
 import com.app.reelshort.callbacks.OnItemSelectionListener
+import com.app.reelshort.databinding.AdapterHistoryBinding
 import com.app.reelshort.databinding.AdapterMyListBinding
 import com.app.reelshort.databinding.AdapterPremiumPlanBinding
 import com.app.reelshort.databinding.AdapterShortBinding
@@ -16,14 +17,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 
-class MyListAdapter(
+class HistoryAdapter(
     private val shorts: MutableList<Shorts>,
     val onItemSelectionListener: OnItemSelectionListener<Shorts>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemHolder = ItemHolder(
-            AdapterMyListBinding.inflate(
+            AdapterHistoryBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -37,9 +38,9 @@ class MyListAdapter(
         Glide.with(BaseApplication.getInstance()).load(short?.thumbnailUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(24)))
             .into(holder.binding.ivThumbnail)
-        holder.binding.tvTitle.text = short?.title
-        holder.binding.tvDescription.text = short?.description
-        holder.binding.ivSave.setOnClickListener({
+        holder.binding.tvTitle.text = short.title
+        holder.binding.tvDescription.text = short.description
+        holder.binding.ivDelete.setOnClickListener({
             onItemSelectionListener.onItemSelected(short)
             shorts.removeAt(position)
             notifyItemRemoved(position)
@@ -50,6 +51,6 @@ class MyListAdapter(
         return shorts.size
     }
 
-    internal class ItemHolder(val binding: AdapterMyListBinding) :
+    internal class ItemHolder(val binding: AdapterHistoryBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

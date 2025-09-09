@@ -6,5 +6,5 @@ data class MyListResponse(
     val success: Boolean,
     val message: String?,
     @SerializedName("my_list")
-    val myList: List<Shorts>?,
+    val myList: MutableList<Shorts>?,
 )

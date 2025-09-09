@@ -337,4 +337,10 @@ class HomeViewModel @Inject constructor(
             repository.removeListStatus(authToken, shortId)
         }
     }
+
+    fun removeHistory(authToken: String, shortId: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.removeHistory(authToken, shortId)
+        }
+    }
 }
