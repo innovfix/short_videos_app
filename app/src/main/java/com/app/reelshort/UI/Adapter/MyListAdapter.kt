@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 
 
 class MyListAdapter(
-    private val shorts: MutableList<Shorts>,
+    private var shorts: MutableList<Shorts>,
     val onItemSelectionListener: OnItemSelectionListener<Shorts>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -48,6 +48,11 @@ class MyListAdapter(
 
     override fun getItemCount(): Int {
         return shorts.size
+    }
+
+    fun changeValues(shorts: MutableList<Shorts>) {
+        this.shorts = shorts
+        notifyDataSetChanged()
     }
 
     internal class ItemHolder(val binding: AdapterMyListBinding) :

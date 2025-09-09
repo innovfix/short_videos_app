@@ -44,11 +44,20 @@ class HistoryFragment(val fragment: MyListFragment) : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showDetailsView()
+    }
+
+    override fun onStart() {
+        super.onStart()
         loadData()
     }
 
     private fun loadData() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getHistory(pref.authToken)
+        }
         viewModel.historyResponse.observe(viewLifecycleOwner) { result ->
+            binding.swipeRefreshLayout.isRefreshing = false
             if (result.success && !result.myList.isNullOrEmpty()) {
                 val myListAdapter = HistoryAdapter(
                     result.myList, object : OnItemSelectionListener<Shorts> {
@@ -59,9 +68,30 @@ class HistoryFragment(val fragment: MyListFragment) : BaseFragment() {
                 )
                 binding.rvMyList.layoutManager = LinearLayoutManager(context)
                 binding.rvMyList.setAdapter(myListAdapter)
+                showDetailsView()
             } else {
+                showEmptyView()
             }
         }
+        viewModel.historyError.observe(viewLifecycleOwner) { result ->
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
         viewModel.getHistory(pref.authToken)
+    }
+
+    private fun showEmptyView() {
+        binding.lavEmptyView.visibility = View.VISIBLE
+        binding.tvNothingHereYet.visibility = View.VISIBLE
+        binding.tvEmptyViewDescription.visibility = View.VISIBLE
+        binding.btnBrowseDramas.visibility = View.VISIBLE
+        binding.rvMyList.visibility = View.GONE
+    }
+
+    private fun showDetailsView() {
+        binding.lavEmptyView.visibility = View.GONE
+        binding.tvNothingHereYet.visibility = View.GONE
+        binding.tvEmptyViewDescription.visibility = View.GONE
+        binding.btnBrowseDramas.visibility = View.GONE
+        binding.rvMyList.visibility = View.VISIBLE
     }
 }

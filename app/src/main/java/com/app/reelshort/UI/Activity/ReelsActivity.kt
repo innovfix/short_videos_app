@@ -122,7 +122,7 @@ class ReelsActivity : BaseActivity() {
             if (it.success == true && it.isListed == true) {
                 binding.ivFavourite.isSelected = true
             } else {
-                binding.ivFavourite.isSelected = true
+                binding.ivFavourite.isSelected = false
             }
         }
         viewModel.getAllShorts(pref.authToken)

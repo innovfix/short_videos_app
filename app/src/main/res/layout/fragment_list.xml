@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_24sdp"
                 android:gravity="center_horizontal"
-                android:text="@string/start_watching_dramas_on_the_app_to_track_your_activities"
+                android:text="@string/start_adding_your_favourite_dramas_to_see_them_here"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toTopOf="@+id/btn_browse_dramas"

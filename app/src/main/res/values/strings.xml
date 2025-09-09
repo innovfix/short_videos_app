@@ -108,4 +108,8 @@
     <string name="love_affairs">Love Affairs</string>
     <string name="active">Active</string>
     <string name="enter_valid_otp">Enter valid OTP</string>
+    <string name="nothing_here_yet">Nothing here yet..</string>
+    <string name="browse_dramas">Browse Dramas</string>
+    <string name="start_adding_your_favourite_dramas_to_see_them_here">Start adding your favourite dramas to see them here</string>
+    <string name="start_watching_dramas_on_the_app_to_track_your_activities">Start watching dramas on the app to track your activities</string>
 </resources>

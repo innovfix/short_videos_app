@@ -150,6 +150,9 @@ dependencies {
 
     //auth
     implementation(libs.play.services.auth)
+
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 //    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
 //    implementation("com.google.firebase:firebase-messaging")
 //    implementation("com.google.firebase:firebase-crashlytics")
