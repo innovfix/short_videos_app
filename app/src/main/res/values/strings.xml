@@ -112,4 +112,5 @@
     <string name="browse_dramas">Browse Dramas</string>
     <string name="start_adding_your_favourite_dramas_to_see_them_here">Start adding your favourite dramas to see them here</string>
     <string name="start_watching_dramas_on_the_app_to_track_your_activities">Start watching dramas on the app to track your activities</string>
+    <string name="otp_sent_successfully">OTP sent successfully.</string>
 </resources>

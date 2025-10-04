@@ -102,6 +102,11 @@ class LogInActivity : BaseActivity() {
                 navigateBack()
             }
         }
+        binding.tvResendOtp.setOnClickListener({
+            viewModel.sendOtp(
+                SendOtpRequest(binding.etMobileNumber.text.toString(), otp.toString())
+            )
+        })
         binding.btnGetOtp.setOnClickListener({
             viewModel.viewModelScope.launch {
                 val r = Random(System.currentTimeMillis())
@@ -137,25 +142,31 @@ class LogInActivity : BaseActivity() {
 
     private fun initListeners() {
         viewModel.sendOtpResponse.observe(this@LogInActivity) { message ->
+            Toast.makeText(
+                this, getString(R.string.otp_sent_successfully), Toast.LENGTH_SHORT
+            ).show()
             binding.tvSentToMobile.text =
                 getString(R.string.sent_to_mobile_number, binding.etMobileNumber.text.toString())
-            binding.clMobileContainer.startAnimation(
-                AnimationUtils.loadAnimation(
-                    this, R.anim.slide_out_left
+            if(binding.clMobileContainer.visibility == View.VISIBLE) {
+                binding.clMobileContainer.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        this, R.anim.slide_out_left
+                    )
                 )
-            )
-            val loadAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right_to_left)
-            loadAnimation.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation) {}
+                val loadAnimation =
+                    AnimationUtils.loadAnimation(this, R.anim.slide_in_right_to_left)
+                loadAnimation.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation) {}
 
-                override fun onAnimationEnd(animation: Animation) {
-                    binding.clMobileContainer.visibility = View.GONE
-                    binding.clOtpContainer.visibility = View.VISIBLE
-                }
+                    override fun onAnimationEnd(animation: Animation) {
+                        binding.clMobileContainer.visibility = View.GONE
+                        binding.clOtpContainer.visibility = View.VISIBLE
+                    }
 
-                override fun onAnimationRepeat(animation: Animation) {}
-            })
-            binding.clOtpContainer.startAnimation(loadAnimation)
+                    override fun onAnimationRepeat(animation: Animation) {}
+                })
+                binding.clOtpContainer.startAnimation(loadAnimation)
+            }
 
             binding.etOtp.requestFocus()
             startTimer()
