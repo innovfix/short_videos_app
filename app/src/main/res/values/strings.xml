@@ -113,4 +113,7 @@
     <string name="start_adding_your_favourite_dramas_to_see_them_here">Start adding your favourite dramas to see them here</string>
     <string name="start_watching_dramas_on_the_app_to_track_your_activities">Start watching dramas on the app to track your activities</string>
     <string name="otp_sent_successfully">OTP sent successfully.</string>
+    <string name="share_app_text_title">Drama Short brings you new shows daily - all in Full HD and 100% Ad-Free!</string>
+    <string name="share_app_text_description">Start your Free Trial now</string>
+    <string name="share_via">Share via</string>
 </resources>
