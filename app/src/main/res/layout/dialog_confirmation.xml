@@ -81,7 +81,7 @@
                 android:backgroundTint="@color/orange"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
-                android:text="OK"
+                android:text="@string/ok"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </LinearLayout>

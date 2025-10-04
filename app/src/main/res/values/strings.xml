@@ -113,7 +113,12 @@
     <string name="start_adding_your_favourite_dramas_to_see_them_here">Start adding your favourite dramas to see them here</string>
     <string name="start_watching_dramas_on_the_app_to_track_your_activities">Start watching dramas on the app to track your activities</string>
     <string name="otp_sent_successfully">OTP sent successfully.</string>
-    <string name="share_app_text_title">Drama Short brings you new shows daily - all in Full HD and 100% Ad-Free!</string>
+    <string name="share_app_text_title">&appname; brings you new shows daily - all in Full HD and 100% Ad-Free!</string>
     <string name="share_app_text_description">Start your Free Trial now</string>
     <string name="share_via">Share via</string>
+    <string name="are_you_sure_you_want_to_contact_team">Are you sure you want to contact &appname; team?</string>
+    <string name="contact_app_name">Contact &appname;</string>
+    <string name="app_support">App Support | %s</string>
+    <string name="contact">Contact</string>
+    <string name="no_mail_apps_found">No mail apps found</string>
 </resources>

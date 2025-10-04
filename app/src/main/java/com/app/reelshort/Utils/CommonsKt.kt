@@ -364,6 +364,7 @@ object CommonsKt {
         activity: Activity,
         message: String = "Are you sure want to remove?",
         subMessage: String = "",
+        positiveButtonText:String = "",
         callback: () -> Unit = {},
     ) {
         val dialog = Dialog(activity)
@@ -377,6 +378,9 @@ object CommonsKt {
 
         if (subMessage.isEmpty()) {
             binding.subMessage.gone()
+        }
+        if(positiveButtonText.isNotEmpty()){
+            binding.ok.text = positiveButtonText
         }
         binding.ok.setOnClickListener {
             dialog.dismiss()
