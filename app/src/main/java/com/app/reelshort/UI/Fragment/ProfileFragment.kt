@@ -40,6 +40,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initUI() {
+        binding.tvVersion.text = getString(R.string.version_text, BuildConfig.VERSION_NAME)
         viewModel.settingsList.observe(viewLifecycleOwner) {
             if (!it.data.isNullOrEmpty() && it.data.size > 0) {
                 val privacyPolicy = it.data[0].privacyPolicy

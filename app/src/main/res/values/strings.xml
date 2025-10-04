@@ -121,4 +121,5 @@
     <string name="app_support">App Support | %s</string>
     <string name="contact">Contact</string>
     <string name="no_mail_apps_found">No mail apps found</string>
+    <string name="version_text">V%s</string>
 </resources>
